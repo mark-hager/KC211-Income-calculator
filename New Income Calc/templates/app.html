@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Income Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+
+    <style>
+      .alert {
+        background: green;
+        padding: 1rem;
+        border-radius: 5px;
+        color: white;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Income Calculator</h3>
+    </div>
+
+    <!-- Form -->
+    <div class="container">
+      <form action="/send" method="POST">
+        <label for="Household Size">Household Size</label>
+        <input
+          type="text"
+          placeholder="Household Size"
+          class="u-full-width"
+          name="Household Size"
+        />
+
+        <label for="Annual Income">Annual Income</label>
+        <input
+          type="text"
+          placeholder="Annual Income"
+          class="u-full-width"
+          name="Annual Income"
+        />
+
+        <label for="Income Measurement">Income Measurement</label>
+        <select class="u-full-width" name="Income Measurement">
+          <option value="FPL">FPL</option>
+          <option value="SMI">SMI</option>
+          <option value="AMI">AMI</option>
+        </select>
+
+        <input type="submit" value="Calculate" id="calc_btn" />
+        <br />
+        <div class="alert">
+          {{ sum }}
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

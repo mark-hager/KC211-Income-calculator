@@ -16,7 +16,7 @@ from flask import Flask, flash, render_template, request
 # create Flask object
 app = Flask(__name__)
 # set the secret key which is required for flash
-app.secret_key = 'whydoineedthis'
+app.secret_key = 'FD7syfsjh4Slj4w0'
 # start an app route which is '/'
 @app.route('/')
 # declare the main function
@@ -120,8 +120,8 @@ def calculate_ami(annual_income, household_size):
         _rounded_ami == 81
 
     # format as percentage
-    _rounded_ami = "{}%".format(_rounded_ami)
-    return _rounded_ami 
+    _ami = "{}%".format(_rounded_ami)
+    return _ami 
 
 
 
@@ -133,17 +133,23 @@ def calculate_ami(annual_income, household_size):
 def send(fpl = sum, smi = sum, ami = sum):
     if request.method == 'POST':
         # start pulling data from form input
+        errors = False
         try:
-            household_size = int(request.form['Household Size'])
+            if int(request.form['Household Size']) > 0:
+                household_size = int(request.form['Household Size'])
         except ValueError:
             flash('Household size must be a number greater than 0.')
-            return render_template('app.html')
-        if household_size == 0:
-            flash('Household size must be a number greater than 0.')
-            return render_template('app.html')
+            errors = True
 
+        try:
+            if int(request.form['Annual Income']) >= 0:
+                annual_income = int(request.form['Annual Income'])
+        except ValueError:
+            flash('Household income must be 0 or greater.')
+            errors = True
 
-        annual_income = int(request.form['Annual Income'])
+        if errors:
+            return render_template('app.html')
 
     FPL = calculate_fpl(annual_income, household_size)
     SMI = calculate_smi(annual_income, household_size)

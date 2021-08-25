@@ -56,9 +56,20 @@
         <br />
 
         <div class="container">
-        <h6>Federal Poverty Level: {{ fpl }}</h6>
-        <h6>State Median Income: {{ smi }}</h6>
-        <h6>Area Median Income: {{ ami }}</h6>
+          <table>
+            <tr>
+              <td>Federal Poverty Level:</td>
+              <td>{{ fpl }}</td>
+            </tr>
+            <tr>
+              <td>State Median Income:</td>
+              <td>{{ smi }}</td>
+            </tr>
+            <tr>
+              <td>Area Median Income:</td>
+              <td>{{ ami }}</td>
+            </tr>
+          </table>
         </div>
 
         <div class="alert alert-danger" role="alert">

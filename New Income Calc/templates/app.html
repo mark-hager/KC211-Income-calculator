@@ -12,7 +12,7 @@
 
     <style>
       .alert {
-        background: green;
+        background: red;
         padding: 1rem;
         border-radius: 5px;
         color: white;
@@ -31,7 +31,7 @@
         <label for="Household Size">Household Size</label>
         <input
           type="text"
-          placeholder="Household Size"
+          placeholder="Enter the size of the client's household"
           class="u-full-width"
           name="Household Size"
         />
@@ -39,22 +39,31 @@
         <label for="Annual Income">Annual Income</label>
         <input
           type="text"
-          placeholder="Annual Income"
+          placeholder="Enter the client's annual income"
           class="u-full-width"
           name="Annual Income"
         />
-
+        <!--
         <label for="Income Measurement">Income Measurement</label>
         <select class="u-full-width" name="Income Measurement">
           <option value="FPL">FPL</option>
           <option value="SMI">SMI</option>
           <option value="AMI">AMI</option>
         </select>
+        -->
 
         <input type="submit" value="Calculate" id="calc_btn" />
         <br />
-        <div class="alert">
-          {{ sum }}
+
+        <div class="container">
+        <h6>Federal Poverty Level: {{ fpl }}</h6>
+        <h6>State Median Income: {{ smi }}</h6>
+        <h6>Area Median Income: {{ ami }}</h6>
+        </div>
+
+        <div class="alert alert-danger" role="alert">
+          {{ error }}
+
         </div>
       </form>
     </div>

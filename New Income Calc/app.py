@@ -12,9 +12,11 @@ Used https://github.com/nanoproductions/flask_calculator_basic for help with fla
 # math package used for rounding
 import math
 # import Flask
-from flask import Flask, render_template, request
+from flask import Flask, flash, render_template, request
 # create Flask object
 app = Flask(__name__)
+# set the secret key which is required for flash
+app.secret_key = 'whydoineedthis'
 # start an app route which is '/'
 @app.route('/')
 # declare the main function
@@ -131,13 +133,22 @@ def calculate_ami(annual_income, household_size):
 def send(fpl = sum, smi = sum, ami = sum):
     if request.method == 'POST':
         # start pulling data from form input
-        household_size = int(request.form['Household Size'])
+        try:
+            household_size = int(request.form['Household Size'])
+        except ValueError:
+            flash('Household size must be a number greater than 0.')
+            return render_template('app.html')
+        if household_size == 0:
+            flash('Household size must be a number greater than 0.')
+            return render_template('app.html')
+
+
         annual_income = int(request.form['Annual Income'])
 
     FPL = calculate_fpl(annual_income, household_size)
     SMI = calculate_smi(annual_income, household_size)
     AMI = calculate_ami(annual_income, household_size)
-    
+
     return render_template('app.html', fpl = FPL, smi = SMI, ami = AMI)
 
 if __name__ == ' __main__':

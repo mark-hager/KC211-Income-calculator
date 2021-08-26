@@ -30,15 +30,15 @@ def calculate_fpl(annual_income, household_size):
     """
     
     # FPL is calculated with a base rate times an additional rate per person
-    _fpl_base = 8340
-    _fpl_rate_per_person = 4540
+    fpl_base = 8340
+    fpl_rate_per_person = 4540
     # calculate the FPL by dividing income by the base rate + household size
     # * the rate per person
-    _fpl = math.ceil(annual_income / ((household_size * _fpl_rate_per_person)
-                                      + _fpl_base) * 100)
+    fpl = math.ceil(annual_income / ((household_size * fpl_rate_per_person)
+                                      + fpl_base) * 100)
     # format as percentage
-    _fpl = "{}%".format(_fpl)
-    return _fpl
+    fpl = "{}%".format(fpl)
+    return fpl
 
 
 def calculate_smi(annual_income, household_size):
@@ -50,25 +50,25 @@ def calculate_smi(annual_income, household_size):
     
     # SMI is calculated with separate base rates depending on household size
     # for families of 5 or less, and families of 6 or more
-    _smi_base_household_5_or_less = 36996
-    _smi_base_household_6_or_more = 135684
+    smi_base_household_5_or_less = 36996
+    smi_base_household_6_or_more = 135684
     # the rate for each person in a household of 5 or less
-    _smi_rate_household_5_or_less = 16452
+    smi_rate_household_5_or_less = 16452
     # the rate for each person in a household of 6 or more
-    _smi_rate_household_6_or_more = 2940
+    smi_rate_household_6_or_more = 2940
     
     # calculate the SMI depending on household size
     if household_size < 7:
-        _smi = annual_income / ((household_size * _smi_rate_household_5_or_less) 
-                               + _smi_base_household_5_or_less) * 100
+        smi = annual_income / ((household_size * smi_rate_household_5_or_less) 
+                               + smi_base_household_5_or_less) * 100
     elif household_size > 6:
-        _smi = annual_income / (_smi_base_household_6_or_more + 
-                               ((household_size - 6) * (_smi_base_household_6_or_more))) * 100 
+        smi = annual_income / (smi_base_household_6_or_more + 
+                               ((household_size - 6) * (smi_rate_household_6_or_more))) * 100 
     # round the SMI up
-    _smi = math.ceil(_smi)
+    smi = math.ceil(smi)
     # format as percentage
-    _smi = "{}%".format(_smi)
-    return _smi
+    smi = "{}%".format(smi)
+    return smi
 
 def calculate_ami(annual_income, household_size):
     """
@@ -76,52 +76,50 @@ def calculate_ami(annual_income, household_size):
     https://www.huduser.gov/portal/datasets/il/il2021/2021MedCalc.odn
 
     """
-    # AMI is calculated from the median annual income for a family of 4
-    _ami_base_household_of_4 = 115700
+     # AMI is calculated from the median annual income for a family of 4
+    ami_base_household_of_4 = 115700
     # 80% of area median annual income for a family of 4
-    _ami_base_80_percent = 90500
+    ami_base_80_percent = 90500
     # theoretical median income for a household of 0
-    _ami_base_0 = 69420
+    ami_base_0 = 69420
     # 80% of the median income for a household of 0
-    _ami_base_0_80_percent = 54300
+    ami_base_0_80_percent = 54300
+    # for calculations when the initial AMI is between 70% and 80%
+    ami_base_between_70_and_80 = 113125
     # initialize to false
-    _check_80_percent = False
+    check_80_percent = False
     
+    # calculate initial percentage to determine if it falls above or below 70%
     if household_size < 5:
-        _initial_ami = annual_income / ((_ami_base_0) + (household_size * (_ami_base_household_of_4 * .10))) * 100
-        ami_80_cap = ((_ami_base_0_80_percent * .08) + (_ami_base_80_percent * .08) * (household_size * .10))        #80% CAP calculation in Hannah's excel calculator
+        initial_ami = annual_income / ((ami_base_0) + (household_size * (ami_base_household_of_4 * .10))) * 100
+        ami_80_cap = ((ami_base_0_80_percent * .08) + (ami_base_80_percent * .08) * (household_size * .10))        #80% CAP calculation in Hannah's excel calculator
     elif household_size > 4:
-        _initial_ami = annual_income/ ((_ami_base_household_of_4 * .08) * (household_size - 4) + _ami_base_household_of_4) * 100
-        ami_80_cap = ((_ami_base_80_percent * .08) + ((_ami_base_80_percent * .08) * (household_size - 4) * .08))
+        initial_ami = annual_income / ((ami_base_household_of_4 * .08) * (household_size - 4) + ami_base_household_of_4) * 100
+        ami_80_cap = ((ami_base_80_percent * .08) + ((ami_base_80_percent * .08) * (household_size - 4) * .08))
+        
     
-    #AMI adjustment for incomes that would normally fall between 71% and 81% of the AMI
-    if _initial_ami >= 71 and _initial_ami <= 81:
-        _adusted_ami = annual_income / ((_ami_base_80_percent) + (household_size - 4) * _ami_base_80_percent * .08) * 100
-    else:
-        _adjusted_ami = _initial_ami
-    
-    # More AMI calculations based on Hannah's excel calculator	
-    # Variable _ami_base100b4 is taken directly from Hannah's excel; will rename once I find out what it means
-    if _initial_ami < .71 and household_size < 5:
-        _ami_base100b4 = _ami_base_0 + (_ami_base_household_of_4 * .10 * household_size)
-    elif _initial_ami < .71 and household_size > 4:
-        _ami_base100b4 = _ami_base_household_of_4 + (_ami_base_household_of_4 * .08 * (household_size - 4))
-    elif _initial_ami > .7 and household_size < 5:
-        _ami_base100b4 = _ami_base_0_80_percent + (household_size * .10 * _ami_base_80_percent)
-    elif _initial_ami > .7 and household_size > 4:
-        _ami_base100b4 = _ami_base_80_percent + ((household_size - 4) * .08 * _ami_base_80_percent)
-	
-    # 80% CHECK:
-    if annual_income > ami_80_cap and _adjusted_ami < .81:
-        _check_80_percent = True
-    
-    _rounded_ami = math.ceil(_adjusted_ami)
-    if _check_80_percent == True:
-        _rounded_ami == 81
+   
+    # AMI adjustment for incomes that would normally fall between 70% and 80% of the AMI
+    if initial_ami >= 71 and initial_ami <= 81:
+        if household_size < 5:
+            adjusted_ami = annual_income / (ami_base_between_70_and_80 + ((household_size - 4) * ami_base_between_70_and_80 * .10)) * 100
+        else:
+            adjusted_ami = annual_income / (ami_base_between_70_and_80 + ((household_size - 4) * ami_base_between_70_and_80 * .08)) * 100
 
+    else:
+        adjusted_ami = initial_ami
+
+    print(ami_80_cap)
+    # 80% CHECK:
+    if annual_income > ami_80_cap and adjusted_ami < .81:
+        check_80_percent = True
+    
+    ami = math.ceil(adjusted_ami)
+    if check_80_percent == True:
+        ami == 81
     # format as percentage
-    _ami = "{}%".format(_rounded_ami)
-    return _ami 
+    ami = "{}%".format(ami)
+    return ami 
 
 
 #def income_eligibility(annual_income, household_size, AMI, FPL, SMI):

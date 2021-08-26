@@ -124,6 +124,7 @@ def calculate_ami(annual_income, household_size):
     return _ami 
 
 
+#def income_eligibility(annual_income, household_size, AMI, FPL, SMI):
 
 
 
@@ -134,20 +135,23 @@ def send(fpl = sum, smi = sum, ami = sum):
     if request.method == 'POST':
         # start pulling data from form input
         errors = False
+        # check that household size is an integer greater than 0
         try:
             if int(request.form['Household Size']) > 0:
                 household_size = int(request.form['Household Size'])
+        # else give an error
         except ValueError:
             flash('Household size must be a number greater than 0.')
             errors = True
-
+        # check that annual income is a nonnegative number
         try:
             if int(request.form['Annual Income']) >= 0:
                 annual_income = int(request.form['Annual Income'])
+        # else give an error
         except ValueError:
             flash('Household income must be 0 or greater.')
             errors = True
-
+        # if there's an error refresh the page
         if errors:
             return render_template('app.html')
 

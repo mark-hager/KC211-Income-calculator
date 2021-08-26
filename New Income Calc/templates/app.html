@@ -12,7 +12,7 @@
 
     <style>
       .alert {
-        background: red;
+        background: rgba(218, 39, 39, 0.815);
         padding: 1rem;
         border-radius: 5px;
         color: white;
@@ -24,7 +24,14 @@
     <div class="container">
       <h3>Income Calculator</h3>
     </div>
+  
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-warning">
+            {{ message }}
+      </div>
+      {% endfor %}
 
+    
     <!-- Form -->
     <div class="container">
       <form action="/send" method="POST">
@@ -69,11 +76,7 @@
               <td>{{ ami }}</td>
             </tr>
           </table>
-          {% for message in get_flashed_messages() %}
-          <div class="alert alert-warning">
-                {{ message }}
-          </div>
-          {% endfor %}
+          
 
 
         </div>

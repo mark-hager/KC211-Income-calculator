@@ -149,11 +149,11 @@ def send(fpl = sum, smi = sum, ami = sum):
         raw_annual_income = request.form['Annual Income']
         # remove dollar signs and commas from income
         clean_income = re.compile(r'[^\d.]+')
-        annual_income = float(clean_income.sub('', raw_annual_income))
+        annual_income = clean_income.sub('', raw_annual_income)
         # check that annual income is a nonnegative number
         try:
-            if float(clean_income.sub('', raw_annual_income)) >= 0:
-                annual_income = annual_income
+            if float(annual_income) >= 0:
+                annual_income = float(clean_income.sub('', raw_annual_income))
         # else give an error
         except ValueError:
             flash('Household income must be 0 or greater.')

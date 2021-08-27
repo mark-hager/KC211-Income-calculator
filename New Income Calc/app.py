@@ -9,6 +9,8 @@ use by King County 2-1-1 specialists.
 
 Used https://github.com/nanoproductions/flask_calculator_basic for help with flask
 """
+# used for formatting user inputs by stripping dollar signs and commas
+import re
 # math package used for rounding
 import math
 # import Flask
@@ -131,8 +133,9 @@ def calculate_ami(annual_income, household_size):
 @app.route('/send', methods = ['POST'])
 def send(fpl = sum, smi = sum, ami = sum):
     if request.method == 'POST':
-        # start pulling data from form input
         errors = False
+        # start pulling data from form input
+
         # check that household size is an integer greater than 0
         try:
             if int(request.form['Household Size']) > 0:
@@ -141,10 +144,16 @@ def send(fpl = sum, smi = sum, ami = sum):
         except ValueError:
             flash('Household size must be a number greater than 0.')
             errors = True
+
+
+        raw_annual_income = request.form['Annual Income']
+        # remove dollar signs and commas from income
+        clean_income = re.compile(r'[^\d.]+')
+        annual_income = float(clean_income.sub('', raw_annual_income))
         # check that annual income is a nonnegative number
         try:
-            if int(request.form['Annual Income']) >= 0:
-                annual_income = int(request.form['Annual Income'])
+            if float(clean_income.sub('', raw_annual_income)) >= 0:
+                annual_income = annual_income
         # else give an error
         except ValueError:
             flash('Household income must be 0 or greater.')

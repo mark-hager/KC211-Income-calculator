@@ -25,16 +25,19 @@
       <h3>Income Calculator</h3>
     </div>
   
+
+
+    
+    <!-- Form -->
+    <div class="container">
+
       {% for message in get_flashed_messages() %}
       <div class="alert alert-warning">
             {{ message }}
       </div>
       {% endfor %}
-
-    
-    <!-- Form -->
-    <div class="container">
-      <form action="/send" method="POST">
+      
+      <form action="/send" method="POST" autocomplete="off">
         <label for="Household Size">Household Size</label>
         <input
           type="text"
@@ -62,25 +65,23 @@
         <input type="submit" value="Calculate" id="calc_btn" />
         <br />
 
-          <table>
-            <tr>
-              <td>Federal Poverty Level:</td>
-              <td>{{ fpl }}</td>
-            </tr>
-            <tr>
-              <td>State Median Income:</td>
-              <td>{{ smi }}</td>
-            </tr>
-            <tr>
-              <td>Area Median Income:</td>
-              <td>{{ ami }}</td>
-            </tr>
-          </table>
           
-
-
-        </div>
       </form>
+
+      <table>
+        <tr>
+          <td>Federal Poverty Level:</td>
+          <td>{{ fpl }}</td>
+        </tr>
+        <tr>
+          <td>State Median Income:</td>
+          <td>{{ smi }}</td>
+        </tr>
+        <tr>
+          <td>Area Median Income:</td>
+          <td>{{ ami }}</td>
+        </tr>
+      </table>
     </div>
   </body>
 </html>

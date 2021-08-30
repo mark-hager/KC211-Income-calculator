@@ -153,7 +153,7 @@ def send(fpl = sum, smi = sum, ami = sum):
         # check that annual income is a nonnegative number
         try:
             if float(annual_income) >= 0:
-                annual_income = float(clean_income.sub('', raw_annual_income))
+                annual_income = float(annual_income)
         # else give an error
         except ValueError:
             flash('Household income must be 0 or greater.')

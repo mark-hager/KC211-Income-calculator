@@ -36,23 +36,49 @@
             {{ message }}
       </div>
       {% endfor %}
-      
-      <form action="/send" method="POST" autocomplete="off">
-        <label for="Household Size">Household Size</label>
-        <input
-          type="text"
-          placeholder="Enter the size of the client's household"
-          class="u-full-width"
-          name="Household Size"
-        />
 
-        <label for="Annual Income">Annual Income</label>
-        <input
-          type="text"
-          placeholder="Enter the client's annual income"
-          class="u-full-width"
-          name="Annual Income"
-        />
+      <form action="/send" method="POST" autocomplete="off">
+
+        <div class="row">
+
+
+          <div class ="four columns">
+            <label for="Income Type">Monthly or Annual Income</label>
+            <select class="u-full-width" name="Income Type">
+              <option value="Monthly">Monthly</option>
+              <option value="Annual">Annual</option>
+            </select>
+
+          </div>
+
+          <div class="one-half column">
+              <label for="Income Amount">Income Amount</label>
+            <input
+              type="text"
+              placeholder="$"
+              class="u-full-width"
+              name="Income Amount"
+            />
+          </div>
+        </div>
+
+        
+
+        <div class="row">
+          <div class="four columns">
+            <label for="Household Size">Household Size</label>
+            <input
+              type="text"
+              placeholder="#"
+              class="u-full-width"
+              name="Household Size"
+            />
+          </div>
+          <div class="four columns">
+            
+          </div>
+        </div>
+        
         <!--
         <label for="Income Measurement">Income Measurement</label>
         <select class="u-full-width" name="Income Measurement">
@@ -83,5 +109,7 @@
         </tr>
       </table>
     </div>
+  
+    
   </body>
 </html>

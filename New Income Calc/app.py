@@ -145,15 +145,17 @@ def send(fpl = sum, smi = sum, ami = sum):
             flash('Household size must be a number greater than 0.')
             errors = True
 
-
-        raw_annual_income = request.form['Annual Income']
+        income_type = request.form['Income Type']
+        raw_income = request.form['Income Amount']
         # remove dollar signs and commas from income
         clean_income = re.compile(r'[^\d.]+')
-        annual_income = clean_income.sub('', raw_annual_income)
-        # check that annual income is a nonnegative number
+        raw_income = clean_income.sub('', raw_income)
+        # check that income is a nonnegative number
         try:
-            if float(annual_income) >= 0:
-                annual_income = float(annual_income)
+            if float(raw_income) >= 0 and income_type == 'Monthly':
+                annual_income = float(raw_income) * 12
+            elif float(raw_income) >= 0 and income_type == 'Annual':
+                annual_income = float(raw_income)
         # else give an error
         except ValueError:
             flash('Household income must be 0 or greater.')
@@ -161,6 +163,7 @@ def send(fpl = sum, smi = sum, ami = sum):
         # if there's an error refresh the page
         if errors:
             return render_template('app.html')
+
 
     FPL = calculate_fpl(annual_income, household_size)
     SMI = calculate_smi(annual_income, household_size)

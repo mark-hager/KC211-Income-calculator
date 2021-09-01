@@ -2,7 +2,7 @@
 """
 Created on Mon Aug 23 13:31:56 2021
 
-@author: mhager
+@author: Mark Hager
 
 Python implementation of Hannah Newton's Excel-based income calculator for 
 use by King County 2-1-1 specialists.
@@ -17,7 +17,7 @@ import math
 from flask import Flask, flash, render_template, request
 # create Flask object
 app = Flask(__name__)
-# set the secret key which is required for flash
+# set the secret key which is required for flask
 app.secret_key = 'FD7syfsjh4Slj4w0'
 # start an app route which is '/'
 @app.route('/')
@@ -124,7 +124,7 @@ def calculate_ami(annual_income, household_size):
     return ami 
 
 
-#def income_eligibility(annual_income, household_size, AMI, FPL, SMI):
+#def program_eligibility(annual_income, household_size, AMI, FPL, SMI):
 
 
 
@@ -169,7 +169,7 @@ def send(fpl = sum, smi = sum, ami = sum):
     SMI = calculate_smi(annual_income, household_size)
     AMI = calculate_ami(annual_income, household_size)
 
-    return render_template('app.html', fpl = FPL, smi = SMI, ami = AMI)
+    return render_template('app.html', fpl = FPL, smi = SMI, ami = AMI, household_size = household_size, annual_income=annual_income)
 
 if __name__ == ' __main__':
     app.debug = True

@@ -51,7 +51,7 @@
 
           </div>
 
-          <div class="one-half column">
+          <div class="four columns">
               <label for="Income Amount">Income Amount</label>
             <input
               type="text"
@@ -79,21 +79,35 @@
           </div>
         </div>
         
-        <!--
-        <label for="Income Measurement">Income Measurement</label>
-        <select class="u-full-width" name="Income Measurement">
-          <option value="FPL">FPL</option>
-          <option value="SMI">SMI</option>
-          <option value="AMI">AMI</option>
-        </select>
-        -->
+        
 
         <input type="submit" value="Calculate" id="calc_btn" />
         <br />
 
           
       </form>
+      <table class="u-full-width">
+        <thead>
+          <tr>
+            <th>Household Size</th>
+            <th>Income</th>
+            <th>Federal Poverty Level</th>
+            <th>State Median Income</th>
+            <th>Area Median Income</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dave Gamache</td>
+            <td>26</td>
+            <td>{{ fpl }}</td>
+            <td>{{ smi }}</td>
+            <td>{{ ami }}</td>
+          </tr>
 
+        </tbody>
+      </table>
+      <!--
       <table>
         <tr>
           <td>Federal Poverty Level:</td>
@@ -108,6 +122,7 @@
           <td>{{ ami }}</td>
         </tr>
       </table>
+      -->
     </div>
   
     

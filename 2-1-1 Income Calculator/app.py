@@ -30,6 +30,9 @@ class new_household:
     def __init__(self, annual_income, household_size):
         self.annual_income = annual_income
         self.household_size = household_size
+        self.fpl = None  # FPL, SMI and AMI are calculated by their respective methods
+        self.smi = None
+        self.ami = None
 
     def calculate_fpl(self):
         """
@@ -46,37 +49,37 @@ class new_household:
                                         + fpl_base) * 100)
         # format as percentage
         fpl = "{}%".format(fpl)
-        return fpl
+        self.fpl = fpl  # assign the calculated Federal Poverty Level percentage to our object
 
 
-def calculate_smi(annual_income, household_size):
-    """
-    Calculates the State Median Income based on DSHS 2022 guidelines
-    https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart
+    def calculate_smi(self):
+        """
+        Calculates the State Median Income based on DSHS 2022 guidelines
+        https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart
 
-    """
+        """
 
-    # SMI is calculated with separate base rates depending on household size
-    # for families of 5 or less, and families of 6 or more
-    smi_base_household_5_or_less = 38940
-    smi_base_household_6_or_more = 142776
-    # the rate for each person in a household of 5 or less
-    smi_rate_household_5_or_less = 17304
-    # the rate for each person in a household of 6 or more
-    smi_rate_household_6_or_more = 3240
+        # SMI is calculated with separate base rates depending on household size
+        # for families of 5 or less, and families of 6 or more
+        smi_base_household_5_or_less = 38940
+        smi_base_household_6_or_more = 142776
+        # the rate for each person in a household of 5 or less
+        smi_rate_household_5_or_less = 17304
+        # the rate for each person in a household of 6 or more
+        smi_rate_household_6_or_more = 3240
 
-    # calculate the SMI depending on household size
-    if household_size < 7:
-        smi = annual_income / ((household_size * smi_rate_household_5_or_less)
-                               + smi_base_household_5_or_less) * 100
-    elif household_size > 6:
-        smi = annual_income / (smi_base_household_6_or_more +
-                               ((household_size - 6) * (smi_rate_household_6_or_more))) * 100
-    # round the SMI up
-    smi = math.ceil(smi)
-    # format as percentage
-    smi = "{}%".format(smi)
-    return smi
+        # calculate the SMI depending on household size
+        if self.household_size < 7:
+            smi = self.annual_income / ((self.household_size * smi_rate_household_5_or_less)
+                                + smi_base_household_5_or_less) * 100
+        elif self.household_size > 6:
+            smi = self.annual_income / (smi_base_household_6_or_more +
+                                ((self.household_size - 6) * (smi_rate_household_6_or_more))) * 100
+        # round the SMI up
+        smi = math.ceil(smi)
+        # format as percentage
+        smi = "{}%".format(smi)
+        self.smi = smi  # assign the calculated State Median Income percentage to our object
 
 
 def ceil(num):  # emulating excel's ceiling function to directly copy Hannah's formula

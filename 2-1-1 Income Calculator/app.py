@@ -25,22 +25,28 @@ app.secret_key = 'FD7syfsjh4Slj4w0'
 def main():
     return render_template('app.html')
 
-def calculate_fpl(annual_income, household_size):
-    """
-    Calculates the Federal Poverty Level based on HHS 2022 guidelines
-    https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines
-    """
 
-    # FPL is calculated with a base rate times an additional rate per person
-    fpl_base = 8870
-    fpl_rate_per_person = 4720
-    # calculate the FPL by dividing income by the base rate + household size
-    # * the rate per person
-    fpl = math.ceil(annual_income / ((household_size * fpl_rate_per_person)
-                                      + fpl_base) * 100)
-    # format as percentage
-    fpl = "{}%".format(fpl)
-    return fpl
+class new_household:
+    def __init__(self, annual_income, household_size):
+        self.annual_income = annual_income
+        self.household_size = household_size
+
+    def calculate_fpl(self):
+        """
+        Calculates the Federal Poverty Level based on HHS 2022 guidelines
+        https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines
+        """
+
+        # FPL is calculated with a base rate times an additional rate per person
+        fpl_base = 8870
+        fpl_rate_per_person = 4720
+        # calculate the FPL by dividing income by the base rate + household size
+        # * the rate per person
+        fpl = math.ceil(self.annual_income / ((self.household_size * fpl_rate_per_person)
+                                        + fpl_base) * 100)
+        # format as percentage
+        fpl = "{}%".format(fpl)
+        return fpl
 
 
 def calculate_smi(annual_income, household_size):
@@ -199,3 +205,5 @@ if __name__ == ' __main__':
 
 
 
+person = new_household(30000, 1)
+print(person.calculate_fpl())

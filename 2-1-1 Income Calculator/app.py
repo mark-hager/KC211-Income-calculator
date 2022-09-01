@@ -82,8 +82,8 @@ class new_household:
         self.smi = smi  # assign the calculated State Median Income percentage to our object
 
 
-def ceil(num):  # emulating excel's ceiling function to directly copy Hannah's formula
-    return 50 * math.ceil(float(num) / 50)
+    def excel_ceil(num):  # emulating excel's ceiling function to directly copy Hannah's formula
+        return 50 * math.ceil(float(num) / 50)
 
 def calculate_ami(annual_income, household_size):
     """
@@ -112,7 +112,7 @@ def calculate_ami(annual_income, household_size):
         initial_ami = annual_income / ((ami_base_household_of_4 * .08) * (household_size - 4) + ami_base_household_of_4) * 100
         ami_80_cap = ami_base_80_percent + (ami_base_80_percent * (household_size - 4) * .08)
 
-    ami_80_cap = ceil(ami_80_cap)
+    ami_80_cap = excel_ceil(ami_80_cap)
     # calculate Hannah's Base 100% (C8), a massaged 100% AMI number
     if household_size < 5:
         ami_massaged_100_percent = ami_base_0 + (ami_base_household_of_4 * 0.1 * household_size)

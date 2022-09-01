@@ -85,71 +85,71 @@ class new_household:
     def excel_ceil(num):  # emulating excel's ceiling function to directly copy Hannah's formula
         return 50 * math.ceil(float(num) / 50)
 
-def calculate_ami(annual_income, household_size):
-    """
-    Calculates the Area Median Income based on HUD 2022 guidelines
-    https://www.huduser.gov/portal/datasets/il/il2022/2022summary.odn
+    def calculate_ami(self):
+        """
+        Calculates the Area Median Income based on HUD 2022 guidelines
+        https://www.huduser.gov/portal/datasets/il/il2022/2022summary.odn
 
-    """
-    # AMI is calculated from the median annual income for a family of 4
-    ami_base_household_of_4 = 129400
-    # 80% low-income limit for a family of 4; for more detail read https://www.huduser.gov/portal/datasets/il/il2022/2022ILCalc3080.odn
-    ami_base_80_percent = 95300
-    # theoretical median income for a household of 0
-    ami_base_0 = 77640
-    # 80% of the median income for a household of 0
-    ami_base_0_80_percent = 57180
-    # for calculations when the initial AMI is between 70% and 80%
-    ami_base_between_70_and_80 = 113125
-    # initialize to false
-    check_80_percent = False
+        """
+        # AMI is calculated from the median annual income for a family of 4
+        ami_base_household_of_4 = 129400
+        # 80% low-income limit for a family of 4; for more detail read https://www.huduser.gov/portal/datasets/il/il2022/2022ILCalc3080.odn
+        ami_base_80_percent = 95300
+        # theoretical median income for a household of 0
+        ami_base_0 = 77640
+        # 80% of the median income for a household of 0
+        ami_base_0_80_percent = 57180
+        # for calculations when the initial AMI is between 70% and 80%
+        ami_base_between_70_and_80 = 113125
+        # initialize to false
+        check_80_percent = False
 
-    # calculate initial percentage to determine if it falls above or below 70%
-    if household_size < 5:
-        initial_ami = annual_income / ((ami_base_0) + (household_size * (ami_base_household_of_4 * .10))) * 100
-        ami_80_cap = ami_base_0_80_percent + ami_base_80_percent * (household_size * .10)       #80% CAP calculation in Hannah's excel calculator
-    elif household_size > 4:
-        initial_ami = annual_income / ((ami_base_household_of_4 * .08) * (household_size - 4) + ami_base_household_of_4) * 100
-        ami_80_cap = ami_base_80_percent + (ami_base_80_percent * (household_size - 4) * .08)
+        # calculate initial percentage to determine if it falls above or below 70%
+        if self.household_size < 5:
+            initial_ami = self.annual_income / ((ami_base_0) + (self.household_size * (ami_base_household_of_4 * .10))) * 100
+            ami_80_cap = ami_base_0_80_percent + ami_base_80_percent * (self.household_size * .10)       #80% CAP calculation in Hannah's excel calculator
+        elif self.household_size > 4:
+            initial_ami = self.annual_income / ((ami_base_household_of_4 * .08) * (self.household_size - 4) + ami_base_household_of_4) * 100
+            ami_80_cap = ami_base_80_percent + (ami_base_80_percent * (self.household_size - 4) * .08)
 
-    ami_80_cap = excel_ceil(ami_80_cap)
-    # calculate Hannah's Base 100% (C8), a massaged 100% AMI number
-    if household_size < 5:
-        ami_massaged_100_percent = ami_base_0 + (ami_base_household_of_4 * 0.1 * household_size)
-    elif household_size > 4:
-        ami_massaged_100_percent = ami_base_household_of_4 + (ami_base_household_of_4 * 0.08 * (household_size - 4))
+        ami_80_cap = self.excel_ceil(ami_80_cap)
+        # calculate Hannah's Base 100% (C8), a massaged 100% AMI number
+        if self.household_size < 5:
+            ami_massaged_100_percent = ami_base_0 + (ami_base_household_of_4 * 0.1 * self.household_size)
+        elif self.household_size > 4:
+            ami_massaged_100_percent = ami_base_household_of_4 + (ami_base_household_of_4 * 0.08 * (self.household_size - 4))
 
 
-    # AMI adjustment for incomes that would normally fall between 70% and 80% of the AMI
-    if initial_ami >= 71 and initial_ami <= 81:
-        if household_size < 5:
-            adjusted_ami = annual_income / (ami_base_between_70_and_80 + ((household_size - 4) * ami_base_between_70_and_80 * .10)) * 100
+        # AMI adjustment for incomes that would normally fall between 70% and 80% of the AMI
+        if initial_ami >= 71 and initial_ami <= 81:
+            if self.household_size < 5:
+                adjusted_ami = self.annual_income / (ami_base_between_70_and_80 + ((self.household_size - 4) * ami_base_between_70_and_80 * .10)) * 100
+            else:
+                adjusted_ami = self.annual_income / (ami_base_between_70_and_80 + ((self.household_size - 4) * ami_base_between_70_and_80 * .08)) * 100
+
         else:
-            adjusted_ami = annual_income / (ami_base_between_70_and_80 + ((household_size - 4) * ami_base_between_70_and_80 * .08)) * 100
+            adjusted_ami = initial_ami
 
-    else:
-        adjusted_ami = initial_ami
+        # AMI adjustments for incomes that would fall under the 50% CAP
+        cap_50 = ami_massaged_100_percent / 2
+        cap_50 = 50 * round(cap_50 / 50)
+        check_50_percent = False
 
-    # AMI adjustments for incomes that would fall under the 50% CAP
-    cap_50 = ami_massaged_100_percent / 2
-    cap_50 = 50 * round(cap_50 / 50)
-    check_50_percent = False
+        if self.annual_income > cap_50 and adjusted_ami < 51:
+            check_50_percent = True
 
-    if annual_income > cap_50 and adjusted_ami < 51:
-        check_50_percent = True
+        # 80% CHECK:
+        if self.annual_income > ami_80_cap and adjusted_ami < 81:
+            check_80_percent = True
 
-    # 80% CHECK:
-    if annual_income > ami_80_cap and adjusted_ami < 81:
-        check_80_percent = True
-
-    ami = math.floor(adjusted_ami)
-    if check_50_percent == True:
-        ami = 51
-    if check_80_percent == True:
-        ami = 81
-    # format as percentage
-    ami = "{}%".format(ami)
-    return ami
+        ami = math.floor(adjusted_ami)
+        if check_50_percent == True:
+            ami = 51
+        if check_80_percent == True:
+            ami = 81
+        # format as percentage
+        ami = "{}%".format(ami)
+        return ami
 
 
 

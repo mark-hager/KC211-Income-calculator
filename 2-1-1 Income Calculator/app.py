@@ -34,6 +34,10 @@ class new_household:
         self.smi = None
         self.ami = None
 
+        self.calculate_fpl()
+        self.calculate_smi()
+        self.calculate_ami()
+
     def calculate_fpl(self):
         """
         Calculates the Federal Poverty Level based on HHS 2022 guidelines
@@ -82,7 +86,7 @@ class new_household:
         self.smi = smi  # assign the calculated State Median Income percentage to our object
 
 
-    def excel_ceil(num):  # emulating excel's ceiling function to directly copy Hannah's formula
+    def excel_ceil(self, num):  # emulating excel's ceiling function to directly copy Hannah's formula
         return 50 * math.ceil(float(num) / 50)
 
     def calculate_ami(self):
@@ -209,4 +213,4 @@ if __name__ == ' __main__':
 
 
 person = new_household(30000, 1)
-print(person.calculate_fpl())
+print(person.smi)

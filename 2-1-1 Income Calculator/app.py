@@ -1,28 +1,40 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 23 13:31:56 2021
-
-@author: mhager
-
-Python implementation of Hannah Newton's Excel-based income calculator for
-use by King County 2-1-1 specialists.
-
-Used https://github.com/nanoproductions/flask_calculator_basic for help with flask
-"""
+# Python implementation of Hannah Newton's Excel-based income calculator for
+# use by King County 2-1-1 specialists. @author:mhager
 # used for formatting user inputs by stripping dollar signs and commas
 import re
 # math package used for rounding
 import math
 # import Flask
 from flask import Flask, flash, render_template, request
+
+from markupsafe import escape
+
 # create Flask object
 app = Flask(__name__)
-# start an app route which is '/'
-@app.route('/')
-# declare the main function
-def main():
-    return render_template('app.html')
 
+# only one route since the calculator is only one page
+@app.route("/", methods = ['POST', 'GET'])
+def main():
+    if request.method == 'POST':
+        household_size = int(request.form['Household Size'])
+        income_type = request.form['Income Type']
+        raw_income = int(request.form['Income Amount'])
+
+        if income_type == "Monthly":
+            annual_income = raw_income * 12
+        else:
+            annual_income = raw_income
+
+        household = new_household(annual_income, household_size)
+        size = household_size
+        income = annual_income
+        FPL = household.fpl
+        SMI = household.smi
+        AMI = household.ami
+
+        return render_template('app.html', household_size = size, annual_income = income, fpl = FPL, smi = SMI, ami = AMI)
+        
+    return render_template('app.html')
 
 class new_household:
     def __init__(self, annual_income, household_size):
@@ -144,72 +156,17 @@ class new_household:
         if self.annual_income > ami_80_cap and adjusted_ami < 81:
             check_80_percent = True
 
-        ami = math.floor(adjusted_ami)
+        ami = round(adjusted_ami)
         if check_50_percent == True:
             ami = 51
         if check_80_percent == True:
             ami = 81
         # format as percentage
-        ami = "{}%".format(ami)
+        ami = "{}%".format(round(ami))
         self.ami = ami  # assign the calculated Area Median Income percentage to our object
 
-
-
-
-#def income_eligibility(annual_income, household_size, AMI, FPL, SMI):
-
-
-
-
-# form submission route
-@app.route('/send', methods = ['POST'])
-def send(fpl = sum, smi = sum, ami = sum):
-    if request.method == 'POST':
-        errors = False
-        # start pulling data from form input
-
-        # check that household size is an integer greater than 0
-        try:
-            if int(request.form['Household Size']) > 0:
-                household_size = int(request.form['Household Size'])
-        # else give an error
-        except ValueError:
-            flash('Household size must be a number greater than 0.')
-            errors = True
-
-        income_type = request.form['Income Type']
-        raw_income = request.form['Income Amount']
-        # remove dollar signs and commas from income
-        clean_income = re.compile(r'[^\d.]+')
-        raw_income = clean_income.sub('', raw_income)
-        # check that income is a nonnegative number
-        try:
-            if float(raw_income) >= 0 and income_type == 'Monthly':
-                annual_income = float(raw_income) * 12
-            elif float(raw_income) >= 0 and income_type == 'Annual':
-                annual_income = float(raw_income)
-        # else give an error
-        except ValueError:
-            flash('Household income must be 0 or greater.')
-            errors = True
-        # if there's an error refresh the page
-        if errors:
-            return render_template('app.html')
-
-
-        household = new_household(annual_income, household_size)
-        FPL = household.fpl
-        SMI = household.smi
-        AMI = household.ami
-
-    return render_template('app.html', fpl = FPL, smi = SMI, ami = AMI)
-
-if __name__ == ' __main__':
-    app.debug = True
-    app.run()
-
-
-
-
-#person = new_household(30000, 1)
-#print(person.ami)
+test = new_household(30000, 1)     
+test_fpl = test.fpl
+test_smi = test.smi
+test_ami = test.ami
+test_string = (f"The FPL is {test_fpl}, the SMI is {test_smi}, the AMI is {test_ami}")

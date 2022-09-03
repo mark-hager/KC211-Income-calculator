@@ -153,7 +153,7 @@ class new_household:
             ami = 81
         # format as percentage
         ami = "{}%".format(ami)
-        return ami
+        self.ami = ami  # assign the calculated Area Median Income percentage to our object
 
 
 
@@ -213,4 +213,4 @@ if __name__ == ' __main__':
 
 
 person = new_household(30000, 1)
-print(person.smi)
+print(person.ami)

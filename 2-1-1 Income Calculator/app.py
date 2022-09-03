@@ -70,7 +70,6 @@ class new_household:
         """
         Calculates the State Median Income based on DSHS 2022 guidelines
         https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart
-
         """
 
         # SMI is calculated with separate base rates depending on household size
@@ -103,6 +102,8 @@ class new_household:
         """
         Calculates the Area Median Income based on HUD 2022 guidelines
         https://www.huduser.gov/portal/datasets/il/il2022/2022summary.odn
+        Currently rounding final AMI percentage as Hannah appears to be doing; need to confirm that this is correct.
+        Previously I was using floor to always round down which created discrepancy
 
         """
         # AMI is calculated from the median annual income for a family of 4

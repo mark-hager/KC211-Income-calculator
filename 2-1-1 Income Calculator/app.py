@@ -17,8 +17,6 @@ import math
 from flask import Flask, flash, render_template, request
 # create Flask object
 app = Flask(__name__)
-# set the secret key which is required for flash
-app.secret_key = 'FD7syfsjh4Slj4w0'
 # start an app route which is '/'
 @app.route('/')
 # declare the main function
@@ -199,9 +197,10 @@ def send(fpl = sum, smi = sum, ami = sum):
             return render_template('app.html')
 
 
-    FPL = calculate_fpl(annual_income, household_size)
-    SMI = calculate_smi(annual_income, household_size)
-    AMI = calculate_ami(annual_income, household_size)
+        household = new_household(annual_income, household_size)
+        FPL = household.fpl
+        SMI = household.smi
+        AMI = household.ami
 
     return render_template('app.html', fpl = FPL, smi = SMI, ami = AMI)
 
@@ -212,5 +211,5 @@ if __name__ == ' __main__':
 
 
 
-person = new_household(30000, 1)
-print(person.ami)
+#person = new_household(30000, 1)
+#print(person.ami)

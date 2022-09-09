@@ -9,13 +9,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
 
-  
-  <body>
-    <div class="container">
-      <h3>Income Calculator</h3>
-    </div>
-  
-
 
   <body>
     <header>
@@ -28,62 +21,57 @@
     <!-- Form -->
     <div class="container">
 
-      {% for message in get_flashed_messages() %}
-      <div class="alert alert-warning">
-            {{ message }}
-      </div>
-      {% endfor %}
-
       <form action="/" method="POST" autocomplete="off">
 
-        <div class="row">
+        <div class="grid-item">
 
+          <label for="Income Type">Monthly or Annual Income</label>
+          <select class="u-full-width" name="Income Type">
+            <option value="Monthly">Monthly</option>
+            <option value="Annual">Annual</option>
+          </select>
 
-          <div class ="four columns">
-            <label for="Income Type">Monthly or Annual Income</label>
-            <select class="u-full-width" name="Income Type">
-              <option value="Monthly">Monthly</option>
-              <option value="Annual">Annual</option>
-            </select>
-
-          </div>
-
-          <div class="four columns">
-              <label for="Income Amount">Income Amount</label>
-            <input
-              type="text"
-              placeholder="$"
-              class="u-full-width"
-              name="Income Amount"
-            />
-          </div>
         </div>
 
-        
+        <div class="grid-item">
 
-        <div class="row">
-          <div class="four columns">
-            <label for="Household Size">Household Size</label>
+          <label for="Income Amount">Income Amount</label>
+          <input
+            type="text"
+            placeholder="$"
+            class="u-full-width"
+            name="Income Amount"
+          />
+
+        </div>
+
+        <div class="grid-item">
+          <input
+          type="text"
+          placeholder="#"
+          class="u-full-width"
+          name="Household Size"
+          />
+        </div>
+
+        <div class="grid-item">
+          <label for="Household Size">Household Size</label>
             <input
               type="text"
               placeholder="#"
               class="u-full-width"
               name="Household Size"
             />
-          </div>
-          <div class="four columns">
-            
-          </div>
         </div>
-        
-        
 
-        <input type="submit" value="Calculate" id="calc_btn" />
-        <br />
 
-          
+        <div class="grid-item">
+          <input type="submit" value="Calculate" id="calc_btn" />
+        </div>
+
       </form>
-      <table class="u-full-width">
+ 
+      <table>
         <thead>
           <tr>
             <th>Household Size</th>
@@ -104,22 +92,7 @@
 
         </tbody>
       </table>
-      <!--
-      <table>
-        <tr>
-          <td>Federal Poverty Level:</td>
-          <td>{{ fpl }}</td>
-        </tr>
-        <tr>
-          <td>State Median Income:</td>
-          <td>{{ smi }}</td>
-        </tr>
-        <tr>
-          <td>Area Median Income:</td>
-          <td>{{ ami }}</td>
-        </tr>
-      </table>
-      -->
+   
     </div>
   
     

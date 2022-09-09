@@ -12,3 +12,21 @@ body {
     color: white;
     margin: 1rem;
 }
+/*
+.container {
+  display: grid;
+  grid-template-columns: 30px 200px auto 100px;
+}
+*/
+.grid-item{
+
+  font-size: 30px;
+
+}
+
+table {
+  display: grid;
+  border-collapse: collapse;
+  min-width: 100%;
+
+}

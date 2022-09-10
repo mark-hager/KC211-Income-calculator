@@ -15,10 +15,12 @@ app = Flask(__name__)
 # only one route since the calculator is only one page
 @app.route("/", methods = ['POST', 'GET'])
 def main():
+    # get the data from the form submission
     if request.method == 'POST':
-        household_size = int(request.form['Household Size'])
-        income_type = request.form['Income Type']
-        raw_income = int(request.form['Income Amount'])
+
+        household_size = int(request.form['household-size'])
+        income_type = request.form['income-type']
+        raw_income = int(request.form['income-amount'])
 
         if income_type == "Monthly":
             annual_income = raw_income * 12
@@ -165,6 +167,7 @@ class new_household:
         # format as percentage
         ami = "{}%".format(round(ami))
         self.ami = ami  # assign the calculated Area Median Income percentage to our object
+
 
 test = new_household(30000, 1)     
 test_fpl = test.fpl

@@ -17,61 +17,57 @@
       </h1>
     </header>
 
-    
-    <!-- Form -->
-    <div class="container">
+    <form action="/" method="POST" autocomplete="off">
 
-      <form action="/" method="POST" autocomplete="off">
-
-        <div class="grid-item">
-
-          <label for="Income Type">Monthly or Annual Income</label>
-          <select class="u-full-width" name="Income Type">
-            <option value="Monthly">Monthly</option>
-            <option value="Annual">Annual</option>
-          </select>
-
+    <div class="formdata">
+        
+        <div class="div1"> 
+            <label>Monthly or Annual Income
+            <select class="u-full-width" name="income-type">
+                <option value="Monthly">Monthly</option>
+                <option value="Annual">Annual</option>
+            </select>
+            </label>
         </div>
 
-        <div class="grid-item">
-
-          <label for="Income Amount">Income Amount</label>
-          <input
-            type="text"
-            placeholder="$"
-            class="u-full-width"
-            name="Income Amount"
-          />
-
+        <div class="div2"> 
+            <label>Income Amount
+                <input
+                type="text"
+                placeholder="$"
+                class="u-full-width"
+                name="income-amount"
+                />
+            </label>
         </div>
 
-        <div class="grid-item">
-          <input
-          type="text"
-          placeholder="#"
-          class="u-full-width"
-          name="Household Size"
-          />
+        <div class="div3"> 
+            <label>Household Size
+                <input
+                type="text"
+                placeholder="#"
+                class="u-full-width"
+                name="household-size"
+                />
+            </label>
         </div>
 
-        <div class="grid-item">
-          <label for="Household Size">Household Size</label>
-            <input
-              type="text"
-              placeholder="#"
-              class="u-full-width"
-              name="Household Size"
-            />
+        <div class="div4"> 
+            <label>Children in Household
+                <input 
+                type="checkbox" 
+                name="children" 
+                value="yes">
+            </label>
         </div>
-
-
-        <div class="grid-item">
-          <input type="submit" value="Calculate" id="calc_btn" />
+        
+        <div class="div5">
+            <input type="submit" value="Calculate" id="calc_btn" />
         </div>
+    </div>
+    </form>
 
-      </form>
- 
-      <table>
+    <table>
         <thead>
           <tr>
             <th>Household Size</th>
@@ -89,12 +85,7 @@
             <td>{{ smi }}</td>
             <td>{{ ami }}</td>
           </tr>
-
         </tbody>
       </table>
-   
-    </div>
-  
-    
-  </body>
+    </body>
 </html>

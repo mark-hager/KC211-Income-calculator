@@ -1,5 +1,13 @@
-# Python implementation of Hannah Newton's Excel-based income calculator for
-# use by King County 2-1-1 specialists. @author:mhager
+"""
+Python implementation of Hannah Newton's Excel-based income calculator for
+use by King County 2-1-1 specialists. @author:mhager
+Flask app takes inputs from the html form to determine eligibility for various
+benefits programs based upon the annual income, size of the household, and
+whether the household includes any minor children.
+Also estimates birthyear and client age based upon the client's age or birthdate,
+respectively.
+"""
+
 # used for formatting user inputs by stripping dollar signs and commas
 import re
 # math package used for rounding
@@ -40,8 +48,11 @@ def main():
 
 class NewHousehold:
     """
-    Represents an individual household. Includes fields for the household's annual income,
-    number of individuals ***TODO***
+    Represents a household for the purposes of determining eligibility for various
+    benefit programs. Includes fields for annual income and household size as well as
+    a boolean value indicating whether or not the household includes minor children.
+    Also has fields for client age and client dob for the purposes of estimating birth year
+    and calculating the client's age, respectively.
     """
     def __init__(self, annual_income, household_size, client_age, client_dob, has_children):
         # client_dob and client_age are used for calculating age from birthdate
@@ -182,6 +193,11 @@ class NewHousehold:
         self.ami = ami  # assign the calculated Area Median Income percentage to our object
 
 class ProgramEligibility: 
+    """
+    Determines eligiblity for various benefits programs from an instance
+    of NewHousehold to check program requirements against the FPL, SMI, AMI
+    and household composition of the household.
+    """
 
 test = new_household(30000, 1)     
 test_fpl = test.fpl

@@ -27,7 +27,7 @@ def main():
         else:
             annual_income = raw_income
 
-        household = new_household(annual_income, household_size)
+        household = NewHousehold(annual_income, household_size)
         size = household_size
         income = annual_income
         FPL = household.fpl
@@ -38,13 +38,26 @@ def main():
         
     return render_template('app.html')
 
-class new_household:
-    def __init__(self, annual_income, household_size):
+class NewHousehold:
+    """
+    Represents an individual household. Includes fields for the household's annual income,
+    number of individuals ***TODO***
+    """
+    def __init__(self, annual_income, household_size, client_age, client_dob, has_children):
+        # client_dob and client_age are used for calculating age from birthdate
+        # and estimating year of birth from age, respectively 
+        self.client_age = client_age
+        self.client_dob = client_dob
+        # the FPL, SMI and AMI are calculated based on the annual income and household size
         self.annual_income = annual_income
         self.household_size = household_size
-        self.fpl = None  # FPL, SMI and AMI are calculated by their respective methods
+        # initialized as None until we calculate the FPL, SMI and AMI via their
+        # respective methods
+        self.fpl = None
         self.smi = None
         self.ami = None
+        # has_children defaults to False; is true only if checkbox in form is selected
+        self.has_children = has_children
 
         self.calculate_fpl()
         self.calculate_smi()
@@ -168,6 +181,7 @@ class new_household:
         ami = "{}%".format(round(ami))
         self.ami = ami  # assign the calculated Area Median Income percentage to our object
 
+class ProgramEligibility: 
 
 test = new_household(30000, 1)     
 test_fpl = test.fpl

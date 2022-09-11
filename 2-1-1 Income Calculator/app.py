@@ -50,7 +50,7 @@ class NewHousehold:
     """
     Represents a household for the purposes of determining eligibility for various
     benefit programs. Includes fields for annual income and household size as well as
-    a boolean value indicating whether or not the household includes minor children.
+    a boolean reflecting whether or not the household includes minor children.
     Also has fields for client age and client dob for the purposes of estimating birth year
     and calculating the client's age, respectively.
     """
@@ -198,9 +198,20 @@ class ProgramEligibility:
     of NewHousehold to check program requirements against the FPL, SMI, AMI
     and household composition of the household.
     """
+    def __init__(self, household):
+        self.household = household
+    
+    def hsp_eligibility(self):
+        """
+        Determines eligibility for Housing Stability Project:
+        Area Median Income must be below 50% and income to rent
+        ratio must be greater than or equal to 1:1.5
+        """
+        pass
 
-test = new_household(30000, 1)     
-test_fpl = test.fpl
+
+
+test = NewHousehold(30000, 1)     
 test_smi = test.smi
 test_ami = test.ami
 test_string = (f"The FPL is {test_fpl}, the SMI is {test_smi}, the AMI is {test_ami}")

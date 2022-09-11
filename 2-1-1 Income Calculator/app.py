@@ -54,7 +54,7 @@ class NewHousehold:
     Also has fields for client age and client dob for the purposes of estimating birth year
     and calculating the client's age, respectively.
     """
-    def __init__(self, annual_income, household_size, client_age, client_dob, has_children):
+    def __init__(self, annual_income, household_size, client_age, client_dob, has_children, rent_amount):
         # client_dob and client_age are used for calculating age from birthdate
         # and estimating year of birth from age, respectively 
         self.client_age = client_age
@@ -69,6 +69,8 @@ class NewHousehold:
         self.ami = None
         # has_children defaults to False; is true only if checkbox in form is selected
         self.has_children = has_children
+        # used for determininig eligibility to HSP which requires a rent to income ratio of 1:1.5
+        self.rent_amount = rent_amount
 
         self.calculate_fpl()
         self.calculate_smi()
@@ -204,8 +206,8 @@ class ProgramEligibility:
     def hsp_eligibility(self):
         """
         Determines eligibility for Housing Stability Project:
-        Area Median Income must be below 50% and income to rent
-        ratio must be greater than or equal to 1:1.5
+        Area Median Income must be below 50% and rent to income
+        ratio must be less than or equal to 1:1.5
         """
         pass
 

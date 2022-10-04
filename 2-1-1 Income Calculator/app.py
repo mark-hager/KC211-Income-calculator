@@ -200,20 +200,34 @@ class ProgramEligibility:
     of NewHousehold to check program requirements against the FPL, SMI, AMI
     and household composition of the household.
     """
+    eligibile_for_hsp = False
     def __init__(self, household):
         self.household = household
     
     def hsp_eligibility(self):
         """
         Determines eligibility for Housing Stability Project:
-        Area Median Income must be below 50% and rent to income
-        ratio must be less than or equal to 1:1.5
+        Area Median Income must be less than or equal to 50% and
+        rent to income ratio must be less than or equal to 1:1.5
         """
-        pass
+        if self.household.rent_amount is None:
+            print("Please enter a rental amount to determine HSP eligibility")
+            return
+        if self.household.household.ami > 0.5:
+            print("Income too high: AMI was above 0.5")
+            self.eligibile_for_hsp = False
+        if ((self.household.income / 12) / self.household.rent) < 1.5:
+            print("Income to rent ratio was too low; must be at least 1.5:1")
+            self.eligibile_for_hsp = False
+        return
 
 
-
-test = NewHousehold(30000, 1)     
-test_smi = test.smi
-test_ami = test.ami
+household_test = NewHousehold(30000, 1, None, None, None, None)     
+test_fpl = household_test.fpl
+test_smi = household_test.smi
+test_ami = household_test.ami
 test_string = (f"The FPL is {test_fpl}, the SMI is {test_smi}, the AMI is {test_ami}")
+eligibility_test = ProgramEligibility(household_test)
+eligibility_test.hsp_eligibility()
+
+print(household_test.ami)

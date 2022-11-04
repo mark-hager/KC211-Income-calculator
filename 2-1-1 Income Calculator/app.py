@@ -60,7 +60,7 @@ class NewHousehold:
     Also has fields for client age and client dob for the purposes of estimating birth year
     and calculating the client's age, respectively.
     """
-    def __init__(self, annual_income, household_size, client_age, client_dob, has_children, rent_amount):
+    def __init__(self, annual_income, household_size, has_children, rent_amount, client_age = None, client_dob = None):
         # client_dob and client_age are used for calculating age from birthdate
         # and estimating year of birth from age, respectively 
         self.client_age = client_age

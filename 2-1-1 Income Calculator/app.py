@@ -26,16 +26,22 @@ def main():
     # get the data from the form submission
     if request.method == 'POST':
 
-        household_size = int(request.form['household-size'])
-        income_type = request.form['income-type']
-        raw_income = int(request.form['income-amount'])
+        # fields that are required in order to calculate the AMI, FPL & SMI
+        household_size = int(request.form['household_size'])
+        income_type = request.form['income_type']
+        raw_income = int(request.form['income_amount'])
+
+        # optional fields used to determine potential program eligibility
+        children_household = request.form['children']
+        monthly_rent = int(request.form['monthly_rent'])
 
         if income_type == "Monthly":
             annual_income = raw_income * 12
         else:
+            # check that income isn't negative or something else invalid first
             annual_income = raw_income
 
-        household = NewHousehold(annual_income, household_size)
+        household = NewHousehold(annual_income, household_size, children_household, monthly_rent)
         size = household_size
         income = annual_income
         FPL = household.fpl

@@ -5,69 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
-
-    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   </head>
 
-
   <body>
-    <header>
-      <h1>
-        2-1-1 Income Calculator
-      </h1>
-    </header>
-
-    <form action="/" method="POST" autocomplete="off">
-
-    <div class="formdata">
-        
-        <div class="div1"> 
-            <label>Monthly or Annual Income
-            <select class="u-full-width" name="income-type">
+    <div class="container">
+      <header>
+        <h1> 2-1-1 Income Calculator </h1>
+      </header>
+      <form action="/" method="POST" autocomplete="off">
+        <div class="formdata">
+          <div class="income_type">
+            <label>Monthly or Annual Income <select class="u-full-width" name="income_type">
                 <option value="Monthly">Monthly</option>
                 <option value="Annual">Annual</option>
-            </select>
+              </select>
             </label>
+          </div>
+
+          <div class="income_amount">
+            <label>Income Amount <input type="text" placeholder="$" class="u-full-width" name="income_amount" />
+            </label>
+          </div>
+
+          <div class="household_size">
+            <label>Household Size <input type="text" placeholder="#" class="u-full-width" name="household_size" />
+            </label>
+          </div>
+
+          <div class="children_in_household">
+            <label>Children in Household <input type="checkbox" name="children" value="yes">
+            </label>
+          </div>
+
+          <div class="monthly_rent">
+            <label>Monthly Rent <input type="text" placeholder="$" class="u-full-width" name="monthly_rent">
+            </label>
+          </div>
+          <button class="calculate" 
+            type="submit" 
+            value="Calculate" 
+            id="calc_btn">
+            Calculate
+          </button>
+
         </div>
 
-        <div class="div2"> 
-            <label>Income Amount
-                <input
-                type="text"
-                placeholder="$"
-                class="u-full-width"
-                name="income-amount"
-                />
-            </label>
-        </div>
+      </form>
 
-        <div class="div3"> 
-            <label>Household Size
-                <input
-                type="text"
-                placeholder="#"
-                class="u-full-width"
-                name="household-size"
-                />
-            </label>
-        </div>
-
-        <div class="div4"> 
-            <label>Children in Household
-                <input 
-                type="checkbox" 
-                name="children" 
-                value="yes">
-            </label>
-        </div>
-        
-        <div class="div5">
-            <input type="submit" value="Calculate" id="calc_btn" />
-        </div>
-    </div>
-    </form>
-
-    <table>
+      <table>
         <thead>
           <tr>
             <th>Household Size</th>
@@ -87,5 +73,7 @@
           </tr>
         </tbody>
       </table>
-    </body>
+
+    </div>
+  </body>
 </html>

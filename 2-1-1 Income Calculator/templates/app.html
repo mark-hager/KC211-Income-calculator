@@ -14,40 +14,54 @@
         <h1> 2-1-1 Income Calculator </h1>
       </header>
       <form action="/" method="POST" autocomplete="off">
-        <div class="formdata">
-          <div class="income_type">
-            <label>Monthly or Annual Income <select class="u-full-width" name="income_type">
-                <option value="Monthly">Monthly</option>
-                <option value="Annual">Annual</option>
-              </select>
-            </label>
-          </div>
 
-          <div class="income_amount">
-            <label>Income Amount <input type="text" placeholder="$" class="u-full-width" name="income_amount" />
-            </label>
+        <div class="formdata">
+
+          <div class="household_income">
+
+            <select class="select_income_type" name="select_income_type">
+              <option value="Monthly">Monthly</option>
+              <option value="Annual">Annual</option>
+            </select>
+ 
+            <label for="enter_income">Income Amount</label>
+            <input id="enter_income" type="text" placeholder="$" name="enter_income" />
+
           </div>
 
           <div class="household_size">
-            <label>Household Size <input type="text" placeholder="#" class="u-full-width" name="household_size" />
-            </label>
+
+            <label for="household_size_input">Household Size</label>
+            <input id="household_size_input" type="number" placeholder="#" name="household_size" />
+
           </div>
 
-          <div class="children_in_household">
-            <label>Children in Household <input type="checkbox" name="children" value="yes">
-            </label>
+   
+
+          <div class="optional_fields">
+            <h4>Optional Fields:</h4>
+
+            <div class="children_in_household">
+              <label for="has_children">Children in Household</label>
+              <input id="has_children" type="checkbox" name="children" value="yes">
+            </div>
+
+            <div class="monthly_rent">
+              <label for="enter_rent">Monthly Rent</label> 
+              <input id="enter_rent" type="text" placeholder="$" name="monthly_rent">
+              
+            </div>
+
           </div>
 
-          <div class="monthly_rent">
-            <label>Monthly Rent <input type="text" placeholder="$" class="u-full-width" name="monthly_rent">
-            </label>
-          </div>
           <button class="calculate" 
             type="submit" 
             value="Calculate" 
             id="calc_btn">
             Calculate
           </button>
+
+
 
         </div>
 

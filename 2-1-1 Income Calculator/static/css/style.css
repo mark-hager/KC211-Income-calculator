@@ -15,58 +15,96 @@ body {
 
 .container {
   /*margin:auto;*/
+  display: grid;
   border-style: solid;
   border-width: 1px;
-  display: grid;
   /*
   min-width: 600px;
   max-width: 1000px;
   */
   grid-template-columns: auto;
-  grid-template-rows: 50px, 2fr, 1fr, auto;
-  row-gap: 15px;
+  grid-template-rows: 50px 2fr 1fr auto;
+  row-gap: 30px;
   justify-content: center;
-  grid-template-areas: 
-      "header"
-      "formdata"
-      "calculations"
-      "programs";
   }
 
 
   .formdata {
     display: grid;
-    grid-template-columns: 1fr, 1fr, 1fr,;
-    grid-template-rows: auto;
-    row-gap: 15px;
+    border-style: solid;
+    border-width: 1px;
+    grid-template-columns: 150px 2fr;
+    grid-template-rows: repeat(5, minmax(25px, 50px));
+    row-gap: 5px;
+    align-items: center;
     grid-template-areas:
-        "income income income"
-        "size size size"
-        ". children children";
-       /* ". calculate monthly_rent";*/
+        "income income"
+        ". size"
+        "optional optional"
+        ". calculate"
   }
 
-  .income_type {
+  .household_income {
     grid-area: income;
-    width: 100%;
-    /*padding: 16px 20px;*/
-    border-radius: 4px;
-    border-width: none;
-    border-style: none;
-    background-color: #d52424;
+    display: inline-grid;
+    grid-template-columns: 150px 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    
   }
 
+  .select_income_type {
+    margin: auto;
+    border-radius: 10px;
+    border-width: none;
+    border-style: outset;
+    padding: 5px 10px;
+  }
+
+  .enter_income {
+ 
+    margin: auto;
+    justify-content: left;
+  }
+
+  .household_size {
+    grid-area: size;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .optional_fields {
+    grid-area: optional;
+    display: inline-grid;
+    border-style: solid;
+    border-width: 1px;
+    grid-template-columns: 150px 1fr 1fr;
+    justify-content: left;
+    align-items: center;
+    text-align: center;
+    
+  }
+
+  .children_in_household {
+
+  }
+  
   .calculate {
+    grid-area: calculate;
+    display: flex;
     background-color: #4CAF50; /* Green */
+    width:80%;
     border-width: none;
     border-style: none;
     border-radius: 5px;
     color: white;
     font-size: 16px;
+    justify-content: center;
+    align-items: center;
     
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    /*display: inline-block;*/
-    
+  }
+
+  .monthly_rent {
   }

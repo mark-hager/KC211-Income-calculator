@@ -77,9 +77,10 @@ body {
 
   .optional_fields {
     grid-area: optional;
-    display: table;
+    display: inline-grid;
     border-style: solid;
     border-width: 1px;
+    grid-template-columns: 150px 1fr 1fr;
     justify-content: left;
     align-items: center;
     text-align: center;

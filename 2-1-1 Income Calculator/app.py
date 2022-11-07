@@ -14,11 +14,16 @@ import re
 import math
 # import Flask
 from flask import Flask, flash, render_template, request
+# wtforms for input validation
+from wtforms import Form, BooleanField, StringField, validators
+
 
 from markupsafe import escape
 
 # create Flask object
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'vbdfffs76VF'
 
 # only one route since the calculator is only one page
 @app.route("/", methods = ['POST', 'GET'])
@@ -32,7 +37,9 @@ def main():
         raw_income = int(request.form['income_amount'])
 
         # optional fields used to determine potential program eligibility
-        children_household = request.form['children']
+
+        # must use form.get to get value of checkbox in Flask
+        has_children = request.form.get('has_children')
         monthly_rent = int(request.form['monthly_rent'])
 
         if income_type == "Monthly":
@@ -41,14 +48,14 @@ def main():
             # check that income isn't negative or something else invalid first
             annual_income = raw_income
 
-        household = NewHousehold(annual_income, household_size, children_household, monthly_rent)
-        size = household_size
+        household = NewHousehold(annual_income, household_size, has_children, monthly_rent)
+
         income = annual_income
         FPL = household.fpl
         SMI = household.smi
         AMI = household.ami
 
-        return render_template('app.html', household_size = size, annual_income = income, fpl = FPL, smi = SMI, ami = AMI)
+        return render_template('app.html', household_size = household_size, annual_income = income, fpl = FPL, smi = SMI, ami = AMI)
         
     return render_template('app.html')
 

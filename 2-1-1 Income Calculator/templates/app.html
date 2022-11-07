@@ -13,42 +13,69 @@
       <header>
         <h1> 2-1-1 Income Calculator </h1>
       </header>
-      <form action="/" method="POST" autocomplete="off">
+      {% block content %}
+
+      <form method="POST" action="/">
+        {{ form.csrf_token }}
 
         <div class="formdata">
+          <h4>Required Fields:</h4>
 
-          <div class="household_income">
-
-            <select class="select_income_type" name="select_income_type">
-              <option value="Monthly">Monthly</option>
-              <option value="Annual">Annual</option>
-            </select>
- 
-            <label for="enter_income">Income Amount</label>
-            <input id="enter_income" type="text" placeholder="$" name="enter_income" />
-
-          </div>
 
           <div class="household_size">
 
-            <label for="household_size_input">Household Size</label>
-            <input id="household_size_input" type="number" placeholder="#" name="household_size" />
+            {{ form.household_size.label }}
+            {{ form.household_size(class='enter_household_size', placeholder='#') }}
+
+            {% if form.household_size.errors %}
+            <ul class="errors">
+                {% for error in form.household_size.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
 
           </div>
 
-   
+          <div class="household_income">
+
+            {{ form.income_type(class='select_income_type') }}
+ 
+            {{ form.income_amount.label }}
+            {{ form.income_amount(class='enter_income', placeholder='$') }}
+
+            {% if form.income_amount.errors %}
+              <ul class="errors">
+                  {% for error in form.income_amount.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
 
           <div class="optional_fields">
             <h4>Optional Fields:</h4>
 
             <div class="children_in_household">
-              <label for="has_children">Children in Household</label>
-              <input id="has_children" type="checkbox" name="children" value="yes">
+
+              {{ form.has_children.label }}
+              {{ form.has_children() }}
+
             </div>
 
             <div class="monthly_rent">
-              <label for="enter_rent">Monthly Rent</label> 
-              <input id="enter_rent" type="text" placeholder="$" name="monthly_rent">
+
+              {{ form.monthly_rent.label }}
+              {{ form.monthly_rent() }}
+
+              {% if form.monthly_rent.errors %}
+                <ul class="errors">
+                    {% for error in form.monthly_rent.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+              {% endif %}
               
             </div>
 
@@ -87,6 +114,7 @@
           </tr>
         </tbody>
       </table>
+      {% endblock %}
 
     </div>
   </body>

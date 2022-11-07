@@ -14,11 +14,7 @@ import re
 import math
 # import Flask
 from flask import Flask, flash, render_template, request
-# wtforms for input validation
-from wtforms import Form, BooleanField, StringField, validators
 
-
-from markupsafe import escape
 
 # create Flask object
 app = Flask(__name__)
@@ -235,12 +231,4 @@ class ProgramEligibility:
         return
 
 
-household_test = NewHousehold(30000, 1, None, None, None, None)     
-test_fpl = household_test.fpl
-test_smi = household_test.smi
-test_ami = household_test.ami
-test_string = (f"The FPL is {test_fpl}, the SMI is {test_smi}, the AMI is {test_ami}")
-eligibility_test = ProgramEligibility(household_test)
-eligibility_test.hsp_eligibility()
 
-print(household_test.ami)

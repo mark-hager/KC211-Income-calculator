@@ -39,11 +39,8 @@ def main():
         # then create a new household object
         client = NewHousehold(form)
 
-        # calculate the income measures using the household data
-        client_income = IncomeMeasures(client)
-
-        return render_template('app.html', form = form, client = client, income = client_income)
-    return render_template('app.html', form=form, client=None, income=None)
+        return render_template('app.html', form = form, client = client)
+    return render_template('app.html', form=form, client=None)
 
 
 class NewHousehold:
@@ -58,12 +55,18 @@ class NewHousehold:
         self.annual_income = float(form.income_amount.data)
         self.household_size = form.household_size.data
 
+        # income measure fields
+        self.ami = calculate_ami(self)
+        self.fpl = calculate_fpl(self)
+        self.smi = calculate_smi(self)
+
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
         if hasattr(form, 'rent_amount'):
             self.rent_amount = form.rent_amount.data
 
+        
         # client_dob and client_age are used for calculating age from birthdate
         # and estimating year of birth from age, respectively
         # self.client_age = client_age

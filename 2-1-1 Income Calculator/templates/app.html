@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">-->
   </head>
 
   <body>
@@ -13,7 +13,6 @@
       <header>
         <h1> 2-1-1 Income Calculator </h1>
       </header>
-      {% block content %}
 
       <form method="POST" action="/">
         {{ form.csrf_token }}
@@ -106,15 +105,14 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ household_size }}</td>
-            <td>{{ annual_income }}</td>
-            <td>{{ fpl }}</td>
-            <td>{{ smi }}</td>
-            <td>{{ ami }}</td>
+            <td>{{ client.household_size }}</td>
+            <td>{{ client.annual_income }}</td>
+            <td>{{ income.fpl }}</td>
+            <td>{{ income.smi }}</td>
+            <td>{{ income.ami }}</td>
           </tr>
         </tbody>
       </table>
-      {% endblock %}
 
     </div>
   </body>

@@ -11,7 +11,7 @@ class ProgramEligibility:
     eligibile_for_hsp = False
     def __init__(self, household):
         self.household = household
-    
+
     def hsp_eligibility(self):
         """
         Determines eligibility for Housing Stability Project:
@@ -28,4 +28,3 @@ class ProgramEligibility:
             print("Income to rent ratio was too low; must be at least 1.5:1")
             self.eligibile_for_hsp = False
         return
-

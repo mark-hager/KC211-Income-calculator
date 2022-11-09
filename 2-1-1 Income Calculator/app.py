@@ -36,7 +36,9 @@ def main():
     # if POST request is valid and the data in the form passes validation
     if form.validate_on_submit():
         # then create a new household object
-  
+        client = NewHousehold(form)
+
+        return render_template('app.html', household_size = client.household_size, annual_income = client.annual_income, form = form)
     return render_template('app.html', form = form)
         
 
@@ -49,3 +51,9 @@ def NewHousehold(form_data):
     a representation of a household for the purposes
     of determining income measures and program eligibility.
     """
+    # default args for has_children, rent_amount and client_dob since these are optional fields
+    def __init__(self, annual_income, household_size, has_children, rent_amount = None, client_dob = None):
+        self.annual_income = form_data.income_amount
+        self.household_size = form_data.household_size
+        #self.has_children = form_data.has_children
+

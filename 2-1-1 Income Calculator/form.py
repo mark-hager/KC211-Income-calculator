@@ -1,3 +1,6 @@
+"""
+Retrieves data from wtforms in app.html to create new Household objects.
+"""
 # wtforms for input validation
 from flask_wtf import FlaskForm
 from wtforms import (StringField, TextAreaField, IntegerField, BooleanField,
@@ -22,6 +25,9 @@ class HouseholdForm(FlaskForm):
     has_children = BooleanField('Children in Household')
 
     monthly_rent = DecimalField("Monthly Rent", validators=[NumberRange(min=0, message="Income must be greater than 0.")])
+
+    if income_type == 'Monthly':
+        income_amount = income_amount * 12
 
 
 

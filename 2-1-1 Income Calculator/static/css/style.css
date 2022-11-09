@@ -26,14 +26,20 @@ body {
   grid-template-rows: 50px 2fr 1fr 1fr;
   row-gap: 30px;
   justify-content: center;
+  grid-template-areas: 
+      "header"
+      "formdata"
+      "calculations"
+      "programs";
   }
 
 
   .formdata {
+    grid-area: formdata;
     display: grid;
     border-style: solid;
     border-width: 1px;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(5, minmax(25px, 40px));
     row-gap: 5px;
     align-items: center;

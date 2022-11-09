@@ -5,69 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   </head>
 
-
   <body>
-    <header>
-      <h1>
-        2-1-1 Income Calculator
-      </h1>
-    </header>
+    <div class="container">
+      <header>
+        <h1> 2-1-1 Income Calculator </h1>
+      </header>
+      {% block content %}
 
-    <form action="/" method="POST" autocomplete="off">
+      <form method="POST" action="/">
+        {{ form.csrf_token }}
 
-    <div class="formdata">
-        
-        <div class="div1"> 
-            <label>Monthly or Annual Income
-            <select class="u-full-width" name="income-type">
-                <option value="Monthly">Monthly</option>
-                <option value="Annual">Annual</option>
-            </select>
-            </label>
+        <div class="formdata">
+          <h4>Required Fields:</h4>
+
+
+          <div class="household_size">
+
+            {{ form.household_size.label }}
+            {{ form.household_size(class='enter_household_size', placeholder='#') }}
+
+            {% if form.household_size.errors %}
+            <ul class="errors">
+                {% for error in form.household_size.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+          </div>
+
+          <div class="household_income">
+
+            {{ form.income_type(class='select_income_type') }}
+ 
+            {{ form.income_amount.label }}
+            {{ form.income_amount(class='enter_income', placeholder='$') }}
+
+            {% if form.income_amount.errors %}
+              <ul class="errors">
+                  {% for error in form.income_amount.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+
+          <div class="optional_fields">
+            <h4>Optional Fields:</h4>
+
+            <div class="children_in_household">
+
+              {{ form.has_children.label }}
+              {{ form.has_children() }}
+
+            </div>
+
+            <div class="monthly_rent">
+
+              {{ form.monthly_rent.label }}
+              {{ form.monthly_rent() }}
+
+              {% if form.monthly_rent.errors %}
+                <ul class="errors">
+                    {% for error in form.monthly_rent.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+              {% endif %}
+              
+            </div>
+
+          </div>
+
+          <button class="calculate" 
+            type="submit" 
+            value="Calculate" 
+            id="calc_btn">
+            Calculate
+          </button>
+
+
+
         </div>
 
-        <div class="div2"> 
-            <label>Income Amount
-                <input
-                type="text"
-                placeholder="$"
-                class="u-full-width"
-                name="income-amount"
-                />
-            </label>
-        </div>
+      </form>
 
-        <div class="div3"> 
-            <label>Household Size
-                <input
-                type="text"
-                placeholder="#"
-                class="u-full-width"
-                name="household-size"
-                />
-            </label>
-        </div>
-
-        <div class="div4"> 
-            <label>Children in Household
-                <input 
-                type="checkbox" 
-                name="children" 
-                value="yes">
-            </label>
-        </div>
-        
-        <div class="div5">
-            <input type="submit" value="Calculate" id="calc_btn" />
-        </div>
-    </div>
-    </form>
-
-    <table>
+      <table>
         <thead>
           <tr>
             <th>Household Size</th>
@@ -79,13 +106,16 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{household_size}}</td>
-            <td>{{annual_income}}</td>
+            <td>{{ household_size }}</td>
+            <td>{{ annual_income }}</td>
             <td>{{ fpl }}</td>
             <td>{{ smi }}</td>
             <td>{{ ami }}</td>
           </tr>
         </tbody>
       </table>
-    </body>
+      {% endblock %}
+
+    </div>
+  </body>
 </html>

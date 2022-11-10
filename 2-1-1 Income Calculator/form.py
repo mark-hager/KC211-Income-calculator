@@ -1,12 +1,13 @@
 """
 Retrieves data from wtforms in app.html to create new Household objects.
 """
+from datetime import date
 # wtforms for input validation
 from flask_wtf import FlaskForm
-from wtforms import (StringField, TextAreaField, IntegerField, BooleanField,
+from wtforms import (DateField, TextAreaField, IntegerField, BooleanField,
                      RadioField, SelectField, DecimalField)
 from wtforms.validators import (DataRequired, InputRequired, Length, 
-                                NumberRange, Optional)
+                                NumberRange, Optional, ValidationError)
 
 class HouseholdForm(FlaskForm):
     """
@@ -29,7 +30,6 @@ class HouseholdForm(FlaskForm):
     monthly_rent = DecimalField("Monthly Rent", 
                                 validators=[Optional(), 
                                 NumberRange(min=0, message="Income must be greater than 0.")])
+    client_dob = DateField("Client DOB", validators=[Optional()])
 
-    if income_type == 'Monthly':
-        income_amount = income_amount * 12
 

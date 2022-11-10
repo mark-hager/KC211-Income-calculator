@@ -78,6 +78,21 @@
               
             </div>
 
+            <div class="client_dob">
+
+              {{ form.client_dob.label }}
+              {{ form.client_dob() }}
+
+              {% if form.client_dob.errors %}
+              <ul class="errors">
+                  {% for error in form.client_dob.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+
+            </div>
+
           </div>
 
           <button class="calculate" 
@@ -87,32 +102,13 @@
             Calculate
           </button>
 
-
-
         </div>
 
       </form>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Household Size</th>
-            <th>Income</th>
-            <th>Federal Poverty Level</th>
-            <th>State Median Income</th>
-            <th>Area Median Income</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ client.household_size }}</td>
-            <td>{{ client.annual_income }}</td>
-            <td>{{ client.fpl }}</td>
-            <td>{{ client.smi }}</td>
-            <td>{{ client.ami }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <p>FPL: {{ client.fpl }}</p>
+      <p>SMI: {{ client.smi }}</p>
+      <p>AMI: {{ client.ami }}</p>
+      <p>Age: {{ client.age }}</p>
 
     </div>
   </body>

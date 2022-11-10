@@ -11,11 +11,11 @@ from wtforms.validators import (DataRequired, InputRequired, Length,
 
 class HouseholdForm(FlaskForm):
     """
-    Uses wtforms and flask_wtf to validate wtform from jinja template.
+    Uses wtforms and flask_wtf to create forms in jina template with datatypes and validators
+    specific to each field.
     """
 
     # required fields
-
     income_type = SelectField("Income Type", choices=['Monthly', 'Annual'],
                               default="Monthly", validators=[InputRequired()])
 
@@ -24,6 +24,7 @@ class HouseholdForm(FlaskForm):
 
     household_size = IntegerField("Household Size", validators=[InputRequired(),
                                   NumberRange(min=1, message="Household size must be at least 1.")])
+
     # optional fields
     has_children = BooleanField('Children in Household')
 

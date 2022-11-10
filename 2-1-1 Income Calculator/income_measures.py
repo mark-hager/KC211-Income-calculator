@@ -29,8 +29,10 @@ def calculate_fpl(client):
     # * the rate per person
     fpl = math.ceil(client.annual_income / ((client.household_size * fpl_rate_per_person)
                                     + fpl_base) * 100)
-    # format as percentage
-    fpl = "{}%".format(fpl)
+
+    # convert from percentage back to decimal for program eligibility and formatting
+    fpl = fpl / 100
+   
     return fpl  # return the calculated Federal Poverty Level percentage to our client object
 
 
@@ -58,8 +60,9 @@ def calculate_smi(client):
                             ((client.household_size - 6) * (smi_rate_household_6_or_more))) * 100
     # round the SMI up
     smi = math.ceil(smi)
-    # format as percentage
-    smi = "{}%".format(smi)
+    # convert from percentage back to decimal for program eligibility and formatting
+    smi = smi / 100
+
     return smi  # return the calculated State Median Income to our client object
 
 
@@ -129,6 +132,7 @@ def calculate_ami(client):
         ami = 51
     if check_80_percent is True:
         ami = 81
-    # format as percentage
-    ami = "{}%".format(round(ami))
+    # convert from percentage back to decimal for program eligibility and formatting
+    ami = ami / 100
+
     return ami  # return the calculated Area Median Income percentage to our client object

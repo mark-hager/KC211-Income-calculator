@@ -18,7 +18,7 @@ from flask import Flask, flash, render_template, request
 from form import HouseholdForm
 # Use the data to get income measures and program eligibility
 from income_measures import *
-#from program_eligibility import *
+from program_eligibility import *
 
 # create Flask object
 app = Flask(__name__)
@@ -38,8 +38,11 @@ def main():
         # then create a new household object
         client = NewHousehold(form)
 
-        return render_template('app.html', form = form, client = client)
-    return render_template('app.html', form=form, client=None)
+        # determine program eligibility using household object
+        eligibility = ProgramEligibility(client)
+
+        return render_template('app.html', form = form, client = client, eligibility = eligibility)
+    return render_template('app.html', form = form, client = None, eligibility = None)
 
 
 class NewHousehold:
@@ -51,12 +54,13 @@ class NewHousehold:
     # default args for has_children, rent_amount and client_dob since these are optional fields
     def __init__(self, form):
 
+        # required fields for calculating income measures
         self.annual_income = self.get_annual_income(form.income_amount.data, 
                                                     form.income_type.data)
-        
+
         self.household_size = form.household_size.data
 
-        # income measure fields
+        # Calculate income measures using methods from income_measures.py
         self.ami = calculate_ami(self)
         self.fpl = calculate_fpl(self)
         self.smi = calculate_smi(self)
@@ -64,18 +68,12 @@ class NewHousehold:
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
-        if hasattr(form, 'rent_amount'):
-            self.rent_amount = form.rent_amount.data
+        if hasattr(form, 'monthly_rent'):
+            self.monthly_rent = float(form.monthly_rent.data)
         if hasattr(form, 'client_dob') and form.client_dob.data is not None:
             self.age = self.calculate_age(form.client_dob.data)
-            
-        
-        # client_dob and client_age are used for calculating age from birthdate
-        # and estimating year of birth from age, respectively
-        # self.client_age = client_age
-        # self.client_dob = client_dob
 
-        # used for determininig eligibility to HSP which requires a rent to income ratio of 1:1.5
+
     def get_annual_income(self, income_amount, income_type):
         """
         Gets the income amount and type from the wtform and uniformly saves it as the annual

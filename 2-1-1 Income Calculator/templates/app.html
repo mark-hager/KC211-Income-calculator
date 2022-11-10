@@ -105,11 +105,20 @@
         </div>
 
       </form>
-      <p>FPL: {{ client.fpl }}</p>
-      <p>SMI: {{ client.smi }}</p>
-      <p>AMI: {{ client.ami }}</p>
-      <p>Age: {{ client.age }}</p>
 
+      <div class="income_measures">
+        FPL: {{ client.fpl }}
+        SMI: {{ client.smi }}
+        AMI: {{ client.ami }}
+      </div>
+
+      <div class="age">
+        Age: {{ client.age }}
+      </div>
+
+      <div class="program_eligibility">
+        HSP Eligible: {{ eligibility.hsp }}
+      </div>
     </div>
   </body>
 </html>

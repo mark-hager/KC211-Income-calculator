@@ -16,7 +16,7 @@ class ProgramEligibility:
         self.household = household
         # default eligibility to all programs as false
         self.hsp = False
-        self.fpl = False
+        self.apple_h = False
 
         # check for eligibility only if rent_amount is not empty
         if hasattr(self.household, 'monthly_rent'):
@@ -51,6 +51,6 @@ class ProgramEligibility:
 
         if self.household.fpl > 1.38:
             print("Income too high: FPL was above 1.38")
-            self.fpl = False
+            self.apple_h = False
         else:
-            self.fpl = True
+            self.apple_h = True

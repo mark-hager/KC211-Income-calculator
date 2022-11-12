@@ -1,5 +1,6 @@
 """
-Class containing methods for determining household eligibility for various benefits programs.
+Class containing methods for determining household eligibility 
+for various state and federal benefits programs.
 """
 
 class ProgramEligibility: 
@@ -8,17 +9,19 @@ class ProgramEligibility:
     of NewHousehold to check program requirements against the FPL, SMI, AMI
     and household composition.
     """
-    eligibile_for_hsp = False
+
+
     def __init__(self, household):
 
         self.household = household
-        
         # default eligibility to all programs as false
         self.hsp = False
+        self.fpl = False
 
         # check for eligibility only if rent_amount is not empty
         if hasattr(self.household, 'monthly_rent'):
             self.hsp_eligibile = self.eligible_for_hsp()
+
 
     def eligible_for_hsp(self):
         """
@@ -30,8 +33,24 @@ class ProgramEligibility:
         if self.household.ami > 0.5:
             print("Income too high: AMI was above 0.5")
             self.hsp = False
-        if ((self.household.annual_income / 12) / self.household.monthly_rent) < 1.5:
+        if ((self.household.annual_income / 12) / 
+            self.household.monthly_rent) < 1.5:
             print("Income to rent ratio was too low; must be at least 1.5:1")
             self.hsp = False
         else:
             self.hsp = True
+
+
+    def eligible_for_applehealth(self):
+        """
+        Determines eligibility for Apple Health insurance:
+        FPL must be at or below 138% of the Federal Poverty Level.
+        Info for 2022:
+        https://www.hca.wa.gov/assets/free-or-low-cost/22-315.pdf
+        """
+
+        if self.household.fpl > 1.38:
+            print("Income too high: FPL was above 1.38")
+            self.fpl = False
+        else:
+            self.fpl = True

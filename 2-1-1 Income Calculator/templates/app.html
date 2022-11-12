@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
-    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">-->
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">-->
+    <script src="{{url_for('static', filename='calculate_age.js')}}"></script>
   </head>
 
   <body>
@@ -13,13 +14,27 @@
       <header>
         <h1> 2-1-1 Income Calculator </h1>
       </header>
+      
+
 
       <form method="POST" action="/">
         {{ form.csrf_token }}
 
-        <div class="formdata">
-          <h4>Required Fields:</h4>
 
+
+        <div class="formdata">
+
+          <label for="dob">Get age from DOB:</label>
+
+          <div name="calculate_age">
+            <input type="date" id="dob" name="dob" 
+                min="1900-01-01" 
+                max="2022-01-01"
+                onchange="calculate_age(event);"/>
+          </div>
+
+          <p id="age" name="age"></p>
+          <h4>Required Fields:</h4>
 
           <div class="household_size">
 
@@ -78,21 +93,6 @@
               
             </div>
 
-            <div class="client_dob">
-
-              {{ form.client_dob.label }}
-              {{ form.client_dob() }}
-
-              {% if form.client_dob.errors %}
-              <ul class="errors">
-                  {% for error in form.client_dob.errors %}
-                      <li>{{ error }}</li>
-                  {% endfor %}
-              </ul>
-              {% endif %}
-
-            </div>
-
           </div>
 
           <button class="calculate" 
@@ -105,16 +105,13 @@
         </div>
 
       </form>
-
+      <h4>Results</h4>
       <div class="income_measures">
         FPL: {{ client.fpl }}
         SMI: {{ client.smi }}
         AMI: {{ client.ami }}
       </div>
 
-      <div class="age">
-        Age: {{ client.age }}
-      </div>
 
       <div class="program_eligibility">
         HSP Eligible: {{ eligibility.hsp }}

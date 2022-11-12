@@ -8,7 +8,7 @@ Also estimates birthyear and client age based upon the client's age or birthdate
 respectively.
 """
 # for calculating client age
-from datetime import date
+from datetime import datetime, date
 import os
 
 # import Flask
@@ -35,14 +35,21 @@ def main():
     form = HouseholdForm()
     # if POST request is valid and the data in the form passes validation
     if request.method == 'POST' and form.validate_on_submit():
+        # dob field is not a wtform in order to use JavaScript on it
+        raw_dob = request.form['dob']
         # then create a new household object
-        client = NewHousehold(form)
+        client = NewHousehold(form, raw_dob)
 
         # determine program eligibility using household object
         eligibility = ProgramEligibility(client)
 
         return render_template('app.html', form = form, client = client, eligibility = eligibility)
     return render_template('app.html', form = form, client = None, eligibility = None)
+
+app.route("/get_age", methods =['GET', 'POST'])
+def get_age():
+    """"""
+
 
 
 class NewHousehold:
@@ -52,7 +59,7 @@ class NewHousehold:
     of determining income measures and program eligibility.
     """
     # default args for has_children, rent_amount and client_dob since these are optional fields
-    def __init__(self, form):
+    def __init__(self, form, raw_dob):
 
         # required fields for calculating income measures
         self.annual_income = self.get_annual_income(form.income_amount.data, 
@@ -68,11 +75,10 @@ class NewHousehold:
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
-        if hasattr(form, 'monthly_rent'):
+        if hasattr(form, 'monthly_rent') and form.monthly_rent.data is not None: 
             self.monthly_rent = float(form.monthly_rent.data)
-        if hasattr(form, 'client_dob') and form.client_dob.data is not None:
-            self.age = self.calculate_age(form.client_dob.data)
-
+        if raw_dob is not None:
+            self.age = self.calculate_age(raw_dob)
 
     def get_annual_income(self, income_amount, income_type):
         """
@@ -88,12 +94,22 @@ class NewHousehold:
             annual_income = float(income_amount)
         return annual_income
     
-    def calculate_age(self, client_dob):
+    def calculate_age(self, raw_dob):
         """
         Calculates the client's age from their DOB.
         *TODO* validate dob by using custom wtform validator
         to give an error if DOB is invalid e.g a future date.
         """
-        # roughly account for leapyears in calendar year
-        age = int((date.today() - client_dob).days / 365.2425)
-        return age
+        # try calculating age from the raw DOB string
+        try:
+            dob = datetime.strptime(
+                        request.form['raw_dob'],
+                        '%Y-%m-%d')
+            # roughly account for leapyears in calendar year
+            age = int((datetime.today() - dob).days / 365.2425)
+        except:
+            return
+
+        # check that the age is somewhat realistic
+        if age > 0 and age < 120:
+            return age

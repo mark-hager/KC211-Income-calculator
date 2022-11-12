@@ -31,6 +31,5 @@ class HouseholdForm(FlaskForm):
     monthly_rent = DecimalField("Monthly Rent", 
                                 validators=[Optional(), 
                                 NumberRange(min=0, message="Income must be greater than 0.")])
-    client_dob = DateField("Client DOB", validators=[Optional()])
 
 

@@ -18,7 +18,7 @@ function calculate_age(dob_input) {
     if (age < 0 ) {
         age = "Error: DOB may not be a future date";
     } else if (age > 120) {
-        age = "Error: DOB is too far in the past";
+        age = "Error: DOB must be after 01/01/1900";
 
     } else if (isNaN(age)) {
         return "Error: Invalid DOB"

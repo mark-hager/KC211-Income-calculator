@@ -27,13 +27,18 @@
           <label for="dob">Get age from DOB:</label>
 
           <div name="calculate_age">
-            <input type="date" id="dob" name="dob" 
+            <input type="date" id="dob_field" name="dob_field" 
                 min="1900-01-01" 
-                max="2022-01-01"
                 onchange="calculate_age(event);"/>
           </div>
-
-          <p id="age" name="age"></p>
+          <script>
+            document.getElementById("dob_field").max = new Date().toLocaleDateString('en-ca');
+          </script>
+          <p id="age" name="age"> 
+            {% if client.age %}   
+            {{ client.age }} 
+            {% endif %}
+          </p>
           <h4>Required Fields:</h4>
 
           <div class="household_size">
@@ -110,6 +115,7 @@
         FPL: {{ client.fpl }}
         SMI: {{ client.smi }}
         AMI: {{ client.ami }}
+        AGE: {{ client.age }}
       </div>
 
 

@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(0, 0, 0);
+  }
+
+.alert {
+    background: rgba(162, 156, 156, 0.815);
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    margin: 1rem;
+}
+
+.container {
+  /*margin:auto;*/
+  display: grid;
+  border-style: solid;
+  border-width: 1px;
+  /*
+  min-width: 600px;
+  max-width: 1000px;
+  */
+  grid-template-columns: auto;
+  grid-template-rows: 50px 2fr 1fr 1fr;
+  row-gap: 30px;
+  justify-content: center;
+  grid-template-areas: 
+      "header"
+      "formdata"
+      "calculations"
+      "programs";
+  }
+
+
+  .formdata {
+    grid-area: formdata;
+    display: grid;
+    border-style: solid;
+    border-width: 1px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, minmax(25px, 40px));
+    row-gap: 5px;
+    align-items: center;
+    grid-template-areas:
+        "required required"
+        "income income"
+        ". size"
+        "optional optional"
+        ". calculate"
+  }
+
+  .household_income {
+    grid-area: income;
+    display: inline-grid;
+    grid-template-columns: 150px 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .select_income_type {
+    margin: auto;
+    border-radius: 10px;
+    border-width: none;
+    border-style: outset;
+    padding: 5px 10px;
+  }
+
+  .enter_income {
+    margin: auto;
+    justify-content: left;
+  }
+
+  .household_size {
+    grid-area: size;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .enter_household_size {
+    margin: auto;
+    justify-content: left;
+  }
+
+  .optional_fields {
+    grid-area: optional;
+    display: inline-grid;
+    border-style: solid;
+    border-width: 1px;
+    grid-template-columns: 150px 1fr 1fr;
+    justify-content: left;
+    align-items: center;
+    text-align: center;
+    
+  }
+
+  .children_in_household {
+
+  }
+  
+  .calculate {
+    grid-area: calculate;
+    display: flex;
+    background-color: #4CAF50; /* Green */
+    width:80%;
+    border-width: none;
+    border-style: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .monthly_rent {
+  }

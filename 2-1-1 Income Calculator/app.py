@@ -36,7 +36,7 @@ def main():
     # if POST request is valid and the data in the form passes validation
     if request.method == 'POST' and form.validate_on_submit():
         # dob field is not a wtform in order to use JavaScript on it
-        raw_dob = request.form['dob']
+        raw_dob = request.form['dob_field']
         # then create a new household object
         client = NewHousehold(form, raw_dob)
 
@@ -103,7 +103,7 @@ class NewHousehold:
         # try calculating age from the raw DOB string
         try:
             dob = datetime.strptime(
-                        request.form['raw_dob'],
+                        raw_dob,
                         '%Y-%m-%d')
             # roughly account for leapyears in calendar year
             age = int((datetime.today() - dob).days / 365.2425)

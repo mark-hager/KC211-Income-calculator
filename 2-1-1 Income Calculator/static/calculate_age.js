@@ -24,7 +24,7 @@ function calculate_age(dob_input) {
         return "Error: Invalid DOB"
     }
     
-    document.getElementById("age").innerHTML = age;
+    document.getElementById("age_result").innerHTML = age;
 
 }
 

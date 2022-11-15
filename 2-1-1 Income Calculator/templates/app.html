@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
-    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{url_for('static', filename='calculate_age.js')}}"></script>
   </head>
 
@@ -24,9 +24,8 @@
 
         <div class="formdata">
 
-          <label for="dob">Get age from DOB:</label>
-
-          <div name="calculate_age">
+          <div class="calculate_age">
+            <label for="dob_field">Get age from DOB:</label>
             <input type="date" id="dob_field" name="dob_field" 
                 min="1900-01-01" 
                 onchange="calculate_age(event);"/>
@@ -34,42 +33,46 @@
           <script>
             document.getElementById("dob_field").max = new Date().toLocaleDateString('en-ca');
           </script>
-          <p id="age" name="age"> 
+          <div class="age_result" id="age_result"> 
             {% if client.age %}   
             {{ client.age }} 
             {% endif %}
-          </p>
-          <h4>Required Fields:</h4>
-
-          <div class="household_size">
-
-            {{ form.household_size.label }}
-            {{ form.household_size(class='enter_household_size', placeholder='#') }}
-
-            {% if form.household_size.errors %}
-            <ul class="errors">
-                {% for error in form.household_size.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
           </div>
 
-          <div class="household_income">
+          <div class="req_fields">
+            <h4>Required Fields:</h4>
 
-            {{ form.income_type(class='select_income_type') }}
- 
-            {{ form.income_amount.label }}
-            {{ form.income_amount(class='enter_income', placeholder='$') }}
+            <div class="household_size">
 
-            {% if form.income_amount.errors %}
+              {{ form.household_size.label }}
+              {{ form.household_size(class='enter_household_size', placeholder='#') }}
+
+              {% if form.household_size.errors %}
               <ul class="errors">
-                  {% for error in form.income_amount.errors %}
+                  {% for error in form.household_size.errors %}
                       <li>{{ error }}</li>
                   {% endfor %}
               </ul>
-            {% endif %}
+              {% endif %}
+
+            </div>
+
+            <div class="household_income">
+
+              {{ form.income_type(class='select_income_type') }}
+  
+              {{ form.income_amount.label }}
+              {{ form.income_amount(class='enter_income', placeholder='$') }}
+
+              {% if form.income_amount.errors %}
+                <ul class="errors">
+                    {% for error in form.income_amount.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+
           </div>
 
 
@@ -95,32 +98,36 @@
                     {% endfor %}
                 </ul>
               {% endif %}
-              
             </div>
 
           </div>
 
+        </div>
+
+      </form>
+      <div class="results">
           <button class="calculate" 
             type="submit" 
             value="Calculate" 
             id="calc_btn">
             Calculate
           </button>
-
+        <div class="income_measures">
+          FPL: {{ client.fpl }}
+          SMI: {{ client.smi }}
+          AMI: {{ client.ami }}
         </div>
 
-      </form>
-      <h4>Results</h4>
-      <div class="income_measures">
-        FPL: {{ client.fpl }}
-        SMI: {{ client.smi }}
-        AMI: {{ client.ami }}
-        AGE: {{ client.age }}
-      </div>
+        <div class="program_eligibility">
 
+          May be eligible for*
 
-      <div class="program_eligibility">
-        HSP Eligible: {{ eligibility.hsp }}
+          HSP Eligible: {{ eligibility.hsp }}
+
+          Apple Health Eligible: {{ eligibility.apple_h }}
+          * Based on reported income
+
+        </div>
       </div>
     </div>
   </body>

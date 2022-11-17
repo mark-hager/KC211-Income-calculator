@@ -24,6 +24,13 @@ class ProgramEligibility:
         if hasattr(self.household, 'monthly_rent'):
             self.hsp_eligibile = self.eligible_for_hsp()
 
+        # initialize empty list to hold programs client may be eligible for
+        self.programs = []
+        if self.hsp is True:
+            self.programs.append("Housing Stability Project")
+        if self.apple_h is True:
+            self.programs.append("Apple Health")
+
 
     def eligible_for_hsp(self):
         """

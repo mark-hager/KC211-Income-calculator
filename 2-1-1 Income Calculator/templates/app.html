@@ -99,17 +99,21 @@
             </div>
 
           </div>
+          
+          <button class="calculate" 
+              type="submit" 
+              value="Calculate" 
+              id="calc_btn">
+              Calculate
+          </button>
 
         </div>
 
+
+
       </form>
       <div class="results">
-          <button class="calculate" 
-            type="submit" 
-            value="Calculate" 
-            id="calc_btn">
-            Calculate
-          </button>
+
         <div class="income_measures">
           FPL: {{ client.fpl }}
           SMI: {{ client.smi }}
@@ -119,10 +123,16 @@
         <div class="program_eligibility">
 
           May be eligible for*
+          
+          {% if eligibility.programs %}
+          <ul class="programs">
+              {% for program in eligibility.programs %}
+                  <li>{{ program }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
 
-          HSP Eligible: {{ eligibility.hsp }}
-
-          Apple Health Eligible: {{ eligibility.apple_h }}
+  
           * Based on reported income
 
         </div>

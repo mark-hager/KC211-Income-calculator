@@ -18,6 +18,8 @@ class ProgramEligibility:
         self.hsp = False
         self.apple_h = False
 
+        # programs that can be screened w/out rent
+        self.eligible_for_applehealth()
         # check for eligibility only if rent_amount is not empty
         if hasattr(self.household, 'monthly_rent'):
             self.hsp_eligibile = self.eligible_for_hsp()

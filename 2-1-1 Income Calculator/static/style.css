@@ -1,6 +1,5 @@
 body {
-    margin: 0;
-    padding: 0;
+    margin: auto;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: rgb(0, 0, 0);
   }
@@ -18,29 +17,37 @@ body {
   display: grid;
   border-style: solid;
   border-width: 1px;
+  padding: auto;
   /*
   min-width: 600px;
   max-width: 1000px;
   */
   grid-template-columns: auto;
-  grid-template-rows: 50px 2fr 1fr 1fr;
-  row-gap: 30px;
+  grid-template-rows: 50px 2fr 1fr;
+  row-gap: 10px;
   justify-content: center;
   grid-template-areas: 
       "header"
       "formdata"
-      "calculations"
-      "programs";
+      "results"
   }
 
 
   .formdata {
     grid-area: formdata;
     display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
     border-style: solid;
     border-width: 1px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(5, minmax(25px, 40px));
+    padding-left: 5px;
+   
+  }
+    /*
+    
+    border-style: solid;
+    border-width: 1px;
+
     row-gap: 5px;
     align-items: center;
     grid-template-areas:
@@ -49,8 +56,10 @@ body {
         ". size"
         "optional optional"
         ". calculate"
+    
   }
-
+  */
+  /*
   .household_income {
     grid-area: income;
     display: inline-grid;
@@ -102,11 +111,23 @@ body {
   .children_in_household {
 
   }
-  
+  */
+
+  .results {
+    grid-area: results;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 5px;
+  }
+  .income_measures {
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+
+  }
   .calculate {
-    grid-area: calculate;
-    display: flex;
-    background-color: #4CAF50; /* Green */
+
+    background-color: #4CAF50;
     width:80%;
     border-width: none;
     border-style: none;
@@ -115,8 +136,13 @@ body {
     font-size: 16px;
     justify-content: center;
     align-items: center;
-    
   }
 
-  .monthly_rent {
+  .program_eligibility {
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+
   }
+ 
+ 

@@ -46,11 +46,6 @@ def main():
         return render_template('app.html', form = form, client = client, eligibility = eligibility)
     return render_template('app.html', form = form, client = None, eligibility = None)
 
-app.route("/get_age", methods =['GET', 'POST'])
-def get_age():
-    """"""
-
-
 
 class NewHousehold:
     """

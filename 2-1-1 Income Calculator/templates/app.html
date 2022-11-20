@@ -43,7 +43,7 @@
             <div class="household_size">
 
               {{ form.household_size.label }}
-              {{ form.household_size(class='enter_household_size', placeholder='#') }}
+              {{ form.household_size(class='enter_household_size', autocomplete="off", placeholder='#') }}
 
               {% if form.household_size.errors %}
               <ul class="errors">
@@ -60,7 +60,7 @@
               {{ form.income_type(class='select_income_type') }}
   
               {{ form.income_amount.label }}
-              {{ form.income_amount(class='enter_income', placeholder='$') }}
+              {{ form.income_amount(class='enter_income', autocomplete="off", placeholder='$') }}
 
               {% if form.income_amount.errors %}
                 <ul class="errors">
@@ -87,7 +87,7 @@
             <div class="monthly_rent">
 
               {{ form.monthly_rent.label }}
-              {{ form.monthly_rent() }}
+              {{ form.monthly_rent(autocomplete="off") }}
 
               {% if form.monthly_rent.errors %}
                 <ul class="errors">

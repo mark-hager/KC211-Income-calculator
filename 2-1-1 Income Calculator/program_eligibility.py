@@ -26,7 +26,7 @@ class ProgramEligibility:
         self.liheap_eligibility()
         # check for eligibility only if rent_amount is not empty
         if hasattr(self.household, 'monthly_rent'):
-            self.hsp = self.hsp_eligibility()
+            self.hsp_eligibility()
 
         # initialize empty list to hold programs client may be eligible for
         self.programs = []
@@ -36,7 +36,8 @@ class ProgramEligibility:
             self.programs.append("Apple Health")
         if self.hsp is True:
             self.programs.append("Housing Stability Project")
- 
+        if self.liheap is True:
+            self.programs.append("Low Income Home Energy Assistance Program (LIHEAP)")
 
 
     def hsp_eligibility(self):
@@ -47,7 +48,7 @@ class ProgramEligibility:
         """
 
         if self.household.ami > 0.5:
-            print("Income too high: AMI was above 0.5")
+            print("Income too high for HSP: AMI was above 0.5")
             self.hsp = False
         if ((self.household.annual_income / 12) / 
             self.household.monthly_rent) < 1.5:
@@ -66,7 +67,7 @@ class ProgramEligibility:
         """
 
         if self.household.fpl > 1.38:
-            print("Income too high: FPL was above 1.38")
+            print("Income too high for Apple Health: FPL was above 1.38")
             self.apple_h = False
         else:
             self.apple_h = True
@@ -80,7 +81,7 @@ class ProgramEligibility:
         """
 
         if self.household.fpl > 2:
-            print("Income too high: FPL was above 2")
+            print("Income too high for WA Basic Food: FPL was above 2")
             self.wa_food = False
         else:
             self.wa_food = True
@@ -95,7 +96,7 @@ class ProgramEligibility:
         """
         
         if self.household.fpl > 1.5:
-            print("Income too high: FPL was above 1.5")
+            print("Income too high for LIHEAP: FPL was above 1.5")
             self.liheap = False
         else:
             self.liheap = True

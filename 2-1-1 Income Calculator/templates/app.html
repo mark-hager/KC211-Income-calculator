@@ -115,9 +115,13 @@
       <div class="results">
 
         <div class="income_measures">
-          FPL: {{ client.fpl }}
-          SMI: {{ client.smi }}
-          AMI: {{ client.ami }}
+          {% if client.fpl %}
+
+          FPL: {{ '{:.0%}'.format(client.fpl) }}
+          SMI: {{ '{:.0%}'.format(client.smi) }}
+          AMI: {{ '{:.0%}'.format(client.ami) }}
+
+          {% endif %}
         </div>
 
         <div class="program_eligibility">

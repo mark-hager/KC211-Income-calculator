@@ -68,11 +68,27 @@ def liheap_eligibility(self):
 def pse_help_eligibility(self):
     """
     Determines eligibility for PSE HELP:
-    Income must be at or below 80% of the Area Median Income
+    Income must be at or below 80% of the Area Median Income.
+    Info for 2022:
+    https://www.pse.com/account-and-billing/assistance-programs/Income-Guidelines
     """
     
-    if self.ami > .8:
+    if self.ami > 0.8:
         print("Income too high for PSE HELP: AMI was above 0.8")
+        return False
+    else:
+        return True
+
+def elia_eligibility(self):
+    """
+    Determines eligibility for SCL ELIA (Emergency Low-Income Assistance Program):
+    Income must be at or below 70% of the State Median Income.
+    Info for 2022:
+    https://www.seattle.gov/city-light/residential-services/billing-information/bill-assistance-programs#longterm
+    """
+
+    if self.smi > 0.7:
+        print("Income too high for ELIA: SMI was above 0.7")
         return False
     else:
         return True

@@ -25,7 +25,7 @@ def hsp_eligibility(self):
 def apple_health_eligibility(self):
     """
     Determines eligibility for Apple Health insurance:
-    FPL must be at or below 138% of the Federal Poverty Level.
+    Income must be at or below 138% of the Federal Poverty Level.
     Info for 2022:
     https://www.hca.wa.gov/assets/free-or-low-cost/22-315.pdf
     """
@@ -39,7 +39,7 @@ def apple_health_eligibility(self):
 def basic_food_eligibility(self):
     """
     Determines eligibility for Washington's Basic Food Program:
-    FPL must be at or below 200% of the Federal Poverty Level.
+    Income must be at or below 200% of the Federal Poverty Level.
     Info for 2022:
     https://kingcounty.gov/depts/health/locations/health-insurance/access-and-outreach/basic-food-program.aspx
     """
@@ -54,7 +54,7 @@ def liheap_eligibility(self):
     """
     Determines eligibility for the Low Income Home Energy Assistance
     Program (LIHEAP):
-    FPL must be at or below 150% of the Federal Poverty Level.
+    Income must be at or below 150% of the Federal Poverty Level.
     Info for 2022:
     https://www.benefits.gov/benefit/623
     """
@@ -65,3 +65,14 @@ def liheap_eligibility(self):
     else:
         return True
 
+def pse_help_eligibility(self):
+    """
+    Determines eligibility for PSE HELP:
+    Income must be at or below 80% of the Area Median Income
+    """
+    
+    if self.ami > .8:
+        print("Income too high for PSE HELP: AMI was above 0.8")
+        return False
+    else:
+        return True

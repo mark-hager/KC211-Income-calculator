@@ -51,13 +51,15 @@ def calculate_smi(client):
     # the rate for each person in a household of 6 or more
     smi_rate_household_6_or_more = 3240
 
-    # calculate the SMI depending on household size
+    # calculate the SMI depending on household size, 
+    # rounded to 4 decimal places to match the excel calculator; can't
+    # find documentation on how other people calculate this
     if client.household_size < 7:
-        smi = client.annual_income / ((client.household_size * smi_rate_household_5_or_less)
-                            + smi_base_household_5_or_less) * 100
+        smi = round(client.annual_income / ((client.household_size * smi_rate_household_5_or_less)
+                            + smi_base_household_5_or_less), 4) * 100
     elif client.household_size > 6:
-        smi = client.annual_income / (smi_base_household_6_or_more +
-                            ((client.household_size - 6) * (smi_rate_household_6_or_more))) * 100
+        smi = round(client.annual_income / (smi_base_household_6_or_more +
+                            ((client.household_size - 6) * (smi_rate_household_6_or_more))), 4) * 100
     # round the SMI up
     smi = math.ceil(smi)
     # convert from percentage back to decimal for program eligibility and formatting

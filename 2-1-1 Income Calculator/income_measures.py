@@ -85,7 +85,7 @@ def calculate_ami(client):
     # 80% of the median income for a household of 0
     ami_base_0_80_percent = 57180
     # for calculations when the initial AMI is between 70% and 80%
-    ami_base_between_70_and_80 = 113125
+    ami_base_between_70_and_80 = (ami_base_80_percent * 1.25)
     # initialize to false
     check_80_percent = False
 

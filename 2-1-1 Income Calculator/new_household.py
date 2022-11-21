@@ -84,8 +84,10 @@ class NewHousehold:
 
         # programs that can be screened w/out rent
         apple_health = apple_health_eligibility(self)
-        liheap = liheap_eligibility(self)
         wa_basic_food = basic_food_eligibility(self)
+        liheap = liheap_eligibility(self)
+        pse_help = pse_help_eligibility(self)
+        elia = elia_eligibility(self)
 
         # check for eligibility only if rent_amount is not empty
         if hasattr(self, 'monthly_rent'):
@@ -104,4 +106,8 @@ class NewHousehold:
             self.programs.append("Housing Stability Project")
         if liheap is True:
             self.programs.append("Low Income Home Energy Assistance Program (LIHEAP)")
+        if pse_help is True:
+            self.programs.append("PSE Customers Only: PSE HELP")
+        if elia is True:
+            self.programs.append("SCL Customers Only: Emergency Low Income Assistance (ELIA)")
     

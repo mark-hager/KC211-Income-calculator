@@ -14,19 +14,16 @@ class ProgramEligibility:
     def __init__(self, household):
 
         self.household = household
-        # default eligibility to all programs as false
-        self.hsp = False
-        self.apple_h = False
-        self.wa_food = False
-        self.liheap = False
 
         # programs that can be screened w/out rent
-        self.apple_health_eligibility()
-        self.basic_food_eligibility()
-        self.liheap_eligibility()
+        self.apple_h = self.apple_health_eligibility()
+        self.wa_food = self.basic_food_eligibility()
+        self.liheap = self.liheap_eligibility()
         # check for eligibility only if rent_amount is not empty
         if hasattr(self.household, 'monthly_rent'):
-            self.hsp_eligibility()
+            self.hsp = self.hsp_eligibility()
+        else:
+            self.hsp = False
 
         # initialize empty list to hold programs client may be eligible for
         self.programs = []
@@ -49,13 +46,13 @@ class ProgramEligibility:
 
         if self.household.ami > 0.5:
             print("Income too high for HSP: AMI was above 0.5")
-            self.hsp = False
+            return False
         if ((self.household.annual_income / 12) / 
             self.household.monthly_rent) < 1.5:
             print("Income to rent ratio was too low; must be at least 1.5:1")
-            self.hsp = False
+            return False
         else:
-            self.hsp = True
+            return True
 
 
     def apple_health_eligibility(self):
@@ -68,9 +65,9 @@ class ProgramEligibility:
 
         if self.household.fpl > 1.38:
             print("Income too high for Apple Health: FPL was above 1.38")
-            self.apple_h = False
+            return False
         else:
-            self.apple_h = True
+            return True
 
     def basic_food_eligibility(self):
         """
@@ -82,9 +79,9 @@ class ProgramEligibility:
 
         if self.household.fpl > 2:
             print("Income too high for WA Basic Food: FPL was above 2")
-            self.wa_food = False
+            return False
         else:
-            self.wa_food = True
+            return True
     
     def liheap_eligibility(self):
         """
@@ -97,7 +94,7 @@ class ProgramEligibility:
         
         if self.household.fpl > 1.5:
             print("Income too high for LIHEAP: FPL was above 1.5")
-            self.liheap = False
+            return False
         else:
-            self.liheap = True
+            return True
     

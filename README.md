@@ -11,3 +11,7 @@ This excel rounds the initial value down to the lowest 4 decimal places.
 If annual income is entered or the household size is greater than 7 then
 this rounddown function is not applied and the initial value is always
 rounded up to the nearest integer.
+
+More generally, must consider whether income measures should be rounded down.
+The Washington Health Care Authority rounds up the maximum income to the nearest dollar
+for 138% of the 2022 FPL. Using our current calculations, that dollar ammount would equal 139%.

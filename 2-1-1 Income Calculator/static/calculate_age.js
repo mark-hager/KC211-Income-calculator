@@ -1,4 +1,6 @@
-
+// js function used to calculate client age from DOB field
+// on the fly. since it's client side it doesn't require
+// the data to be submitted.
 function calculate_age(dob_input) {
 
     let dob = new Date(dob_input.target.value);

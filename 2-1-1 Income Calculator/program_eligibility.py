@@ -1,100 +1,67 @@
 """
-Class containing methods for determining household eligibility 
+Functions for determining household eligibility 
 for various state and federal benefits programs.
 """
 
-class ProgramEligibility: 
+
+def hsp_eligibility(self):
     """
-    Determines eligiblity for various benefits programs from an instance
-    of NewHousehold to check program requirements against the FPL, SMI, AMI
-    and household composition.
+    Determines eligibility for Housing Stability Project:
+    Area Median Income must be less than or equal to 50% and
+    rent to income ratio must be less than or equal to 1:1.5
     """
 
-
-    def __init__(self, household):
-
-        self.household = household
-
-        # programs that can be screened w/out rent
-        self.apple_h = self.apple_health_eligibility()
-        self.wa_food = self.basic_food_eligibility()
-        self.liheap = self.liheap_eligibility()
-        # check for eligibility only if rent_amount is not empty
-        if hasattr(self.household, 'monthly_rent'):
-            self.hsp = self.hsp_eligibility()
-        else:
-            self.hsp = False
-
-        # initialize empty list to hold programs client may be eligible for
-        self.programs = []
-        if self.wa_food is True:
-            self.programs.append("Washington Basic Food Program")
-        if self.apple_h is True:
-            self.programs.append("Apple Health")
-        if self.hsp is True:
-            self.programs.append("Housing Stability Project")
-        if self.liheap is True:
-            self.programs.append("Low Income Home Energy Assistance Program (LIHEAP)")
+    if self.ami > 0.5:
+        print("Income too high for HSP: AMI was above 0.5")
+        return False
+    if ((self.annual_income / 12) / 
+        self.monthly_rent) < 1.5:
+        print("Income to rent ratio was too low; must be at least 1.5:1")
+        return False
+    else:
+        return True
 
 
-    def hsp_eligibility(self):
-        """
-        Determines eligibility for Housing Stability Project:
-        Area Median Income must be less than or equal to 50% and
-        rent to income ratio must be less than or equal to 1:1.5
-        """
+def apple_health_eligibility(self):
+    """
+    Determines eligibility for Apple Health insurance:
+    FPL must be at or below 138% of the Federal Poverty Level.
+    Info for 2022:
+    https://www.hca.wa.gov/assets/free-or-low-cost/22-315.pdf
+    """
 
-        if self.household.ami > 0.5:
-            print("Income too high for HSP: AMI was above 0.5")
-            return False
-        if ((self.household.annual_income / 12) / 
-            self.household.monthly_rent) < 1.5:
-            print("Income to rent ratio was too low; must be at least 1.5:1")
-            return False
-        else:
-            return True
+    if self.fpl > 1.38:
+        print("Income too high for Apple Health: FPL was above 1.38")
+        return False
+    else:
+        return True
 
+def basic_food_eligibility(self):
+    """
+    Determines eligibility for Washington's Basic Food Program:
+    FPL must be at or below 200% of the Federal Poverty Level.
+    Info for 2022:
+    https://kingcounty.gov/depts/health/locations/health-insurance/access-and-outreach/basic-food-program.aspx
+    """
 
-    def apple_health_eligibility(self):
-        """
-        Determines eligibility for Apple Health insurance:
-        FPL must be at or below 138% of the Federal Poverty Level.
-        Info for 2022:
-        https://www.hca.wa.gov/assets/free-or-low-cost/22-315.pdf
-        """
+    if self.fpl > 2:
+        print("Income too high for WA Basic Food: FPL was above 2")
+        return False
+    else:
+        return True
 
-        if self.household.fpl > 1.38:
-            print("Income too high for Apple Health: FPL was above 1.38")
-            return False
-        else:
-            return True
-
-    def basic_food_eligibility(self):
-        """
-        Determines eligibility for Washington's Basic Food Program:
-        FPL must be at or below 200% of the Federal Poverty Level.
-        Info for 2022:
-        https://kingcounty.gov/depts/health/locations/health-insurance/access-and-outreach/basic-food-program.aspx
-        """
-
-        if self.household.fpl > 2:
-            print("Income too high for WA Basic Food: FPL was above 2")
-            return False
-        else:
-            return True
+def liheap_eligibility(self):
+    """
+    Determines eligibility for the Low Income Home Energy Assistance
+    Program (LIHEAP):
+    FPL must be at or below 150% of the Federal Poverty Level.
+    Info for 2022:
+    https://www.benefits.gov/benefit/623
+    """
     
-    def liheap_eligibility(self):
-        """
-        Determines eligibility for the Low Income Home Energy Assistance
-        Program (LIHEAP):
-        FPL must be at or below 150% of the Federal Poverty Level.
-        Info for 2022:
-        https://www.benefits.gov/benefit/623
-        """
-        
-        if self.household.fpl > 1.5:
-            print("Income too high for LIHEAP: FPL was above 1.5")
-            return False
-        else:
-            return True
-    
+    if self.fpl > 1.5:
+        print("Income too high for LIHEAP: FPL was above 1.5")
+        return False
+    else:
+        return True
+

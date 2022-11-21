@@ -128,9 +128,9 @@
 
           May be eligible for*
           
-          {% if eligibility.programs %}
+          {% if client.programs %}
           <ul class="programs">
-              {% for program in eligibility.programs %}
+              {% for program in client.programs %}
                   <li>{{ program }}</li>
               {% endfor %}
           </ul>

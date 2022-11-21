@@ -107,7 +107,7 @@ class NewHousehold:
         if liheap is True:
             self.programs.append("Low Income Home Energy Assistance Program (LIHEAP)")
         if pse_help is True:
-            self.programs.append("PSE HELP * PSE Customers Only * ")
+            self.programs.append("PSE HELP - PSE Customers Only")
         if elia is True:
-            self.programs.append("Emergency Low Income Assistance (ELIA) * SCL Customers Only * ")
+            self.programs.append("Emergency Low Income Assistance (ELIA) - SCL Customers Only")
     

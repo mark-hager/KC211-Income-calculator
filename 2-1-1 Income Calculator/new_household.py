@@ -83,7 +83,6 @@ class NewHousehold:
         """
 
         # programs that can be screened w/out rent
-
         apple_health = apple_health_eligibility(self)
         liheap = liheap_eligibility(self)
         wa_basic_food = basic_food_eligibility(self)
@@ -94,6 +93,8 @@ class NewHousehold:
         else:
             hsp = False
 
+        # initialize list to hold program names that the client/household may
+        # be eligible for; dynamically displayed by jinja template
         self.programs = []
         if wa_basic_food is True:
             self.programs.append("Washington Basic Food Program")

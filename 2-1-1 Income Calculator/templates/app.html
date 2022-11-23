@@ -5,100 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{url_for('static', filename='calculate_age.js')}}"></script>
   </head>
 
   <body>
     <div class="container">
+
       <header>
         <h1> 2-1-1 Income Calculator </h1>
       </header>
-      
-
 
       <form method="POST" action="/">
         {{ form.csrf_token }}
 
         <div class="formdata">
 
-          <div class="calculate_age">
-            <label for="dob_field">Get age from DOB:</label>
-            <input type="date" id="dob_field" name="dob_field" 
+          <div class="get-age">
+            <label for="dob_field" class="form-label">Get age from DOB: </label>
+            <input 
+                type="date" 
+                id="dob_field" 
+                name="dob_field" 
                 min="1900-01-01" 
-                onchange="calculate_age(event);"/>
+                onchange="calculate_age(event);"
+              />
+
+
+            <script>
+              document.getElementById("dob_field").max = new Date().toLocaleDateString('en-ca');
+            </script>
           </div>
-          <script>
-            document.getElementById("dob_field").max = new Date().toLocaleDateString('en-ca');
-          </script>
-          <div class="age_result" id="age_result"> 
+
+          <div class="age_result" id="age_result" class='form-input'> 
             {% if client.age %}   
             {{ client.age }} 
             {% endif %}
           </div>
 
-          <div class="req_fields">
-            <h4>Required Fields:</h4>
 
-            <div class="household_size">
+          <h4>Required Fields for Income Calculation:</h4>
 
-              {{ form.household_size.label }}
-              {{ form.household_size(class='enter_household_size', autocomplete="off", placeholder='#') }}
+          <div class="household_size">
 
-              {% if form.household_size.errors %}
+            {{ form.household_size.label }}
+            {{ form.household_size(class='form-input', autocomplete="off", placeholder='#') }}
+
+            {% if form.household_size.errors %}
+            <ul class="errors">
+                {% for error in form.household_size.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+          </div>
+
+          <div class="household_income">
+
+            {{ form.income_type(class='select_income_type') }}
+            <div class="household_label">
+              {{ form.income_amount.label }}
+            </div>
+            {{ form.income_amount(class='form-input', autocomplete="off", placeholder='$') }}
+
+            {% if form.income_amount.errors %}
               <ul class="errors">
-                  {% for error in form.household_size.errors %}
+                  {% for error in form.income_amount.errors %}
                       <li>{{ error }}</li>
                   {% endfor %}
               </ul>
-              {% endif %}
-
-            </div>
-
-            <div class="household_income">
-
-              {{ form.income_type(class='select_income_type') }}
-  
-              {{ form.income_amount.label }}
-              {{ form.income_amount(class='enter_income', autocomplete="off", placeholder='$') }}
-
-              {% if form.income_amount.errors %}
-                <ul class="errors">
-                    {% for error in form.income_amount.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-              {% endif %}
-            </div>
-
+            {% endif %}
           </div>
 
 
-          <div class="optional_fields">
-            <h4>Optional Fields:</h4>
 
-            <div class="children_in_household">
 
-              {{ form.has_children.label }}
-              {{ form.has_children() }}
+          <h4>Optional Fields for Program Eligibility:</h4>
 
-            </div>
+          <div class="children_in_household">
 
-            <div class="monthly_rent">
+            {{ form.has_children.label }}
+            {{ form.has_children(class='checkmark') }}
 
-              {{ form.monthly_rent.label }}
-              {{ form.monthly_rent(autocomplete="off") }}
-
-              {% if form.monthly_rent.errors %}
-                <ul class="errors">
-                    {% for error in form.monthly_rent.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-              {% endif %}
-            </div>
 
           </div>
+
+          <div class="monthly_rent">
+
+            {{ form.monthly_rent.label }}
+            {{ form.monthly_rent(autocomplete="off") }}
+
+            {% if form.monthly_rent.errors %}
+              <ul class="errors">
+                  {% for error in form.monthly_rent.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
           
           <button class="calculate" 
               type="submit" 
@@ -117,27 +123,24 @@
         <div class="income_measures">
           {% if client.fpl %}
 
-          FPL: {{ '{:.0%}'.format(client.fpl) }}
-          SMI: {{ '{:.0%}'.format(client.smi) }}
-          AMI: {{ '{:.0%}'.format(client.ami) }}
+          <div class="fpl">FPL: {{ '{:.0%}'.format(client.fpl) }}</div>
+          <div class="smi">SMI: {{ '{:.0%}'.format(client.smi) }}</div>
+          <div class="ami">AMI: {{ '{:.0%}'.format(client.ami) }}</div>
 
           {% endif %}
         </div>
 
         <div class="program_eligibility">
-
-          May be eligible for*
           
           {% if client.programs %}
-          <ul class="programs">
+          May be eligible for *
+      
               {% for program in client.programs %}
-                  <li>{{ program }}</li>
+                  <div class="programs"> {{ program }} </div>
               {% endfor %}
-          </ul>
-          {% endif %}
-
-  
+        
           * Based on reported income
+          {% endif %}
 
         </div>
       </div>

@@ -1,152 +1,103 @@
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: rgb(0, 0, 0);
-  }
-
-.alert {
-    background: rgba(162, 156, 156, 0.815);
-    padding: 1rem;
-    border-radius: 5px;
-    color: white;
-    margin: 1rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: rgb(0, 0, 0);
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
 }
 
-.container {
-  /*margin:auto;*/
-  display: grid;
-  border-style: solid;
-  border-width: 1px;
-  margins: auto;
-  padding: auto;
-  /*
-  min-width: 600px;
-  max-width: 1000px;
-  */
-  grid-template-columns: auto;
-  grid-template-rows: 50px 2fr 1fr;
-  row-gap: 10px;
-  justify-content: center;
-  grid-template-areas: 
-      "header"
-      "formdata"
-      "results"
-  }
+header {
+  font-size: .65em;
+}
+div {
+  margin-bottom: 10px;
+}
+
+.household_label {
+  display: inline-block;
+  width: 10.4rem;
+}
+label {
+  display: inline-block;
+  width: 15rem;
+}
+input {
+  padding: 5px 10px;
+  width: 7.5rem;
+  font-size:1rem;
+
+}
+
+.select_income_type {
+  padding: 10px 0px;
+  cursor: pointer;
+}
 
 
-  .formdata {
-    grid-area: formdata;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    border-style: solid;
-    border-width: 1px;
-    padding-left: 5px;
-    row-gap: 5px;
-  }
-    /*
-    
-    border-style: solid;
-    border-width: 1px;
+.children_in_household input {
+  cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-left: auto;
 
-    row-gap: 5px;
-    align-items: center;
-    grid-template-areas:
-        "required required"
-        "income income"
-        ". size"
-        "optional optional"
-        ". calculate"
-    
-  }
-  */
-  /*
-  .household_income {
-    grid-area: income;
-    display: inline-grid;
-    grid-template-columns: 150px 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    
-  }
+}
 
-  .select_income_type {
-    margin: auto;
-    border-radius: 10px;
-    border-width: none;
-    border-style: outset;
-    padding: 5px 10px;
-  }
 
-  .enter_income {
-    margin: auto;
-    justify-content: left;
-  }
+.age_result {
+}
+.calculate {
+  display: inline-block;
+  padding: 7px 12.5px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
+}
 
-  .household_size {
-    grid-area: size;
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    
-  }
+.calculate:hover {background-color: #3e8e41}
 
-  .enter_household_size {
-    margin: auto;
-    justify-content: left;
-  }
+.calculate:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.income_measures {
 
-  .optional_fields {
-    grid-area: optional;
-    display: inline-grid;
-    border-style: solid;
-    border-width: 1px;
-    grid-template-columns: 150px 1fr 1fr;
-    justify-content: left;
-    align-items: center;
-    text-align: center;
-    
-  }
+  text-decoration-line: underline;
+  font-weight: bold;
+  font-size: 1.3rem;
 
-  .children_in_household {
+}
 
-  }
-  */
+.fpl {
+  display:inline;
+  padding-right: 2rem;
 
-  .results {
-    grid-area: results;
-    border-style: solid;
-    border-width: 1px;
-    padding-left: 5px;
-  }
-  .income_measures {
-    border-style: solid;
-    border-width: 1px;
-    padding: 5px;
 
-  }
-  .calculate {
+}
 
-    background-color: #4CAF50;
-    width:80%;
-    border-width: none;
-    border-style: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    justify-content: center;
-    align-items: center;
-  }
+.smi {
+  display:inline;
 
-  .programs {
-    border-style: solid;
-    border-width: 1px;
-    background: rgba(15, 158, 206, 0.815);
-    padding: 1rem;
-    border-radius: 5px;
-    color: white;
-    margin: 1rem;
 
-  }
- 
- 
+}
+
+.ami {
+  display:inline;
+  padding-left: 2rem;
+}
+
+.programs {
+  background: rgba(14, 175, 16, 0.815);
+  padding: .75rem;
+  border-radius: 5px;
+  color: white;
+  margin: 5px 10px;
+  width: 25rem;
+}

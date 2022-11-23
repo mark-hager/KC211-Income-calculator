@@ -15,15 +15,38 @@ function calculate_age(dob_input) {
     // added dob.getDate()) + 1 because it was ahead one day for some reason
     curr_day.getMonth() == dob.getMonth() && curr_day.getDate() < (dob.getDate()) + 1) {
     age--;
+ 
     }
 
     if (age < 0 ) {
-        age = "Error: DOB may not be a future date";
-    } else if (age > 120) {
-        age = "Error: DOB must be after 01/01/1900";
+        document.getElementById("age_result").style.fontSize = "medium";
+        document.getElementById("age_result").style.paddingLeft = "1px";
 
-    } else if (isNaN(age)) {
-        return "Error: Invalid DOB"
+        document.getElementById("age_result").style.textDecoration = "none";
+
+        age = "Error: DOB may not be a future date";
+    // users can understand this
+    /*
+    } else if (age > 120) {
+        document.getElementById("age_result").style.fontSize = "medium";
+        document.getElementById("age_result").style.paddingLeft = "1px";
+
+        document.getElementById("age_result").style.textDecoration = "none";
+
+        age = "Error: DOB must be after 01/01/1900";
+    */
+    }
+    else if (isNaN(age)) {
+        document.getElementById("age_result").style.fontSize = "medium";
+        document.getElementById("age_result").style.paddingLeft = "1px";
+        document.getElementById("age_result").style.textDecoration = "none";
+        age = "Error: Invalid DOB"
+
+    } else {
+        document.getElementById("age_result").style.fontSize = "x-large";
+        document.getElementById("age_result").style.paddingLeft = "10px";
+        document.getElementById("age_result").style.textDecoration = "underline";
+        
     }
     
     document.getElementById("age_result").innerHTML = age;

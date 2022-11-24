@@ -35,7 +35,7 @@ input {
 
 .enter_income {
   padding-left: 1.5rem;
-  width: 7.2rem;
+  width: 6.7rem;
 }
 .income_amount {
   position: relative;
@@ -111,9 +111,9 @@ input {
 
 .programs {
   background: rgba(14, 175, 16, 0.815);
-  padding: .75rem;
+  padding: .5rem;
   border-radius: 5px;
   color: white;
   margin: 5px 10px;
-  width: 25rem;
+  width: 23rem;
 }

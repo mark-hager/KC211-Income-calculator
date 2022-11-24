@@ -64,10 +64,12 @@
           <div class="household_income">
 
             {{ form.income_type(class='select_income_type') }}
-            <div class="household_label">
+            <div class="income_label">
               {{ form.income_amount.label }}
             </div>
-            {{ form.income_amount(class='form-input', autocomplete="off", placeholder='$') }}
+            <div class="income_amount">
+              {{ form.income_amount(class="enter_income", autocomplete="off") }}
+            </div>
 
             {% if form.income_amount.errors %}
               <ul class="errors">
@@ -133,7 +135,7 @@
         <div class="program_eligibility">
           
           {% if client.programs %}
-          May be eligible for *
+          <p>May be eligible for * </p>
       
               {% for program in client.programs %}
                   <div class="programs"> {{ program }} </div>

@@ -13,7 +13,7 @@ div {
   margin-bottom: 10px;
 }
 
-.household_label {
+.income_label {
   display: inline-block;
   width: 10.4rem;
 }
@@ -33,6 +33,22 @@ input {
   cursor: pointer;
 }
 
+.enter_income {
+  padding-left: 1.5rem;
+  width: 7.2rem;
+}
+.income_amount {
+  position: relative;
+  display: inline;
+
+}
+.income_amount:before {
+  content: '$';
+  position: absolute;
+  top: 0;
+  left: .75rem;
+  z-index: 1;
+}
 
 .children_in_household input {
   cursor: pointer;
@@ -68,29 +84,29 @@ input {
   transform: translateY(4px);
 }
 .income_measures {
+  display: grid;
+  width: 80%;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-top: 1rem;
 
-  text-decoration-line: underline;
-  font-weight: bold;
+  
   font-size: 1.3rem;
 
 }
 
 .fpl {
-  display:inline;
-  padding-right: 2rem;
 
+  border-bottom: 1px double;
 
 }
 
 .smi {
-  display:inline;
-
-
+  border-bottom: 1px double;
 }
 
 .ami {
-  display:inline;
-  padding-left: 2rem;
+
+  border-bottom: 1px double;
 }
 
 .programs {

@@ -15,3 +15,6 @@ rounded up to the nearest integer.
 More generally, must consider whether income measures should be rounded down.
 The Washington Health Care Authority rounds up the maximum income to the nearest dollar
 for 138% of the 2022 FPL. Using our current calculations, that dollar ammount would equal 139%.
+
+# To do
+Decimal wtform subclass to allow for commas in income entry. Also want to figure out a better way of putting the dollar sign in there automatically, e.g a span.

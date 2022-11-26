@@ -66,9 +66,10 @@
               {{ form.income_amount.label(class="income_label2") }}
             </div>
             
-            <div class="income_amount">
+            <span class="income_amount">
+              &#36;
               {{ form.income_amount(class="enter_income", autocomplete="off") }}
-            </div>
+            </span>
 
             {% if form.income_amount.errors %}
               <ul class="errors">

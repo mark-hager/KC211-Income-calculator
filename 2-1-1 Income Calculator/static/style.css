@@ -10,7 +10,11 @@ body {
   border-spacing:0 10px;
 }
 
-
+input[type=number], input[type=number]:hover, input[type=number]:focus {
+  outline-color: blue;
+  color: gray;
+  font-size: 13px;
+}
 
 header {
   font-size: .65em;
@@ -59,24 +63,37 @@ input {
 }
 
 .enter_income {
-  padding-left: 1.5rem;
-  margin-right: 1.5rem;
-  width: 110px;
+  box-sizing: border-box;
+  border: none;
+  outline: 1px;
+  outline-color: gray;
+  outline-offset: 0;
   justify-content: center;
-}
-.income_amount {
-  position: relative;
-  width: 110px;
-  display: inline;
+  align-items: center;
 
 }
-.income_amount:before {
-  content: '$';
-  width: 110px;
-  position: absolute;
-  top: 0;
-  left: .75rem;
-  z-index: 1;
+
+.income_amount:hover, .income_amount:focus {
+  border: 0;
+  outline: solid;
+  outline-offset: 0;
+  outline-color: blue;
+}
+.income_amount:active{
+  border: 0;
+  outline: solid;
+  outline-offset: 0;
+  outline-color: blue;
+
+}
+.income_amount {
+  padding: 10px 0px 10px 10px;
+  border: 1px solid gray;
+  border-radius: 2px;
+  text-align: center;
+  justify-self: center;
+
+
 }
 
 

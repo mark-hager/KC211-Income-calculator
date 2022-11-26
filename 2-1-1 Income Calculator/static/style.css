@@ -1,10 +1,16 @@
+
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(0, 0, 0);
   max-width: 500px;
   margin: auto;
   padding: 10px;
+  border-collapse:separate;
+  border-spacing:0 10px;
 }
+
+
 
 header {
   font-size: .65em;
@@ -13,19 +19,38 @@ div {
   margin-bottom: 10px;
 }
 
-.income_label {
-  display: inline-block;
-  width: 10.4rem;
+.get_age {
+  display: table-row;
 }
+
+
+.household_size {
+  display: table-row;
+}
+
 label {
-  display: inline-block;
+  display: table-cell;
   width: 15rem;
 }
 input {
-  padding: 5px 10px;
-  width: 7.5rem;
-  font-size:1rem;
+  display: table-cell;
+  padding: 10px;
 
+  width: 110px;
+  box-sizing: content-box; 
+}
+
+
+.household_income {
+  display: table-row;
+}
+
+.income_label {
+  display: table-cell;
+}
+
+.income_label2 {
+  display: inline;
 }
 
 .select_income_type {
@@ -35,27 +60,42 @@ input {
 
 .enter_income {
   padding-left: 1.5rem;
-  width: 6.7rem;
+  margin-right: 1.5rem;
+  width: 110px;
+  justify-content: center;
 }
 .income_amount {
   position: relative;
+  width: 110px;
   display: inline;
 
 }
 .income_amount:before {
   content: '$';
+  width: 110px;
   position: absolute;
   top: 0;
   left: .75rem;
   z-index: 1;
 }
 
+
+.children_in_household {
+  display: table-row;
+}
 .children_in_household input {
+  display: table-cell;
   cursor: pointer;
   height: 1.5rem;
   width: 1.5rem;
   margin-left: auto;
 
+}
+
+.monthly_rent {
+
+  display: table-row;
+  
 }
 
 

@@ -21,8 +21,8 @@
 
         <div class="formdata">
 
-          <div class="get-age">
-            <label for="dob_field" class="form-label">Get age from DOB: </label>
+          <div class="get_age">
+            <label for="dob_field"> Get age from DOB: </label>
             <input 
                 type="date" 
                 id="dob_field" 
@@ -30,7 +30,6 @@
                 min="1900-01-01" 
                 onchange="calculate_age(event);"
               />
-
 
             <script>
               document.getElementById("dob_field").max = new Date().toLocaleDateString('en-ca');
@@ -62,13 +61,12 @@
           </div>
 
           <div class="household_income">
-
-            {{ form.income_type(class='select_income_type') }}
             <div class="income_label">
-              {{ form.income_amount.label }}
+              {{ form.income_type(class='select_income_type') }}
+              {{ form.income_amount.label(class="income_label2") }}
             </div>
+            
             <div class="income_amount">
-
               {{ form.income_amount(class="enter_income", autocomplete="off") }}
             </div>
 

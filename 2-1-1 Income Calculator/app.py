@@ -23,8 +23,8 @@ from new_household import *
 app = Flask(__name__)
 # default secret_key for development
 app.secret_key = 'dev'
-app.secret_key = os.environ.get('SECRET_KEY', 'dev')
-
+# overridden if there's a config file containing a secret_key
+app.config.from_pyfile('config.py', silent=True)
 
 # only one route since the calculator is only one page
 @app.route("/", methods = ['GET', 'POST'])
@@ -38,6 +38,8 @@ def main():
         raw_dob = request.form['dob_field']
         # then create a new household object
         client = NewHousehold(form, raw_dob)
+        print(f" secret key = {app.secret_key}")
+        os.environ.get('SECRET_KEfY', 'dev')
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)

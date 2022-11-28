@@ -9,6 +9,20 @@ from wtforms import (DateField, TextAreaField, IntegerField, BooleanField,
 from wtforms.validators import (DataRequired, InputRequired, Length, 
                                 NumberRange, Optional, ValidationError)
 
+
+class DollarField(DecimalField):
+    """
+    Custom subclass of wtform's decimal field that allows for commmas to be submitted along with 
+    the decimal itself. Thanks to stackoverflow!
+    https://stackoverflow.com/questions/20876217/wtforms-custom-field-for-dollar-values
+    """
+    def process_formdata(self, valuelist):
+        for val in valuelist:
+            self.data = [valuelist[0].replace(',', '')]
+        # Calls "process_formdata" on the parent types of "DollarField",
+        # which includes "DecimalField"
+        super(DollarField).process_formdata(self.data)
+
 class HouseholdForm(FlaskForm):
     """
     Uses wtforms and flask_wtf to create forms in jina template with datatypes and validators
@@ -31,5 +45,3 @@ class HouseholdForm(FlaskForm):
     monthly_rent = DecimalField("Monthly Rent", 
                                 validators=[Optional(), 
                                 NumberRange(min=0, message="Income must be greater than 0.")])
-
-

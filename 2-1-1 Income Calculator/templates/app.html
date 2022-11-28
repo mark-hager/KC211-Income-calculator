@@ -52,7 +52,7 @@
 
             {{ form.household_size.label }}
             <span class="hsize_span">
-              {{ form.household_size(autocomplete="off") }}
+              {{ form.household_size(autocomplete="off", placeholder="#") }}
             </span>
 
             {% if form.household_size.errors %}

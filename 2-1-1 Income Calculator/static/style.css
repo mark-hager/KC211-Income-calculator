@@ -4,7 +4,6 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(0, 0, 0);
   max-width: 500px;
-  margin: auto;
   border-collapse:separate;
   border-spacing:0 5px;
 }

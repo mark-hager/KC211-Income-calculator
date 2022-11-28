@@ -31,7 +31,7 @@ app.config.from_pyfile('config.py', silent=True)
 def main():
 
     # get the data from the wtform
-    form = HouseholdForm()
+    form = HouseholdForm(meta={'csrf': False})
     # if POST request is valid and the data in the form passes validation
     if request.method == 'POST' and form.validate_on_submit():
         # dob field is not a wtform in order to use JavaScript on it

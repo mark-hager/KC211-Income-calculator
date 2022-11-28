@@ -20,6 +20,7 @@ div {
 
 .get_age {
   display: table-row;
+  height: 20px;
 }
 .age_result {
   padding-left: 10px;
@@ -31,19 +32,6 @@ div {
 
 .household_size {
   display: table-row;
-}
-
-.hsize_span {
-  display: inline-block;
-  position: relative;
-}
-
-.hsize_span::before {
-  content: "#";
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .form_input {
@@ -115,8 +103,7 @@ input {
   padding: 7px 12.5px;
   font-size: 20px;
   cursor: pointer;
-  text-align: center;
-  text-decoration: none;
+
   outline: none;
   color: #fff;
   background-color: #4CAF50;

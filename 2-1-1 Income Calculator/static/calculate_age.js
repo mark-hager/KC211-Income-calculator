@@ -24,7 +24,7 @@ function calculate_age(dob_input) {
 
         document.getElementById("age_result").style.textDecoration = "none";
 
-        age = "Error: Invalid DOB";
+        age = "Invalid DOB!";
     // users can understand this
     /*
     } else if (age > 120) {
@@ -40,7 +40,7 @@ function calculate_age(dob_input) {
         document.getElementById("age_result").style.fontSize = "medium";
         document.getElementById("age_result").style.paddingLeft = "1px";
         document.getElementById("age_result").style.textDecoration = "none";
-        age = "Error: Invalid DOB"
+        age = "Invalid DOB!"
 
     } else {
         document.getElementById("age_result").style.fontSize = "x-large";

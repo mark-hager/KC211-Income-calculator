@@ -51,7 +51,7 @@
 
             {{ form.household_size.label }}
             <span class="hsize_span">
-              {{ form.household_size(class='form_input', autocomplete="off") }}
+              {{ form.household_size(autocomplete="off") }}
             </span>
 
             {% if form.household_size.errors %}
@@ -110,7 +110,6 @@
             {% endif %}
           </div>
 
-          
           <button class="calculate" 
               type="submit" 
               value="Calculate" 
@@ -119,7 +118,6 @@
           </button>
 
         </div>
-
 
 
       </form>

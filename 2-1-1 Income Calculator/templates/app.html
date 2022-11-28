@@ -120,16 +120,16 @@
       </form>
       <div class="results">
 
+        {% if client.fpl %}
         <div class="income_measures">
-          {% if client.fpl %}
 
           <div class="fpl">FPL: {{ '{:.0%}'.format(client.fpl) }}</div>
           <div class="smi">SMI: {{ '{:.0%}'.format(client.smi) }}</div>
           <div class="ami">AMI: {{ '{:.0%}'.format(client.ami) }}</div>
-
-          {% endif %}
+          
         </div>
-
+        {% endif %}
+        
         <div class="program_eligibility">
           
           {% if client.programs %}

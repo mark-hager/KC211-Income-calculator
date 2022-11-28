@@ -10,11 +10,6 @@ body {
   border-spacing:0 10px;
 }
 
-input[type=number], input[type=number]:hover, input[type=number]:focus {
-  outline-color: blue;
-  color: gray;
-  font-size: 13px;
-}
 
 header {
   font-size: .65em;
@@ -38,6 +33,24 @@ div {
   display: table-row;
 }
 
+.hsize_span {
+  display: inline-block;
+  position: relative;
+}
+
+.hsize_span::before {
+  content: "#";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form_input {
+  box-sizing: border-box;
+  padding-left: 20px;
+}
+
 label {
   display: table-cell;
   width: 15rem;
@@ -46,20 +59,19 @@ input {
   display: table-cell;
   padding: 10px;
 
-  width: 110px;
-  box-sizing: content-box; 
+  width: 130px;
+  box-sizing: border-box; 
 }
-
 
 .household_income {
   display: table-row;
 }
 
-.income_label {
+.income_type {
   display: table-cell;
 }
 
-.income_label2 {
+.income_label {
   display: inline;
 }
 
@@ -68,44 +80,23 @@ input {
   cursor: pointer;
 }
 
-.enter_income {
-  box-sizing: border-box;
-  border: none;
-  outline: 1px;
-  outline-color: gray;
-  outline-offset: 0;
-  justify-content: center;
-  align-items: center;
-
+.dollar_span {
+  display: inline-block;
+  position: relative;
 }
 
-.income_amount:hover, .income_amount:focus {
-  border: 0;
-  outline: solid;
-  outline-offset: 0;
-  outline-color: blue;
+.dollar_span::before {
+  content: "$";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
-.income_amount:active{
-  border: 0;
-  outline: solid;
-  outline-offset: 0;
-  outline-color: blue;
-
-}
-.income_amount {
-  padding: 10px 0px 10px 10px;
-  border: 1px solid gray;
-  border-radius: 2px;
-  text-align: center;
-  justify-self: center;
-
-
-}
-
 
 .children_in_household {
   display: table-row;
 }
+
 .children_in_household input {
   display: table-cell;
   cursor: pointer;
@@ -116,14 +107,9 @@ input {
 }
 
 .monthly_rent {
-
   display: table-row;
-  
 }
 
-
-.age_result {
-}
 .calculate {
   display: inline-block;
   padding: 7px 12.5px;
@@ -151,16 +137,13 @@ input {
   width: 80%;
   grid-template-columns: 1fr 1fr 1fr;
   padding-top: 1rem;
-
   
   font-size: 1.3rem;
 
 }
 
 .fpl {
-
   border-bottom: 1px double;
-
 }
 
 .smi {
@@ -168,7 +151,6 @@ input {
 }
 
 .ami {
-
   border-bottom: 1px double;
 }
 

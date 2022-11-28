@@ -24,7 +24,7 @@ function calculate_age(dob_input) {
 
         document.getElementById("age_result").style.textDecoration = "none";
 
-        age = "Error: DOB may not be a future date";
+        age = "Error: Invalid DOB";
     // users can understand this
     /*
     } else if (age > 120) {

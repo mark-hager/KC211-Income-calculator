@@ -50,7 +50,9 @@
           <div class="household_size">
 
             {{ form.household_size.label }}
-            {{ form.household_size(class='form-input', autocomplete="off", placeholder='#') }}
+            <span class="hsize_span">
+              {{ form.household_size(class='form_input', autocomplete="off") }}
+            </span>
 
             {% if form.household_size.errors %}
             <ul class="errors">
@@ -63,14 +65,13 @@
           </div>
 
           <div class="household_income">
-            <div class="income_label">
+            <div class="income_type">
               {{ form.income_type(class='select_income_type') }}
-              {{ form.income_amount.label(class="income_label2") }}
+              {{ form.income_amount.label(class="income_label") }}
             </div>
             
-            <span class="income_amount">
-              &#36;
-              {{ form.income_amount(class="enter_income", autocomplete="off") }}
+            <span class="dollar_span">
+              {{ form.income_amount(class="form_input", autocomplete="off") }}
             </span>
 
             {% if form.income_amount.errors %}
@@ -81,8 +82,6 @@
               </ul>
             {% endif %}
           </div>
-
-
 
 
           <h4>Optional Fields for Program Eligibility:</h4>
@@ -98,7 +97,9 @@
           <div class="monthly_rent">
 
             {{ form.monthly_rent.label }}
-            {{ form.monthly_rent(autocomplete="off") }}
+            <span class="dollar_span">
+              {{ form.monthly_rent(class="form_input", autocomplete="off") }}
+            </span>
 
             {% if form.monthly_rent.errors %}
               <ul class="errors">

@@ -22,7 +22,15 @@
         <div class="formdata">
 
           <div class="get_age">
-            <label for="dob_field"> Get age from DOB: </label>
+            <label for="dob_field"> Get age from DOB: 
+
+            <div class="age_result" id="age_result" class='form-input'> 
+              {% if client.age %}   
+              {{ client.age }} 
+              {% endif %}
+            </div>
+          </label>
+
             <input 
                 type="date" 
                 id="dob_field" 
@@ -34,14 +42,8 @@
             <script>
               document.getElementById("dob_field").max = new Date().toLocaleDateString('en-ca');
             </script>
+  
           </div>
-
-          <div class="age_result" id="age_result" class='form-input'> 
-            {% if client.age %}   
-            {{ client.age }} 
-            {% endif %}
-          </div>
-
 
           <h4>Required Fields for Income Calculation:</h4>
 

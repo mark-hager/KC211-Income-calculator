@@ -38,8 +38,6 @@ def main():
         raw_dob = request.form['dob_field']
         # then create a new household object
         client = NewHousehold(form, raw_dob)
-        print(f" secret key = {app.secret_key}")
-        os.environ.get('SECRET_KEfY', 'dev')
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)

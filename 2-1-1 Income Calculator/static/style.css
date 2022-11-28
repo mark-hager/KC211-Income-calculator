@@ -26,7 +26,13 @@ div {
 .get_age {
   display: table-row;
 }
-
+.age_result {
+  padding-left: 10px;
+  display: inline;
+  font-size: x-large;
+  text-decoration: underline;
+  text-decoration-style: double;
+}
 
 .household_size {
   display: table-row;

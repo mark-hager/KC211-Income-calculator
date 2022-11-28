@@ -46,6 +46,8 @@ function calculate_age(dob_input) {
         document.getElementById("age_result").style.fontSize = "x-large";
         document.getElementById("age_result").style.paddingLeft = "10px";
         document.getElementById("age_result").style.textDecoration = "underline";
+        document.getElementById("age_result").style.textDecorationStyle = "double";
+
         
     }
     

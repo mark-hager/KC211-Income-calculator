@@ -1,7 +1,7 @@
 /.DS_Store
 /tests
 venv/
-dev.py
+config.py
 old_app.py
 old_style.css
 app_test.py

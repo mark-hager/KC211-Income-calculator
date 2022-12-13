@@ -19,4 +19,5 @@ for 138% of the 2022 FPL. Using our current calculations, that dollar ammount wo
 ### To do
 - Decimal wtform subclass to allow for commas in income entry. Also want to figure out a better way of putting the dollar sign in there automatically, e.g a span.
 - Info pop-ups for income measures, programs, etc.
+- refactor so that income_measures don't need client object to calculate their respective measures.
 

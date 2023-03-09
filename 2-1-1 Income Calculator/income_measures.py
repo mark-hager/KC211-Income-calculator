@@ -38,18 +38,18 @@ def calculate_fpl(client):
 
 def calculate_smi(client):
     """
-    Calculates the State Median Income based on DSHS 2022 guidelines
+    Calculates the State Median Income based on DSHS 2023 guidelines
     https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart
     """
 
     # SMI is calculated with separate base rates depending on household size
     # for families of 5 or less, and families of 6 or more
-    smi_base_household_5_or_less = 38940
-    smi_base_household_6_or_more = 142776
+    smi_base_household_5_or_less = 40824
+    smi_base_household_6_or_more = 149736
     # the rate for each person in a household of 5 or less
-    smi_rate_household_5_or_less = 17304
+    smi_rate_household_5_or_less = 18156
     # the rate for each person in a household of 6 or more
-    smi_rate_household_6_or_more = 3240
+    smi_rate_household_6_or_more = 3408
 
     # calculate the SMI depending on household size, 
     # rounded to 4 decimal places to match the excel calculator; can't

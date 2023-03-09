@@ -18,13 +18,13 @@ def excel_ceil(num):
 
 def calculate_fpl(client):
     """
-    Calculates the Federal Poverty Level based on HHS 2022 guidelines
+    Calculates the Federal Poverty Level based on HHS 2023 guidelines
     https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines
     """
 
     # FPL is calculated with a base rate times an additional rate per person
-    fpl_base = 8870
-    fpl_rate_per_person = 4720
+    fpl_base = 9440
+    fpl_rate_per_person = 5140
     # calculate the FPL by dividing income by the base rate + household size
     # * the rate per person
     fpl = math.ceil(client.annual_income / ((client.household_size * fpl_rate_per_person)

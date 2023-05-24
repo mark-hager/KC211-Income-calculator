@@ -74,8 +74,8 @@ def calculate_ami(client):
     """
     Calculates the Area Median Income based on HUD 2023 guidelines
     https://www.huduser.gov/portal/datasets/il/il2023/2023summary.odn?states=%24states%24&data=2023&inputname=METRO42660MM7600*Seattle-Bellevue%2C+WA+HUD+Metro+FMR+Area&stname=%24stname%24&statefp=99&year=2023&selection_type=hmfa
-    Currently rounding final AMI percentage as Hannah appears to be doing; need to confirm that this is correct.
-    Previously I was using floor to always round down which created discrepancy
+    Uses artificial "caps" rounded to the nearest 50 for each of the income limits: 30%, 50% and 80% of the AMI as defined by HUD.
+    Should refactor code to make variable names and calculations clearer.
 
     """
     # AMI is calculated from the median annual income for a family of 4
@@ -116,7 +116,14 @@ def calculate_ami(client):
 
     else:
         adjusted_ami = initial_ami
-
+        
+    # AMI adjustments for incomes that would fall under the 30% CAP
+    cap_30 = ami_massaged_100_percent * 0.3
+    cap_30 = 50 * round(cap_30 / 50)
+    check_30_percent = False
+    
+    if annual_income > cap_30 and adjusted_ami < 31:
+        check_30_percent = True
     # AMI adjustments for incomes that would fall under the 50% CAP
     cap_50 = ami_massaged_100_percent / 2
     cap_50 = 50 * round(cap_50 / 50)
@@ -130,10 +137,15 @@ def calculate_ami(client):
         check_80_percent = True
 
     ami = round(adjusted_ami)
-    if check_50_percent is True:
+    
+    # check that any value over defined income limit is rounded up 
+    if check_30_percent is True:
+        ami = 31
+    elif check_50_percent is True:
         ami = 51
-    if check_80_percent is True:
+    elif check_80_percent is True:
         ami = 81
+        
     # convert from percentage back to decimal for program eligibility and formatting
     ami = ami / 100
 

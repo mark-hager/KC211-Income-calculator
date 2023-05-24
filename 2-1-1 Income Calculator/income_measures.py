@@ -119,14 +119,14 @@ def calculate_ami(client):
         
     # AMI adjustments for incomes that would fall under the 30% CAP
     cap_30 = ami_massaged_100_percent * 0.3
-    cap_30 = 50 * round(cap_30 / 50)
+    cap_30 = 50 * math.ceil(cap_30 / 50)
     check_30_percent = False
     
     if client.annual_income > cap_30 and adjusted_ami < 31:
         check_30_percent = True
     # AMI adjustments for incomes that would fall under the 50% CAP
     cap_50 = ami_massaged_100_percent / 2
-    cap_50 = 50 * round(cap_50 / 50)
+    cap_50 = 50 * math.ceil(cap_50 / 50)
     check_50_percent = False
 
     if client.annual_income > cap_50 and adjusted_ami < 51:

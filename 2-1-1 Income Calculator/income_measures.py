@@ -72,20 +72,20 @@ def calculate_smi(client):
 
 def calculate_ami(client):
     """
-    Calculates the Area Median Income based on HUD 2022 guidelines
-    https://www.huduser.gov/portal/datasets/il/il2022/2022summary.odn
+    Calculates the Area Median Income based on HUD 2023 guidelines
+    https://www.huduser.gov/portal/datasets/il/il2023/2023summary.odn?states=%24states%24&data=2023&inputname=METRO42660MM7600*Seattle-Bellevue%2C+WA+HUD+Metro+FMR+Area&stname=%24stname%24&statefp=99&year=2023&selection_type=hmfa
     Currently rounding final AMI percentage as Hannah appears to be doing; need to confirm that this is correct.
     Previously I was using floor to always round down which created discrepancy
 
     """
     # AMI is calculated from the median annual income for a family of 4
-    ami_base_household_of_4 = 129400
+    ami_base_household_of_4 = 137000
     # 80% low-income limit for a family of 4; for more detail read https://www.huduser.gov/portal/datasets/il/il2022/2022ILCalc3080.odn
-    ami_base_80_percent = 95300
+    ami_base_80_percent = 100900
     # theoretical median income for a household of 0
-    ami_base_0 = 77640
+    ami_base_0 = 82200
     # 80% of the median income for a household of 0
-    ami_base_0_80_percent = 57180
+    ami_base_0_80_percent = 60540
     # for calculations when the initial AMI is between 70% and 80%
     ami_base_between_70_and_80 = (ami_base_80_percent * 1.25)
     # initialize to false

@@ -32,7 +32,7 @@ def calculate_fpl(client):
 
     # convert from percentage back to decimal for program eligibility and formatting
     fpl = fpl / 100
-   
+
     return fpl  # return the calculated Federal Poverty Level percentage to our client object
 
 
@@ -57,9 +57,12 @@ def calculate_smi(client):
     if client.household_size < 7:
         smi = round(client.annual_income / ((client.household_size * smi_rate_household_5_or_less)
                             + smi_base_household_5_or_less), 4) * 100
+
     elif client.household_size > 6:
-        smi = round(client.annual_income / (smi_base_household_6_or_more +
-                            ((client.household_size - 6) * (smi_rate_household_6_or_more))), 4) * 100
+        smi = round(client.annual_income /
+                    (smi_base_household_6_or_more +
+                            ((client.household_size - 6) *
+                             (smi_rate_household_6_or_more))), 4) * 100
     # round the SMI up
     smi = math.ceil(smi)
     # convert from percentage back to decimal for program eligibility and formatting
@@ -68,60 +71,71 @@ def calculate_smi(client):
     return smi  # return the calculated State Median Income to our client object
 
 
-
-
 def calculate_ami(client):
     """
     Calculates the Area Median Income based on HUD 2023 guidelines
     https://www.huduser.gov/portal/datasets/il/il2023/2023summary.odn?states=%24states%24&data=2023&inputname=METRO42660MM7600*Seattle-Bellevue%2C+WA+HUD+Metro+FMR+Area&stname=%24stname%24&statefp=99&year=2023&selection_type=hmfa
-    Uses artificial "caps" rounded to the nearest 50 for each of the income limits: 30%, 50% and 80% of the AMI as defined by HUD.
+    Uses artificial "caps" rounded to the nearest 50 for each of the income limits: 30%, 
+    50% and 80% of the AMI as defined by HUD.
     Should refactor code to make variable names and calculations clearer.
-
     """
     # AMI is calculated from the median annual income for a family of 4
     ami_base_household_of_4 = 137000
-    # 80% low-income limit for a family of 4; for more detail read https://www.huduser.gov/portal/datasets/il/il2022/2022ILCalc3080.odn
+    # 80% low-income limit for a family of 4;
+    # for more detail read https://www.huduser.gov/portal/datasets/il/il2022/2022ILCalc3080.odn
     ami_base_80_percent = 100900
     # theoretical median income for a household of 0
     ami_base_0 = 82200
     # 80% of the median income for a household of 0
     ami_base_0_80_percent = 60540
     # for calculations when the initial AMI is between 70% and 80%
-    ami_base_between_70_and_80 = (ami_base_80_percent * 1.25)
+    ami_base_between_70_and_80 = ami_base_80_percent * 1.25
     # initialize to false
     check_80_percent = False
 
     # calculate initial percentage to determine if it falls above or below 70%
     if client.household_size < 5:
-        initial_ami = client.annual_income / ((ami_base_0) + (client.household_size * (ami_base_household_of_4 * .10))) * 100
-        ami_80_cap = ami_base_0_80_percent + ami_base_80_percent * (client.household_size * .10)       #80% CAP calculation in Hannah's excel calculator
+        initial_ami = client.annual_income / (ami_base_0 +
+                                              (client.household_size *
+                                               (ami_base_household_of_4 * .10))) * 100
+        #equivalent to the 80% CAP calculation in Hannah's excel calculator
+        ami_80_cap = ami_base_0_80_percent + ami_base_80_percent * (client.household_size * .10)
+
     elif client.household_size > 4:
-        initial_ami = client.annual_income / ((ami_base_household_of_4 * .08) * (client.household_size - 4) + ami_base_household_of_4) * 100
+        initial_ami = client.annual_income / ((ami_base_household_of_4 * .08)
+                                              * (client.household_size - 4)
+                                              + ami_base_household_of_4) * 100
         ami_80_cap = ami_base_80_percent + (ami_base_80_percent * (client.household_size - 4) * .08)
 
     ami_80_cap = excel_ceil(ami_80_cap)
     # calculate Hannah's Base 100% (C8), a massaged 100% AMI number
     if client.household_size < 5:
-        ami_massaged_100_percent = ami_base_0 + (ami_base_household_of_4 * 0.1 * client.household_size)
+        ami_massaged_100_percent = ami_base_0 + (ami_base_household_of_4
+                                                 * 0.1 * client.household_size)
     elif client.household_size > 4:
-        ami_massaged_100_percent = ami_base_household_of_4 + (ami_base_household_of_4 * 0.08 * (client.household_size - 4))
+        ami_massaged_100_percent = ami_base_household_of_4 + (ami_base_household_of_4 *
+                                                              0.08 * (client.household_size - 4))
 
 
     # AMI adjustment for incomes that would normally fall between 70% and 80% of the AMI
-    if initial_ami >= 71 and initial_ami <= 81:
+    if 71 <= initial_ami <= 81:
         if client.household_size < 5:
-            adjusted_ami = client.annual_income / (ami_base_between_70_and_80 + ((client.household_size - 4) * ami_base_between_70_and_80 * .10)) * 100
+            adjusted_ami = client.annual_income / (ami_base_between_70_and_80
+                                                   + ((client.household_size - 4)
+                                                      * ami_base_between_70_and_80 * .10)) * 100
         else:
-            adjusted_ami = client.annual_income / (ami_base_between_70_and_80 + ((client.household_size - 4) * ami_base_between_70_and_80 * .08)) * 100
+            adjusted_ami = client.annual_income / (ami_base_between_70_and_80
+                                                   + ((client.household_size - 4)
+                                                      * ami_base_between_70_and_80 * .08)) * 100
 
     else:
         adjusted_ami = initial_ami
-        
+
     # AMI adjustments for incomes that would fall under the 30% CAP
     cap_30 = ami_massaged_100_percent * 0.3
     cap_30 = 50 * math.ceil(cap_30 / 50)
     check_30_percent = False
-    
+
     if client.annual_income > cap_30 and adjusted_ami < 31:
         check_30_percent = True
     # AMI adjustments for incomes that would fall under the 50% CAP
@@ -137,15 +151,15 @@ def calculate_ami(client):
         check_80_percent = True
 
     ami = round(adjusted_ami)
-    
-    # check that any value over defined income limit is rounded up 
+
+    # check that any value over defined income limit is rounded up
     if check_30_percent is True:
         ami = 31
     elif check_50_percent is True:
         ami = 51
     elif check_80_percent is True:
         ami = 81
-        
+
     # convert from percentage back to decimal for program eligibility and formatting
     ami = ami / 100
 

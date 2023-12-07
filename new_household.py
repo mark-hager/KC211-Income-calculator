@@ -20,7 +20,7 @@ class NewHousehold:
     def __init__(self, form, raw_dob):
 
         # required fields for calculating income measures
-        self.annual_income = self.get_annual_income(form.income_amount.data, 
+        self.annual_income = self.get_annual_income(form.income_amount.data,
                                                     form.income_type.data)
 
         self.household_size = form.household_size.data
@@ -98,16 +98,15 @@ class NewHousehold:
         # initialize list to hold program names that the client/household may
         # be eligible for; dynamically displayed by jinja template
         self.programs = []
-        if wa_basic_food is True:
+        if wa_basic_food:
             self.programs.append("Washington Basic Food Program")
-        if apple_health is True:
+        if apple_health:
             self.programs.append("Apple Health")
-        if hsp is True:
+        if hsp:
             self.programs.append("Housing Stability Project")
-        if liheap is True:
+        if liheap:
             self.programs.append("Low Income Home Energy Assistance Program (LIHEAP)")
-        if pse_help is True:
+        if pse_help:
             self.programs.append("PSE HELP - PSE Customers Only")
-        if elia is True:
+        if elia:
             self.programs.append("Emergency Low Income Assistance (ELIA) - SCL Customers Only")
-

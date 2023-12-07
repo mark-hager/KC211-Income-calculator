@@ -33,11 +33,11 @@ class NewHousehold:
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
-        if hasattr(form, 'monthly_rent') and form.monthly_rent.data is not None: 
+        if hasattr(form, 'monthly_rent') and form.monthly_rent.data is not None:
             self.monthly_rent = float(form.monthly_rent.data)
         if raw_dob is not None:
             self.age = self.calculate_age(raw_dob)
-        
+
         self.program_eligibility()
 
 
@@ -54,7 +54,7 @@ class NewHousehold:
         else:
             annual_income = float(income_amount)
         return annual_income
-    
+
     def calculate_age(self, raw_dob):
         """
         Calculates the client's age from their DOB.
@@ -72,9 +72,9 @@ class NewHousehold:
             return
 
         # check that the age is somewhat realistic
-        if age > 0 and age < 120:
+        if 0 < age > 120:
             return age
-    
+
     def program_eligibility(self):
         """
         Determines eligiblity for various benefits programs using the FPL, SMI, AMI
@@ -110,4 +110,4 @@ class NewHousehold:
             self.programs.append("PSE HELP - PSE Customers Only")
         if elia is True:
             self.programs.append("Emergency Low Income Assistance (ELIA) - SCL Customers Only")
-    
+

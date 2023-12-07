@@ -1,5 +1,6 @@
 /.DS_Store
 /tests
+.venv/
 venv/
 config.py
 *.pyc

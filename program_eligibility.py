@@ -14,12 +14,13 @@ def hsp_eligibility(self):
     if self.ami > 0.5:
         print("Income too high for HSP: AMI was above 0.5")
         return False
-    if ((self.annual_income / 12) / 
+    if ((self.annual_income / 12) /
         self.monthly_rent) < 1.5:
         print("Income to rent ratio was too low; must be at least 1.5:1")
         return False
-    else:
-        return True
+
+    # else household is possibly eligible
+    return True
 
 
 def apple_health_eligibility(self):
@@ -33,8 +34,8 @@ def apple_health_eligibility(self):
     if self.fpl > 1.38:
         print("Income too high for Apple Health: FPL was above 1.38")
         return False
-    else:
-        return True
+
+    return True
 
 def basic_food_eligibility(self):
     """
@@ -47,8 +48,8 @@ def basic_food_eligibility(self):
     if self.fpl > 2:
         print("Income too high for WA Basic Food: FPL was above 2")
         return False
-    else:
-        return True
+
+    return True
 
 def liheap_eligibility(self):
     """
@@ -58,12 +59,12 @@ def liheap_eligibility(self):
     Info for 2022:
     https://www.benefits.gov/benefit/623
     """
-    
+
     if self.fpl > 1.5:
         print("Income too high for LIHEAP: FPL was above 1.5")
         return False
-    else:
-        return True
+
+    return True
 
 def pse_help_eligibility(self):
     """
@@ -72,12 +73,12 @@ def pse_help_eligibility(self):
     Info for 2022:
     https://www.pse.com/account-and-billing/assistance-programs/Income-Guidelines
     """
-    
+
     if self.ami > 0.8:
         print("Income too high for PSE HELP: AMI was above 0.8")
         return False
-    else:
-        return True
+
+    return True
 
 def elia_eligibility(self):
     """
@@ -90,5 +91,5 @@ def elia_eligibility(self):
     if self.smi > 0.7:
         print("Income too high for ELIA: SMI was above 0.7")
         return False
-    else:
-        return True
+
+    return True

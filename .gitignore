@@ -2,9 +2,6 @@
 /tests
 venv/
 config.py
-old_app.py
-old_style.css
-app_test.py
 *.pyc
 __pycache__/
 

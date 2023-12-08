@@ -27,7 +27,7 @@ app.secret_key = 'dev'
 app.config.from_pyfile('config.py', silent=True)
 
 # only one route since the calculator is only one page
-@app.route("/", methods = ['GET', 'POST'])
+@app.route("/", methods = ['POST'])
 def main():
     """
     Creates the form and collects its data on post.
@@ -46,3 +46,6 @@ def main():
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)
+
+if __name__ == '__main__':
+    app.run(debug=True)

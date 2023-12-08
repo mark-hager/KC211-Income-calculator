@@ -21,6 +21,13 @@ from new_household import *
 
 # create Flask object
 app = Flask(__name__)
+# default secret_key for development
+app.secret_key = 'dev'
+# overridden if there's a config file containing a secret_key
+app.config.from_pyfile('config.py', silent=True)
+
+# disable session permanency
+app.config['SESSION_PERMANENT'] = False
 
 # only one route since the calculator is only one page
 @app.route("/", methods = ['POST'])
@@ -42,3 +49,6 @@ def main():
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)
+
+if __name__ == '__main__':
+    app.run(debug=True)

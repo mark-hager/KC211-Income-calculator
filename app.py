@@ -26,9 +26,6 @@ app.secret_key = 'dev'
 # overridden if there's a config file containing a secret_key
 app.config.from_pyfile('config.py', silent=True)
 
-# disable session permanency
-app.config['SESSION_PERMANENT'] = False
-
 # only one route since the calculator is only one page
 @app.route("/", methods = ['POST'])
 def main():

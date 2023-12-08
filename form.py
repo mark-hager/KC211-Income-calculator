@@ -42,6 +42,7 @@ class HouseholdForm(FlaskForm):
     # optional fields
     has_children = BooleanField('Children in Household')
 
-    monthly_rent = DecimalField("Monthly Rent", 
-                                validators=[Optional(), 
+    monthly_rent = DecimalField("Monthly Rent",
+                                validators=[Optional(),
                                 NumberRange(min=0, message="Income must be greater than 0.")])
+    

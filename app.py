@@ -29,6 +29,11 @@ app.config.from_pyfile('config.py', silent=True)
 # only one route since the calculator is only one page
 @app.route("/", methods = ['GET', 'POST'])
 def main():
+    """
+    Creates the form and collects its data on post.
+    Then creates a household object with information
+    needed to determine program eligibility.
+    """
 
     # get the data from the wtform
     form = HouseholdForm(meta={'csrf': False})
@@ -41,5 +46,3 @@ def main():
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)
-
-

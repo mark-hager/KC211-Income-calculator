@@ -17,11 +17,13 @@ class DollarField(DecimalField):
     https://stackoverflow.com/questions/20876217/wtforms-custom-field-for-dollar-values
     """
     def process_formdata(self, valuelist):
-        for val in valuelist:
-            self.data = [valuelist[0].replace(',', '')]
-        # Calls "process_formdata" on the parent types of "DollarField",
-        # which includes "DecimalField"
-        super(DollarField).process_formdata(self.data)
+        if valuelist:
+            # Replace commas and store the cleaned value
+            self.data = [val.replace(',', '') for val in valuelist]
+            # Call "process_formdata" on the parent types of "DollarField,"
+            # which includes "DecimalField"
+            super().process_formdata(self.data)
+
 
 class HouseholdForm(FlaskForm):
     """
@@ -33,7 +35,7 @@ class HouseholdForm(FlaskForm):
     income_type = SelectField("Income Type", choices=['Monthly', 'Annual'],
                               default="Monthly", validators=[InputRequired()])
 
-    income_amount = DecimalField("Income Amount", validators=[InputRequired(),
+    income_amount = DollarField("Income Amount", validators=[InputRequired(),
                                  NumberRange(min=0, message="Income must be greater than 0.")])
 
     household_size = IntegerField("Household Size", validators=[InputRequired(),
@@ -42,7 +44,7 @@ class HouseholdForm(FlaskForm):
     # optional fields
     has_children = BooleanField('Children in Household')
 
-    monthly_rent = DecimalField("Monthly Rent",
+    monthly_rent = DollarField("Monthly Rent",
                                 validators=[Optional(),
                                 NumberRange(min=0, message="Income must be greater than 0.")])
     

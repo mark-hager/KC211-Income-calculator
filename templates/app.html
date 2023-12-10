@@ -68,9 +68,21 @@
             </div>
             
             <span class="dollar_span">
-              {{ form.income_amount(class="form_input", autocomplete="off") }}
+              {{form.income_amount(id="income_amount", class="form_input", autocomplete="off", oninput="formatCurrency(this)") }}
             </span>
 
+            <script>
+              function formatCurrency(input) {
+                // Remove non-numeric characters
+                let value = input.value.replace(/[^0-9.]/g, '');
+            
+                // Format the number with commas
+                value = Number(value).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2 });
+            
+                // Update the input value
+                input.value = value;
+              }
+            </script>
             {% if form.income_amount.errors %}
               <ul class="errors">
                   {% for error in form.income_amount.errors %}

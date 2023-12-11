@@ -34,7 +34,8 @@ class NewHousehold:
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
         if hasattr(form, 'monthly_rent') and form.monthly_rent.data is not None:
-            self.monthly_rent = float(form.monthly_rent.data)
+            # convert the monthly rent string to float and strip out the commas
+            self.monthly_rent = float(form.monthly_rent.data.replace(",", ""))
         if raw_dob is not None:
             self.age = self.calculate_age(raw_dob)
 

@@ -96,7 +96,7 @@
 
             {{ form.monthly_rent.label }}
             <span class="dollar_span">
-              {{ form.monthly_rent(class="form_input", autocomplete="off") }}
+              {{ form.monthly_rent(class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
             </span>
 
             {% if form.monthly_rent.errors %}

@@ -41,13 +41,13 @@ class NewHousehold:
         self.program_eligibility()
 
 
-    def get_annual_income(self, income_amount, income_type):
+    def get_annual_income(self, income_string, income_type):
         """
         Gets the income amount and type from the wtform and uniformly saves it as the annual
         income for the NewHousehold object by multiplying income amount by 12 when the income 
         type is monthly.
         """
-
+        income_amount = float(income_string.replace(",", ""))
         # convert flask_wtf decimal field to float for calculations
         if income_type == "Monthly":
             annual_income = float(income_amount * 12)

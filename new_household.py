@@ -92,8 +92,8 @@ class NewHousehold:
         pse_help = pse_help_eligibility(self)
         elia = elia_eligibility(self)
 
-        # check for eligibility only if rent_amount is not empty
-        if hasattr(self, 'monthly_rent'):
+        # check for eligibility only if rent amount entered
+        if hasattr(self, 'monthly_rent') and self.monthly_rent > 0:
             hsp = hsp_eligibility(self)
         else:
             hsp = False

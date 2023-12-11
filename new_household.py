@@ -33,21 +33,23 @@ class NewHousehold:
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
-        if hasattr(form, 'monthly_rent') and form.monthly_rent.data is not None:
-            self.monthly_rent = float(form.monthly_rent.data)
+        # monthly_rent is a string formatted as currency
+        if hasattr(form, 'monthly_rent') and form.monthly_rent.data:
+            # convert the monthly rent string to float and strip out the commas
+            self.monthly_rent = float(form.monthly_rent.data.replace(",", ""))
         if raw_dob is not None:
             self.age = self.calculate_age(raw_dob)
 
         self.program_eligibility()
 
 
-    def get_annual_income(self, income_amount, income_type):
+    def get_annual_income(self, income_string, income_type):
         """
         Gets the income amount and type from the wtform and uniformly saves it as the annual
         income for the NewHousehold object by multiplying income amount by 12 when the income 
         type is monthly.
         """
-
+        income_amount = float(income_string.replace(",", ""))
         # convert flask_wtf decimal field to float for calculations
         if income_type == "Monthly":
             annual_income = float(income_amount * 12)
@@ -68,7 +70,8 @@ class NewHousehold:
                         '%Y-%m-%d')
             # roughly account for leapyears in calendar year
             age = int((datetime.today() - dob).days / 365.2425)
-        except:
+
+        except ValueError:
             return
 
         # check that the age is somewhat realistic
@@ -89,8 +92,8 @@ class NewHousehold:
         pse_help = pse_help_eligibility(self)
         elia = elia_eligibility(self)
 
-        # check for eligibility only if rent_amount is not empty
-        if hasattr(self, 'monthly_rent'):
+        # check for eligibility only if rent amount entered
+        if hasattr(self, 'monthly_rent') and self.monthly_rent > 0:
             hsp = hsp_eligibility(self)
         else:
             hsp = False

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Income Calculator</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{url_for('static', filename='calculate_age.js')}}"></script>
+    <script src="{{url_for('static', filename='client.js')}}"></script>
   </head>
 
   <body>
@@ -68,8 +68,9 @@
             </div>
             
             <span class="dollar_span">
-              {{ form.income_amount(class="form_input", autocomplete="off") }}
+              {{form.income_amount(id="income_amount", class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
             </span>
+
 
             {% if form.income_amount.errors %}
               <ul class="errors">
@@ -95,7 +96,7 @@
 
             {{ form.monthly_rent.label }}
             <span class="dollar_span">
-              {{ form.monthly_rent(class="form_input", autocomplete="off") }}
+              {{ form.monthly_rent(class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
             </span>
 
             {% if form.monthly_rent.errors %}

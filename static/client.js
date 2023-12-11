@@ -47,11 +47,21 @@ function calculate_age(dob_input) {
         document.getElementById("age_result").style.paddingLeft = "10px";
         document.getElementById("age_result").style.textDecoration = "underline";
         document.getElementById("age_result").style.textDecorationStyle = "double";
-
         
     }
     
     document.getElementById("age_result").innerHTML = age;
-
 }
+// formats income and monthly rent fields as currency with commas
+function formatCurrency(input) {
+    // remove non-numeric characters
+    let value = input.value.replace(/[^0-9.]/g, '');
+  
+    // format the number with commas
+    value = Number(value).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2 });
+  
+    // update the input value
+    input.value = value;
+  }
+  
 

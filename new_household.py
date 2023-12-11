@@ -33,7 +33,8 @@ class NewHousehold:
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
-        if hasattr(form, 'monthly_rent') and form.monthly_rent.data is not None:
+        # monthly_rent is a string formatted as currency
+        if hasattr(form, 'monthly_rent') and form.monthly_rent.data:
             # convert the monthly rent string to float and strip out the commas
             self.monthly_rent = float(form.monthly_rent.data.replace(",", ""))
         if raw_dob is not None:
@@ -69,7 +70,8 @@ class NewHousehold:
                         '%Y-%m-%d')
             # roughly account for leapyears in calendar year
             age = int((datetime.today() - dob).days / 365.2425)
-        except:
+
+        except ValueError:
             return
 
         # check that the age is somewhat realistic

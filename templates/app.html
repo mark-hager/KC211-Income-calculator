@@ -68,7 +68,7 @@
             </div>
             
             <span class="dollar_span">
-              {{form.income_amount(id="income_amount", class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
+              {{form.income_amount(id="income_amount", class="form_input", autocomplete="off", onblur="formatCurrency(this);") }}
             </span>
 
 
@@ -96,7 +96,7 @@
 
             {{ form.monthly_rent.label }}
             <span class="dollar_span">
-              {{ form.monthly_rent(class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
+              {{ form.monthly_rent(class="form_input", autocomplete="off", onblur="formatCurrency(this);") }}
             </span>
 
             {% if form.monthly_rent.errors %}

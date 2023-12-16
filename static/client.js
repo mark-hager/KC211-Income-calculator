@@ -57,11 +57,9 @@ function formatCurrency(input) {
     // remove non-numeric characters
     let value = input.value.replace(/[^0-9.]/g, '');
   
-    // format the number with commas
-    value = Number(value).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2 });
+    // format the number with commas and restrict decimal place to allow for centers
+    value = Number(value).toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 2 });
   
     // update the input value
     input.value = value;
   }
-  
-

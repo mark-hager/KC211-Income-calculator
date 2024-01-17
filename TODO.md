@@ -11,3 +11,4 @@
 - [ ] store and read from income measure data as json
 - [ ] add tool tips e.g. explaining AMI, SMI, etc.
 - [ ] ability to add cents into currency fields (tried this, but could not find simple solution that did not introduce annoying bugs)
+- [ ] add unit tests based on expected values obtained from official AMI, SMI and FPL limit tables

@@ -6,9 +6,8 @@
 - [ ] Refactor AMI calculations so that function is not so long?
 - [ ] fix linting
 - [ ] process program eligibility in program_eligibility rather than in new_household
-- [ ] add installation instructions to README
-
 ## functionality
+- [ ] add installation instructions to README
 - [ ] store and read from income measure data as json
 - [ ] add tool tips e.g. explaining AMI, SMI, etc.
 - [ ] ability to add cents into currency fields (tried this, but could not find simple solution that did not introduce annoying bugs)

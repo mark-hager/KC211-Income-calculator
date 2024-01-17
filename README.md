@@ -28,4 +28,4 @@ has minor children as well as inputting the monthly rent. Some programs may requ
 
 ### Credits
 
-Thank you, Hannah Newton at CrCon/KC211 for building the Excel income calculator this project is based off of and for teaching me how the heck to calculate AMI percentages. You truly are a wizard and I am so glad to have had you as my mentor :mage_woman:.
+Thank you, Hannah N at CrCon/KC211 for building the Excel income calculator this project is based off of and for teaching me how the heck to calculate AMI percentages. You truly are a wizard and I am so glad to have had you as my mentor :mage_woman:.

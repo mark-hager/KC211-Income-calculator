@@ -19,6 +19,7 @@ def excel_ceil(num):
 def calculate_fpl(client):
     """
     Calculates the Federal Poverty Level based on HHS 2024 guidelines
+    * for the 48 contiguous states + D.C.
     https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines
     """
 

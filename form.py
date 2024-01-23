@@ -20,7 +20,7 @@ class HouseholdForm(FlaskForm):
     income_amount = StringField("Income Amount", validators=[InputRequired()])
 
     household_size = IntegerField("Household Size", validators=[InputRequired(),
-                                  NumberRange(min=1, message="Household size must be at least 1.")])
+                                  NumberRange(min=1, max=99, message="Household size must be at least 1 and less than 100.")])
 
     # optional fields
     has_children = BooleanField('Children in Household')

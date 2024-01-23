@@ -11,7 +11,6 @@ body {
 
 }
 
-
 .dob_field {
   font-size: 0.75rem;
   letter-spacing: normal;
@@ -99,8 +98,11 @@ input {
   display: table-row;
 }
 
+.buttons {
+  display: flex;
+}
 .calculate {
-  display: inline-block;
+
   padding: 7px 9px;
   font-size: 20px;
   cursor: pointer;
@@ -120,6 +122,43 @@ input {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+#help {
+  position: relative;
+  display: inline-block;
+  padding: 5px 8px;
+  font-size: 20px;
+  cursor: help;
+  outline-color: green;
+  outline-style: dotted;
+  margin-top: 5px;
+  margin-left: auto;
+}
+
+#help #help_text {
+  visibility: hidden;
+  width: 120px;
+  text-align: left;
+  padding: 5px 0;
+  border-radius: 6px;
+  background-color: #d3db88;
+  border-style: dashed;
+
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 0%;
+  transform: translate(-75%, -50%);
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#help:hover #help_text {
+  visibility: visible;
+  opacity: 1;
+}
+
 .income_measures {
   display: flex;
   justify-content: space-between;
@@ -130,7 +169,6 @@ input {
 
 }
 
-
 .programs {
   background: rgba(14, 175, 16, 0.815);
   padding: .5rem;
@@ -139,3 +177,4 @@ input {
   margin: 5px 10px;
   width: 90%;
 }
+

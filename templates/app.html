@@ -107,28 +107,34 @@
               </ul>
             {% endif %}
           </div>
-
-          <button class="calculate" 
-              type="submit" 
-              value="Calculate" 
-              id="calc_btn">
-              Calculate
-          </button>
+          
+          <div class="buttons">
+            <button class="calculate" 
+                type="submit" 
+                value="Calculate" 
+                id="calc_btn">
+                Calculate
+            </button>
+            <span id="help">
+              ?
+              <span id="help_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</span>
+            </span>
+          </div>
 
         </div>
-
+ 
 
       </form>
       <div class="results">
 
         {% if client.fpl %}
-        <div class="income_measures">
+        <span class="income_measures">
 
-          <div class="fpl">FPL: {{ '{:.0%}'.format(client.fpl) }}</div>
-          <div class="smi">SMI: {{ '{:.0%}'.format(client.smi) }}</div>
-          <div class="ami">AMI: {{ '{:.0%}'.format(client.ami) }}</div>
+          <span id="fpl">FPL: {{ '{:.0%}'.format(client.fpl) }}</span>
+          <span id="smi">SMI: {{ '{:.0%}'.format(client.smi) }}</span>
+          <span id="ami">AMI: {{ '{:.0%}'.format(client.ami) }}</span>
           
-        </div>
+        </span>
         {% endif %}
         
         <div class="program_eligibility">

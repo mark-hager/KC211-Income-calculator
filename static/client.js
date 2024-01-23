@@ -72,4 +72,3 @@ function formatCurrency(input) {
     // update the input value
     input.value = value;
 }
-

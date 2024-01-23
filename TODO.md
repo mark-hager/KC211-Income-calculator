@@ -1,6 +1,7 @@
 # To Do
-## bugs 
+## bugs and stability
 - [ ] examine form.py. looks like DollarField func isn't doing much currently.
+- [ ] validate income in flask/server side
 
 ## syntax and formatting
 - [ ] Refactor AMI calculations so that function is not so long?

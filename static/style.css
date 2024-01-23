@@ -123,6 +123,13 @@ input {
   transform: translateY(4px);
 }
 
+.title {
+  display: block;
+  font-size: 1.17em;
+  margin-bottom: 1em;
+  font-weight: bold;
+
+}
 #help {
   position: relative;
   display: inline-block;
@@ -136,22 +143,25 @@ input {
 }
 
 #help #help_text {
+  font-size: 14px;
   visibility: hidden;
-  width: 120px;
+  width: 200px;
   text-align: left;
-  padding: 5px 0;
-  border-radius: 6px;
-  background-color: #d3db88;
-  border-style: dashed;
-
+  padding: 25px;
+  border-radius: 5px;
+  border-style: dotted;
+  background-color: #555;
+  color: #fff;
+  border-width: .3;
+  
   position: absolute;
   z-index: 1;
   top: 50%;
-  left: 0%;
-  transform: translate(-75%, -50%);
+  left: 0;
+  transform: translate(-100%, -110%);
 
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.5s;
 }
 
 #help:hover #help_text {

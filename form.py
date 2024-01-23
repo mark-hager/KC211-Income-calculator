@@ -17,7 +17,7 @@ class HouseholdForm(FlaskForm):
     income_type = SelectField("Income Type", choices=['Monthly', 'Annual'],
                               default="Monthly", validators=[InputRequired()])
 
-    income_amount = StringField("Income Amount", validators=[InputRequired()])
+    income_amount = StringField("Gross Income", validators=[InputRequired()])
 
     household_size = IntegerField("Household Size", validators=[InputRequired(),
                                   NumberRange(min=1, max=99, message="Household size must be at least 1 and less than 100.")])

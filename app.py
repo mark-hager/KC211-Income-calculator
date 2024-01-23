@@ -37,6 +37,9 @@ def main():
 
     # get the data from the wtform
     form = HouseholdForm(meta={'csrf': False})
+
+    # load current income measurement data for tooltip
+    form.income_measurements = {'ami': '2023', 'fpl': '2024', 'smi': '2023'}
     # if POST request is valid and the data in the form passes validation
     if request.method == 'POST' and form.validate_on_submit():
         # dob field is not a wtform in order to use JavaScript on it

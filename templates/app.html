@@ -117,7 +117,16 @@
             </button>
             <span id="help">
               ?
-              <span id="help_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</span>
+              <span id="help_text">
+                <span class="title">211 Income Calculator</span>
+                Estimates the Area Median Income (AMI), the Federal Poverty Level (FPL), and the State Median Income (SMI)
+                percentages from household size and gross monthly or annual income.
+                <br>
+                <br>AMI last updated: {{form.income_measurements.get('ami')}}
+                <br>FPL last updated: {{form.income_measurements.get('fpl')}}
+                <br>SMI last updated: {{form.income_measurements.get('smi')}}
+              
+              </span>
             </span>
           </div>
 

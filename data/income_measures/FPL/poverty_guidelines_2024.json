@@ -1,0 +1,45 @@
+{
+    "2024 POVERTY GUIDELINES FOR THE 48 CONTIGUOUS STATES AND THE DISTRICT OF COLUMBIA": [
+        {    
+            "1_persons_in_family": 15060,
+            "2_persons_in_family": 20440,
+            "3_persons_in_family": 25820,
+            "4_persons_in_family": 31200,
+            "5_persons_in_family": 36580,
+            "6_persons_in_family": 41960,
+            "7_persons_in_family": 47340,
+            "8_persons_in_family": 52720,
+            "each_addtl_member": 5380
+        }
+    ],
+
+    "2024 POVERTY GUIDELINES FOR ALASKA": [
+        {
+            "1_persons_in_family_alaska": 18810,
+            "2_persons_in_family_alaska": 25540,
+            "3_persons_in_family_alaska": 32270,
+            "4_persons_in_family_alaska": 39000,
+            "5_persons_in_family_alaska": 45730,
+            "6_persons_in_family_alaska": 52460,
+            "7_persons_in_family_alaska": 59190,
+            "8_persons_in_family_alaska": 65920,
+            "each_addtl_member_alaska": 6730
+        }
+    ],
+
+    "2024 POVERTY GUIDELINES FOR HAWAII": [
+        {
+            "1_persons_in_family_hawaii": 17310,
+            "2_persons_in_family_hawaii": 23500,
+            "3_persons_in_family_hawaii": 29690,
+            "4_persons_in_family_hawaii": 35880,
+            "5_persons_in_family_hawaii": 42070,
+            "6_persons_in_family_hawaii": 48260,
+            "7_persons_in_family_hawaii": 54450,
+            "8_persons_in_family_hawaii": 60640,
+            "each_addtl_member_hawaii": 6190
+          }
+          
+    ]
+}
+  

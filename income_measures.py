@@ -11,23 +11,18 @@ import math
 # income measures now stored as json in data/income_measures
 import json
 
-print("income_measures.py is imported")
-
 # load most recent FPL measures
 with open('data/income_measures/FPL/poverty_guidelines_2024.json') as f:
     fpl_data = json.load(f)
+    fpl_year = fpl_data["metadata"]["year"]
     # use income figures for contiguous states + DC
     fpl_data = fpl_data["poverty_guidelines"]["2024_POVERTY_GUIDELINES_FOR_48_STATES_AND_DC"]
-    value_of_1_person_family = fpl_data["1_person_family"]
-    print(value_of_1_person_family)
-    #print(python_data)
 
 # load most recent SMI measures for WA
 with open('data/income_measures/SMI/wa_smi_chart_2024.json') as f:
     smi_data = json_data = json.load(f)
+    smi_year = smi_data["metadata"]["year"]
     value_of_1_person_family = smi_data["state_median_income"]["1_person_family"]
-    print(value_of_1_person_family)
-    #print(python_data)
 
 
 def excel_ceil(num):

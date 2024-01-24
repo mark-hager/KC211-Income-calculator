@@ -6,7 +6,7 @@ income measures and household size and composition.
 """
 from datetime import datetime, date
 
-from income_measures import *
+import income_measures
 # uses program eligibility requirements cefined in program_requirements.py
 from program_eligibility import *
 
@@ -26,9 +26,9 @@ class NewHousehold:
         self.household_size = form.household_size.data
 
         # Calculate income measures using methods from income_measures.py
-        self.ami = calculate_ami(self)
-        self.fpl = calculate_fpl(self)
-        self.smi = calculate_smi(self)
+        self.ami = income_measures.calculate_ami(self)
+        self.fpl = income_measures.calculate_fpl(self)
+        self.smi = income_measures.calculate_smi(self)
 
         # optional fields
         if hasattr(form, 'has_children'):

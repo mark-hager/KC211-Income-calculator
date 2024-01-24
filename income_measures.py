@@ -8,6 +8,27 @@ in Python.
 """
 # math package used for rounding to follow Hannah's excel income calculations for AMI
 import math
+# income measures now stored as json in data/income_measures
+import json
+
+print("income_measures.py is imported")
+
+# load most recent FPL measures
+with open('data/income_measures/FPL/poverty_guidelines_2024.json') as f:
+    fpl_data = json.load(f)
+    # use income figures for contiguous states + DC
+    fpl_data = fpl_data["poverty_guidelines"]["2024_POVERTY_GUIDELINES_FOR_48_STATES_AND_DC"]
+    value_of_1_person_family = fpl_data["1_person_family"]
+    print(value_of_1_person_family)
+    #print(python_data)
+
+# load most recent SMI measures for WA
+with open('data/income_measures/SMI/wa_smi_chart_2024.json') as f:
+    smi_data = json_data = json.load(f)
+    value_of_1_person_family = smi_data["state_median_income"]["1_person_family"]
+    print(value_of_1_person_family)
+    #print(python_data)
+
 
 def excel_ceil(num):
     """
@@ -24,8 +45,10 @@ def calculate_fpl(client):
     """
 
     # FPL is calculated with a base rate times an additional rate per person
-    fpl_base = 9680
-    fpl_rate_per_person = 5380
+    fpl_rate_per_person = fpl_data["each_addtl_member"]
+    # base rate being poverty level for hypothetical 0 person family
+    fpl_base = fpl_data["1_person_family"] - fpl_rate_per_person
+
     # calculate the FPL by dividing income by the base rate + household size
     # * the rate per person
     fpl = math.ceil(client.annual_income / ((client.household_size * fpl_rate_per_person)

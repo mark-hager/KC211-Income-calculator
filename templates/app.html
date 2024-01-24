@@ -71,7 +71,6 @@
               {{form.income_amount(id="income_amount", class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
             </span>
 
-
             {% if form.income_amount.errors %}
               <ul class="errors">
                   {% for error in form.income_amount.errors %}
@@ -81,14 +80,12 @@
             {% endif %}
           </div>
 
-
           <h4>Optional Fields for Program Eligibility:</h4>
 
           <div class="children_in_household">
 
             {{ form.has_children.label }}
             {{ form.has_children(class='checkmark') }}
-
 
           </div>
 
@@ -125,7 +122,6 @@
                 <br>AMI last updated: {{form.income_measurements.get('ami')}}
                 <br>FPL last updated: {{form.income_measurements.get('fpl')}}
                 <br>SMI last updated: {{form.income_measurements.get('smi')}}
-              
               </span>
             </span>
           </div>

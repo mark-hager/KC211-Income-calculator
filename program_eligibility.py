@@ -4,18 +4,18 @@ for various state and federal benefits programs.
 """
 
 
-def hsp_eligibility(self):
+def hsp_eligibility(client):
     """
     Determines eligibility for Housing Stability Project:
     Area Median Income must be less than or equal to 50% and
     rent to income ratio must be less than or equal to 1:1.5
     """
 
-    if self.ami > 0.5:
+    if client.ami > 0.5:
         print("Income too high for HSP: AMI was above 0.5")
         return False
-    if ((self.annual_income / 12) /
-        self.monthly_rent) < 1.5:
+    if ((client.annual_income / 12) /
+        client.monthly_rent) < 1.5:
         print("Income to rent ratio was too low; must be at least 1.5:1")
         return False
 
@@ -23,7 +23,7 @@ def hsp_eligibility(self):
     return True
 
 
-def apple_health_eligibility(self):
+def apple_health_eligibility(client):
     """
     Determines eligibility for Apple Health insurance:
     Income must be at or below 138% of the Federal Poverty Level.
@@ -31,13 +31,13 @@ def apple_health_eligibility(self):
     https://www.hca.wa.gov/assets/free-or-low-cost/22-315.pdf
     """
 
-    if self.fpl > 1.38:
+    if client.fpl > 1.38:
         print("Income too high for Apple Health: FPL was above 1.38")
         return False
 
     return True
 
-def basic_food_eligibility(self):
+def basic_food_eligibility(client):
     """
     Determines eligibility for Washington's Basic Food Program:
     Income must be at or below 200% of the Federal Poverty Level.
@@ -45,13 +45,13 @@ def basic_food_eligibility(self):
     https://kingcounty.gov/depts/health/locations/health-insurance/access-and-outreach/basic-food-program.aspx
     """
 
-    if self.fpl > 2:
+    if client.fpl > 2:
         print("Income too high for WA Basic Food: FPL was above 2")
         return False
 
     return True
 
-def liheap_eligibility(self):
+def liheap_eligibility(client):
     """
     Determines eligibility for the Low Income Home Energy Assistance
     Program (LIHEAP):
@@ -60,13 +60,13 @@ def liheap_eligibility(self):
     https://www.benefits.gov/benefit/623
     """
 
-    if self.fpl > 1.5:
+    if client.fpl > 1.5:
         print("Income too high for LIHEAP: FPL was above 1.5")
         return False
 
     return True
 
-def pse_help_eligibility(self):
+def pse_help_eligibility(client):
     """
     Determines eligibility for PSE HELP:
     Income must be at or below 80% of the Area Median Income.
@@ -74,13 +74,13 @@ def pse_help_eligibility(self):
     https://www.pse.com/account-and-billing/assistance-programs/Income-Guidelines
     """
 
-    if self.ami > 0.8:
+    if client.ami > 0.8:
         print("Income too high for PSE HELP: AMI was above 0.8")
         return False
 
     return True
 
-def elia_eligibility(self):
+def elia_eligibility(client):
     """
     Determines eligibility for SCL ELIA (Emergency Low-Income Assistance Program):
     Income must be at or below 70% of the State Median Income.
@@ -88,7 +88,7 @@ def elia_eligibility(self):
     https://www.seattle.gov/city-light/residential-services/billing-information/bill-assistance-programs#longterm
     """
 
-    if self.smi > 0.7:
+    if client.smi > 0.7:
         print("Income too high for ELIA: SMI was above 0.7")
         return False
 

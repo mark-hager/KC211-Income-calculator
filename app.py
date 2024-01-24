@@ -34,7 +34,6 @@ def main():
     Then creates a household object with information
     needed to determine program eligibility.
     """
-
     # get the data from the wtform
     form = HouseholdForm(meta={'csrf': False})
 

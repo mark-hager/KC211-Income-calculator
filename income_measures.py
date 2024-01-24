@@ -12,14 +12,14 @@ import math
 import json
 
 # load most recent FPL measures
-with open('data/income_measures/FPL/poverty_guidelines_2024.json') as f:
+with open('data/median_income/FPL/poverty_guidelines_2024.json') as f:
     fpl_data = json.load(f)
     fpl_year = fpl_data["metadata"]["year"]
     # use income figures for contiguous states + DC
     fpl_data = fpl_data["poverty_guidelines"]["2024_POVERTY_GUIDELINES_FOR_48_STATES_AND_DC"]
 
 # load most recent SMI measures for WA
-with open('data/income_measures/SMI/wa_smi_chart_2024.json') as f:
+with open('data/median_income/SMI/wa_smi_chart_2024.json') as f:
     smi_data = json_data = json.load(f)
     smi_year = smi_data["metadata"]["year"]
     value_of_1_person_family = smi_data["state_median_income"]["1_person_family"]

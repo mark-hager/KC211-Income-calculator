@@ -56,12 +56,19 @@ function calculate_age(dob_input) {
 function formatCurrency(input) {
     // remove non-numeric characters
     let value = input.value.replace(/[^0-9.]/g, '');
-  
-    // format the number with commas
-    value = Number(value).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2 });
-  
+    // parse as float
+    const parsedValue = parseFloat(value);
+    // checking if the parsed value is a valid number
+    if (!isNaN(parsedValue)) {
+        // Ensure the value is less than 1 billion
+        const maxValue = 999999999;
+        value = Math.min(parsedValue, maxValue).toFixed(2);
+        // format the number with commas
+        value = Number(value).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2 });
+    } else {
+        // and handle the case where the input is not a valid number (NaN)
+        value = '';
+    }
     // update the input value
     input.value = value;
-  }
-  
-
+}

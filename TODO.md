@@ -1,6 +1,7 @@
 # To Do
-## bugs 
+## bugs and stability
 - [ ] examine form.py. looks like DollarField func isn't doing much currently.
+- [ ] validate income in flask/server side
 
 ## syntax and formatting
 - [ ] Refactor AMI calculations so that function is not so long?
@@ -9,6 +10,6 @@
 ## functionality
 - [ ] add installation instructions to README
 - [ ] store and read from income measure data as json
-- [ ] add tool tips e.g. explaining AMI, SMI, etc.
+- [x] add tool tips e.g. explaining AMI, SMI, etc.
 - [ ] ability to add cents into currency fields (tried this, but could not find simple solution that did not introduce annoying bugs)
 - [ ] add unit tests based on expected values obtained from official AMI, SMI and FPL limit tables

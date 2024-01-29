@@ -1,0 +1,44 @@
+{
+    "metadata": {
+        "type": "FPL",
+        "year": 2024,
+        "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+        "last_checked": "2024-1-23"
+    },
+    "poverty_guidelines": {
+        "2024_POVERTY_GUIDELINES_FOR_48_STATES_AND_DC": {
+            "1_person_family": 15060,
+            "2_person_family": 20440,
+            "3_person_family": 25820,
+            "4_person_family": 31200,
+            "5_person_family": 36580,
+            "6_person_family": 41960,
+            "7_person_family": 47340,
+            "8_person_family": 52720,
+            "each_addtl_member": 5380
+      },
+        "2024_POVERTY_GUIDELINES_FOR_ALASKA": {
+            "1_person_family_alaska": 18810,
+            "2_person_family_alaska": 25540,
+            "3_person_family_alaska": 32270,
+            "4_person_family_alaska": 39000,
+            "5_person_family_alaska": 45730,
+            "6_person_family_alaska": 52460,
+            "7_person_family_alaska": 59190,
+            "8_person_family_alaska": 65920,
+            "each_addtl_member_alaska": 6730
+      },
+        "2024_POVERTY_GUIDELINES_FOR_HAWAII": {
+            "1_person_family_hawaii": 17310,
+            "2_person_family_hawaii": 23500,
+            "3_person_family_hawaii": 29690,
+            "4_person_family_hawaii": 35880,
+            "5_person_family_hawaii": 42070,
+            "6_person_family_hawaii": 48260,
+            "7_person_family_hawaii": 54450,
+            "8_person_family_hawaii": 60640,
+            "each_addtl_member_hawaii": 6190
+      }
+    }
+  }
+  

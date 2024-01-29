@@ -1,0 +1,23 @@
+{
+    "metadata": {
+        "type": "SMI",
+        "year": 2024,
+        "state": "Washington",
+        "source": "https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart",
+        "last_checked": "2024-1-23"
+    },
+    "state_median_income": {
+        "1_person_family": 5271,
+        "2_person_family": 6892,
+        "3_person_family": 8514,
+        "4_person_family": 10136,
+        "5_person_family": 11758,
+        "6_person_family": 13379,
+        "7_person_family": 13683,
+        "8_person_family": 13988,
+        "9_person_family": 14292,
+        "10_person_family": 14596,
+        "additional_member_income": 304
+    }
+  }
+  

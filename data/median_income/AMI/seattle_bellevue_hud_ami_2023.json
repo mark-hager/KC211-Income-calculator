@@ -3,7 +3,9 @@
         "type": "AMI",
         "year": 2023,
         "state": "Washington",
-        "region": "Seattle-Bellevue, WA HUD Metro FMR Area"
+        "region": "Seattle-Bellevue, WA HUD Metro FMR Area",
+        "high-housing-cost-area": true,
+        "last_checked": "2024-1-23"
     },
     "area_median_income": {
         "very_low_income_limits": {

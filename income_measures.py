@@ -22,7 +22,7 @@ with open('data/median_income/FPL/poverty_guidelines_2024.json') as f:
 with open('data/median_income/SMI/wa_smi_chart_2024.json') as f:
     smi_data = json_data = json.load(f)
     smi_year = smi_data["metadata"]["year"]
-    value_of_1_person_family = smi_data["state_median_income"]["1_person_family"]
+    smi_data = smi_data["state_median_income"]
 
 
 def excel_ceil(num):
@@ -57,20 +57,25 @@ def calculate_fpl(client):
 
 def calculate_smi(client):
     """
-    Calculates the State Median Income based on DSHS 2023 guidelines
+    Calculates the State Median Income based on DSHS 2024 guidelines
     https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart
     """
 
     # SMI is calculated with separate base rates depending on household size
     # for families of 5 or less, and families of 6 or more
-    smi_base_household_5_or_less = 40824
-    smi_base_household_6_or_more = 149736
-    # the rate for each person in a household of 5 or less
-    smi_rate_household_5_or_less = 18156
-    # the rate for each person in a household of 6 or more
-    smi_rate_household_6_or_more = 3408
 
-    # calculate the SMI depending on household size, 
+    # json data is based on monthly income so all initial variables here are multiplied by 12
+
+    # defines the rate for households with 5 or fewer family members
+    smi_rate_household_5_or_less = (smi_data["2_person_family"] - smi_data["1_person_family"]) * 12
+
+    # thereotical median income for a householdsize of 0, used as a base
+    smi_base_household_5_or_less = (smi_data["1_person_family"] * 12) - smi_rate_household_5_or_less
+    # equal to Number in Family - 6 in the JSON data multiplied by 12 to get annual median income
+    smi_base_household_6_or_more = smi_data["6_person_family"] * 12
+    smi_rate_household_6_or_more = smi_data["additional_member_income"] * 12
+
+    # calculate the SMI depending on household size,
     # rounded to 4 decimal places to match the excel calculator; can't
     # find documentation on how other people calculate this
     if client.household_size < 7:
@@ -82,6 +87,7 @@ def calculate_smi(client):
                     (smi_base_household_6_or_more +
                             ((client.household_size - 6) *
                              (smi_rate_household_6_or_more))), 4) * 100
+    print(f"RAW SMI IS: {smi}")
     # round the SMI up
     smi = math.ceil(smi)
     # convert from percentage back to decimal for program eligibility and formatting

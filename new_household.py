@@ -4,11 +4,11 @@ in order to estimate eligibility for
 various state assistance programs based on
 income measures and household size and composition.
 """
-from datetime import datetime, date
+from datetime import datetime
 
 import income_measures
 # uses program eligibility requirements cefined in program_requirements.py
-from program_eligibility import *
+from program_eligibility import CheckProgramEligibility
 
 class NewHousehold:
     """
@@ -40,7 +40,10 @@ class NewHousehold:
         if raw_dob is not None:
             self.age = self.calculate_age(raw_dob)
 
-        self.program_eligibility()
+        # use above attributes to determine which programs client may be eligible for
+        eligible_for = CheckProgramEligibility(self)
+        # currently stored as a list
+        self.programs = eligible_for.referrals
 
 
     def get_annual_income(self, income_string, income_type):
@@ -77,39 +80,3 @@ class NewHousehold:
         # check that the age is somewhat realistic
         if 0 < age > 120:
             return age
-
-    def program_eligibility(self):
-        """
-        Determines eligiblity for various benefits programs using the FPL, SMI, AMI
-        and household composition, using the eligibility requirements
-        defined in each of the program functions in program_eligibility.py
-        """
-
-        # programs that can be screened w/out rent
-        apple_health = apple_health_eligibility(self)
-        wa_basic_food = basic_food_eligibility(self)
-        liheap = liheap_eligibility(self)
-        pse_help = pse_help_eligibility(self)
-        elia = elia_eligibility(self)
-
-        # check for eligibility only if rent amount entered
-        if hasattr(self, 'monthly_rent') and self.monthly_rent > 0:
-            hsp = hsp_eligibility(self)
-        else:
-            hsp = False
-
-        # initialize list to hold program names that the client/household may
-        # be eligible for; dynamically displayed by jinja template
-        self.programs = []
-        if wa_basic_food:
-            self.programs.append("Washington Basic Food Program")
-        if apple_health:
-            self.programs.append("Apple Health")
-        if hsp:
-            self.programs.append("Housing Stability Project")
-        if liheap:
-            self.programs.append("Low Income Home Energy Assistance Program (LIHEAP)")
-        if pse_help:
-            self.programs.append("PSE HELP - PSE Customers Only")
-        if elia:
-            self.programs.append("Emergency Low Income Assistance (ELIA) - SCL Customers Only")

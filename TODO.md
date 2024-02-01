@@ -2,9 +2,9 @@
 ## bugs and stability
 - [ ] examine form.py. looks like DollarField func isn't doing much currently.
 - [ ] validate income in flask/server side
-
 ## syntax and formatting
 - [ ] Refactor AMI calculations so that function is not so long?
+- [ ] Reorganize so that py files are all contained in one directory
 - [ ] fix linting
 - [ ] process program eligibility in program_eligibility rather than in new_household
 ## functionality

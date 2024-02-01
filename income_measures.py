@@ -67,13 +67,17 @@ def calculate_smi(client):
     # json data is based on monthly income so all initial variables here are multiplied by 12
 
     # defines the rate for households with 5 or fewer family members
-    smi_rate_household_5_or_less = (smi_data["2_person_family"] - smi_data["1_person_family"]) * 12
 
+    # FOR 2024:  changing the calculations here slightly to account for fact that
+    # change/rate values between household size median incomes is +- $1.
+    smi_rate_household_5_or_less = round(((smi_data["6_person_family"] - smi_data["1_person_family"]) / 5)) * 12
+    print(f"the rate is {smi_rate_household_5_or_less}")
     # thereotical median income for a householdsize of 0, used as a base
     smi_base_household_5_or_less = (smi_data["1_person_family"] * 12) - smi_rate_household_5_or_less
     # equal to Number in Family - 6 in the JSON data multiplied by 12 to get annual median income
     smi_base_household_6_or_more = smi_data["6_person_family"] * 12
-    smi_rate_household_6_or_more = smi_data["additional_member_income"] * 12
+    # *TODO* average instead of hardcoding this change value like I did for smi_rate_household_5_or_less
+    smi_rate_household_6_or_more = 304.5 * 12
 
     # calculate the SMI depending on household size,
     # rounded to 4 decimal places to match the excel calculator; can't
@@ -87,7 +91,7 @@ def calculate_smi(client):
                     (smi_base_household_6_or_more +
                             ((client.household_size - 6) *
                              (smi_rate_household_6_or_more))), 4) * 100
-    print(f"RAW SMI IS: {smi}")
+    print(f"Raw SMI: {smi}")
     # round the SMI up
     smi = math.ceil(smi)
     # convert from percentage back to decimal for program eligibility and formatting

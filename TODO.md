@@ -6,10 +6,9 @@
 - [ ] Refactor AMI calculations so that function is not so long?
 - [ ] Reorganize so that py files are all contained in one directory
 - [ ] fix linting
-- [ ] process program eligibility in program_eligibility rather than in new_household
+- [x] process program eligibility in program_eligibility rather than in new_household
 ## functionality
 - [ ] add installation instructions to README
 - [ ] store and read from income measure data as json
 - [x] add tool tips e.g. explaining AMI, SMI, etc.
-- [ ] ability to add cents into currency fields (tried this, but could not find simple solution that did not introduce annoying bugs)
 - [ ] add unit tests based on expected values obtained from official AMI, SMI and FPL limit tables

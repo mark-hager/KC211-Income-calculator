@@ -56,7 +56,7 @@ class CheckProgramEligibility:
         if self.client.fpl > 1.38:
             print("Income too high for Apple Health: FPL was above 1.38")
             return False
-        self.referrals.append("Housing Stability Project")
+        self.referrals.append("Apple Health")
         return True
 
     def basic_food_eligibility(self):

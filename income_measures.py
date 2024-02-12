@@ -6,29 +6,36 @@ and thus aren't necessarily the best or most accurate ways of calculating them
 in Python.
 *TO DO* check AMI again't HUD's method.
 """
+
 # math package used for rounding to follow Hannah's excel income calculations for AMI
 import math
 # income measures now stored as json in data/income_measures
 import json
+# used to get the absolute path of the income guidelines. needed by pythonanywhere
+import os
+fpl_path = os.path.abspath('./data/median_income/FPL/poverty_guidelines_2024.json')
+smi_path = os.path.abspath('./data/median_income/SMI/wa_smi_chart_2024.json')
+ami_path = os.path.abspath('./data/median_income/AMI/seattle_bellevue_hud_ami_2023.json')
 
 # dictionary containing income guidelines publication year, used by tooltip
 year_published = {}
 # load most recent FPL measures
-with open('data/median_income/FPL/poverty_guidelines_2024.json') as f:
+
+with open(fpl_path) as f:
     fpl_data = json.load(f)
     year_published['fpl'] = fpl_data["metadata"]["year"]
     # use income figures for contiguous states + DC
     fpl_data = fpl_data["poverty_guidelines"]["2024_POVERTY_GUIDELINES_FOR_48_STATES_AND_DC"]
 
 # load most recent SMI measures for WA
-with open('data/median_income/SMI/wa_smi_chart_2024.json') as f:
+with open(smi_path) as f:
     smi_data = json_data = json.load(f)
     year_published['smi'] = smi_data["metadata"]["year"]
     smi_data = smi_data["state_median_income"]
 
 # load most recent AMI measures for King County
 # not currently used in calculations; values are static in AMI function
-with open('data/median_income/AMI/seattle_bellevue_hud_ami_2023.json') as f:
+with open(ami_path) as f:
     ami_data = json_data = json.load(f)
     year_published['ami'] = ami_data["metadata"]["year"]
 

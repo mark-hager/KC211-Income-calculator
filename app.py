@@ -17,7 +17,7 @@ from new_household import NewHousehold
 # Used to calculate median income from guidelines as well as publication year
 from income_measures import calculate_percentages, year_published
 # uses program eligibility requirements cefined in program_requirements.py
-from program_eligibility import CheckProgramEligibility
+from program_eligibility import check_eligibility
 
 
 # create Flask object
@@ -39,7 +39,8 @@ def main():
     form = HouseholdForm(meta={'csrf': False})
 
     # load current income measurement data for tooltip
-    form.income_measurements = {'AMI': year_published['ami'], 'FPL': year_published['fpl'], 'SMI': year_published['smi']}
+    form.income_measurements = {'AMI': year_published['ami'],
+                                 'FPL': year_published['fpl'], 'SMI': year_published['smi']}
 
     # if POST request is valid and the data in the form passes validation
     if request.method == 'POST' and form.validate_on_submit():
@@ -51,10 +52,8 @@ def main():
         # get the AMI, FPL and SMI percentages for the household
         calculate_percentages(client)
 
-        # check which programs client household may be eligible for
-        eligible_for = CheckProgramEligibility(client)
-        # currently stored as a list
-        client.programs = eligible_for.referrals
+        # gets list of programs client household may be eligible for
+        client.programs = check_eligibility(client)
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)

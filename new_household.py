@@ -6,9 +6,6 @@ income measures and household size and composition.
 """
 from datetime import datetime
 
-import income_measures
-# uses program eligibility requirements cefined in program_requirements.py
-from program_eligibility import CheckProgramEligibility
 
 class NewHousehold:
     """
@@ -25,11 +22,6 @@ class NewHousehold:
 
         self.household_size = form.household_size.data
 
-        # Calculate income measures using methods from income_measures.py
-        self.ami = income_measures.calculate_ami(self)
-        self.fpl = income_measures.calculate_fpl(self)
-        self.smi = income_measures.calculate_smi(self)
-
         # optional fields
         if hasattr(form, 'has_children'):
             self.has_children = form.has_children.data
@@ -39,11 +31,6 @@ class NewHousehold:
             self.monthly_rent = float(form.monthly_rent.data.replace(",", ""))
         if raw_dob is not None:
             self.age = self.calculate_age(raw_dob)
-
-        # use above attributes to determine which programs client may be eligible for
-        eligible_for = CheckProgramEligibility(self)
-        # currently stored as a list
-        self.programs = eligible_for.referrals
 
 
     def get_annual_income(self, income_string, income_type):
@@ -59,6 +46,7 @@ class NewHousehold:
         else:
             annual_income = float(income_amount)
         return annual_income
+
 
     def calculate_age(self, raw_dob):
         """

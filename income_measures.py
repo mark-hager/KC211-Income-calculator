@@ -11,19 +11,35 @@ import math
 # income measures now stored as json in data/income_measures
 import json
 
+# dictionary containing income guidelines publication year, used by tooltip
+year_published = {}
 # load most recent FPL measures
 with open('data/median_income/FPL/poverty_guidelines_2024.json') as f:
     fpl_data = json.load(f)
-    fpl_year = fpl_data["metadata"]["year"]
+    year_published['fpl'] = fpl_data["metadata"]["year"]
     # use income figures for contiguous states + DC
     fpl_data = fpl_data["poverty_guidelines"]["2024_POVERTY_GUIDELINES_FOR_48_STATES_AND_DC"]
 
 # load most recent SMI measures for WA
 with open('data/median_income/SMI/wa_smi_chart_2024.json') as f:
     smi_data = json_data = json.load(f)
-    smi_year = smi_data["metadata"]["year"]
+    year_published['smi'] = smi_data["metadata"]["year"]
     smi_data = smi_data["state_median_income"]
 
+# load most recent AMI measures for King County
+# not currently used in calculations; values are static in AMI function
+with open('data/median_income/AMI/seattle_bellevue_hud_ami_2023.json') as f:
+    ami_data = json_data = json.load(f)
+    year_published['ami'] = ami_data["metadata"]["year"]
+
+
+def calculate_percentages(client):
+    """
+    Calls functions to calculate AMI, FPL, and SMI
+    """
+    client.fpl = calculate_fpl(client)
+    client.smi = calculate_smi(client)
+    client.ami = calculate_ami(client)
 
 def excel_ceil(num):
     """
@@ -71,7 +87,7 @@ def calculate_smi(client):
     # FOR 2024:  changing the calculations here slightly to account for fact that
     # change/rate values between household size median incomes is +- $1.
     smi_rate_household_5_or_less = round(((smi_data["6_person_family"] - smi_data["1_person_family"]) / 5)) * 12
-    print(f"the rate is {smi_rate_household_5_or_less}")
+
     # thereotical median income for a householdsize of 0, used as a base
     smi_base_household_5_or_less = (smi_data["1_person_family"] * 12) - smi_rate_household_5_or_less
     # equal to Number in Family - 6 in the JSON data multiplied by 12 to get annual median income
@@ -91,7 +107,7 @@ def calculate_smi(client):
                     (smi_base_household_6_or_more +
                             ((client.household_size - 6) *
                              (smi_rate_household_6_or_more))), 4) * 100
-    print(f"Raw SMI: {smi}")
+
     # round the SMI up
     smi = math.ceil(smi)
     # convert from percentage back to decimal for program eligibility and formatting

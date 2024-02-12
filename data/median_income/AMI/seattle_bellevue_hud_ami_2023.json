@@ -1,0 +1,43 @@
+{
+    "metadata": {
+        "type": "AMI",
+        "year": 2023,
+        "state": "Washington",
+        "region": "Seattle-Bellevue, WA HUD Metro FMR Area",
+        "high-housing-cost-area": true,
+        "last_checked": "2024-1-23"
+    },
+    "area_median_income": {
+        "very_low_income_limits": {
+            "1": 47950,
+            "2": 54800,
+            "3": 61650,
+            "4": 68500,
+            "5": 74000,
+            "6": 79500,
+            "7": 84950,
+            "8": 90450
+        },
+        "extremely_low_income_limits": {
+            "1": 28800,
+            "2": 32900,
+            "3": 37000,
+            "4": 41100,
+            "5": 44400,
+            "6": 47700,
+            "7": 51000,
+            "8": 54300
+        },
+        "low_income_limits": {
+            "1": 70650,
+            "2": 80750,
+            "3": 90850,
+            "4": 100900,
+            "5": 109000,
+            "6": 117050,
+            "7": 125150,
+            "8": 133200
+        }
+    }
+  }
+  

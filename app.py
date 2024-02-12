@@ -7,16 +7,17 @@ whether the household includes any minor children.
 Also estimates birthyear and client age based upon the client's age or birthdate,
 respectively.
 """
-# for calculating client age
-import os
 
 # import Flask
-from flask import Flask, flash, render_template, request
-
+from flask import Flask, render_template, request
 # Gets the form data from html using flask_wtf and wtform
 from form import HouseholdForm
 # Use the form data to create a new household object
-from new_household import *
+from new_household import NewHousehold
+# Used to calculate median income from guidelines as well as publication year
+from income_measures import calculate_percentages, year_published
+# uses program eligibility requirements cefined in program_requirements.py
+from program_eligibility import CheckProgramEligibility
 
 
 # create Flask object
@@ -34,15 +35,26 @@ def main():
     Then creates a household object with information
     needed to determine program eligibility.
     """
-
     # get the data from the wtform
     form = HouseholdForm(meta={'csrf': False})
+
+    # load current income measurement data for tooltip
+    form.income_measurements = {'AMI': year_published['ami'], 'FPL': year_published['fpl'], 'SMI': year_published['smi']}
+
     # if POST request is valid and the data in the form passes validation
     if request.method == 'POST' and form.validate_on_submit():
         # dob field is not a wtform in order to use JavaScript on it
         raw_dob = request.form['dob_field']
         # then create a new household object
         client = NewHousehold(form, raw_dob)
+
+        # get the AMI, FPL and SMI percentages for the household
+        calculate_percentages(client)
+
+        # check which programs client household may be eligible for
+        eligible_for = CheckProgramEligibility(client)
+        # currently stored as a list
+        client.programs = eligible_for.referrals
 
         return render_template('app.html', form = form, client = client)
     return render_template('app.html', form = form, client = None)

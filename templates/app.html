@@ -71,7 +71,6 @@
               {{form.income_amount(id="income_amount", class="form_input", autocomplete="off", oninput="formatCurrency(this);") }}
             </span>
 
-
             {% if form.income_amount.errors %}
               <ul class="errors">
                   {% for error in form.income_amount.errors %}
@@ -81,14 +80,12 @@
             {% endif %}
           </div>
 
-
           <h4>Optional Fields for Program Eligibility:</h4>
 
           <div class="children_in_household">
 
             {{ form.has_children.label }}
             {{ form.has_children(class='checkmark') }}
-
 
           </div>
 
@@ -107,28 +104,42 @@
               </ul>
             {% endif %}
           </div>
-
-          <button class="calculate" 
-              type="submit" 
-              value="Calculate" 
-              id="calc_btn">
-              Calculate
-          </button>
+          
+          <div class="buttons">
+            <button class="calculate" 
+                type="submit" 
+                value="Calculate" 
+                id="calc_btn">
+                Calculate
+            </button>
+            <span id="help">
+              ?
+              <span id="help_text">
+                <span class="title">211 Income Calculator</span>
+                Estimates the Area Median Income (AMI), the Federal Poverty Level (FPL), and the State Median Income (SMI)
+                percentages from household size and gross monthly or annual income.
+                <br>
+                <br>AMI last updated: {{form.income_measurements.get('AMI')}}
+                <br>FPL last updated: {{form.income_measurements.get('FPL')}}
+                <br>SMI last updated: {{form.income_measurements.get('SMI')}}
+              </span>
+            </span>
+          </div>
 
         </div>
-
+ 
 
       </form>
       <div class="results">
 
         {% if client.fpl %}
-        <div class="income_measures">
+        <span class="income_measures">
 
-          <div class="fpl">FPL: {{ '{:.0%}'.format(client.fpl) }}</div>
-          <div class="smi">SMI: {{ '{:.0%}'.format(client.smi) }}</div>
-          <div class="ami">AMI: {{ '{:.0%}'.format(client.ami) }}</div>
+          <span id="fpl">FPL: {{ '{:.0%}'.format(client.fpl) }}</span>
+          <span id="smi">SMI: {{ '{:.0%}'.format(client.smi) }}</span>
+          <span id="ami">AMI: {{ '{:.0%}'.format(client.ami) }}</span>
           
-        </div>
+        </span>
         {% endif %}
         
         <div class="program_eligibility">

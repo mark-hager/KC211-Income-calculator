@@ -33,11 +33,11 @@ class CheckProgramEligibility:
         """
 
         if self.client.ami > 0.5:
-            print("Income too high for HSP: AMI was above 0.5")
+            #print("Income too high for HSP: AMI was above 0.5")
             return False
         if ((self.client.annual_income / 12) /
             self.client.monthly_rent) < 1.5:
-            print("Income to rent ratio was too low; must be at least 1.5:1")
+            #print("Income to rent ratio was too low; must be at least 1.5:1")
             return False
 
         # else household is possibly eligible
@@ -54,7 +54,7 @@ class CheckProgramEligibility:
         """
 
         if self.client.fpl > 1.38:
-            print("Income too high for Apple Health: FPL was above 1.38")
+            #print("Income too high for Apple Health: FPL was above 1.38")
             return False
         self.referrals.append("Apple Health")
         return True
@@ -68,7 +68,7 @@ class CheckProgramEligibility:
         """
 
         if self.client.fpl > 2:
-            print("Income too high for WA Basic Food: FPL was above 2")
+            #print("Income too high for WA Basic Food: FPL was above 2")
             return False
 
         self.referrals.append("Washington Basic Food Program")
@@ -84,7 +84,7 @@ class CheckProgramEligibility:
         """
 
         if self.client.fpl > 1.5:
-            print("Income too high for LIHEAP: FPL was above 1.5")
+            #print("Income too high for LIHEAP: FPL was above 1.5")
             return False
 
         self.referrals.append("Low Income Home Energy Assistance Program (LIHEAP)")
@@ -99,7 +99,7 @@ class CheckProgramEligibility:
         """
 
         if self.client.ami > 0.8:
-            print("Income too high for PSE HELP: AMI was above 0.8")
+            #print("Income too high for PSE HELP: AMI was above 0.8")
             return False
 
         self.referrals.append("PSE HELP - PSE Customers Only")
@@ -114,7 +114,7 @@ class CheckProgramEligibility:
         """
 
         if self.client.smi > 0.7:
-            print("Income too high for ELIA: SMI was above 0.7")
+            #print("Income too high for ELIA: SMI was above 0.7")
             return False
 
         self.referrals.append("Emergency Low Income Assistance (ELIA) - SCL Customers Only")

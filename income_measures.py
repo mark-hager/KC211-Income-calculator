@@ -15,7 +15,7 @@ import json
 import os
 fpl_path = os.path.abspath('./data/median_income/FPL/poverty_guidelines_2024.json')
 smi_path = os.path.abspath('./data/median_income/SMI/wa_smi_chart_2024.json')
-ami_path = os.path.abspath('./data/median_income/AMI/seattle_bellevue_hud_ami_2023.json')
+ami_path = os.path.abspath('./data/median_income/AMI/seattle_bellevue_hud_ami_2024.json')
 
 # dictionary containing income guidelines publication year, used by tooltip
 year_published = {}

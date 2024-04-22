@@ -132,14 +132,14 @@ def calculate_ami(client):
     Should refactor code to make variable names and calculations clearer.
     """
     # AMI is calculated from the median annual income for a family of 4
-    ami_base_household_of_4 = 137000
+    ami_base_household_of_4 = 150700
     # 80% low-income limit for a family of 4;
     # for more detail read https://www.huduser.gov/portal/datasets/il/il2022/2022ILCalc3080.odn
-    ami_base_80_percent = 100900
+    ami_base_80_percent = 110950
     # theoretical median income for a household of 0
-    ami_base_0 = 82200
+    ami_base_0 = 90400
     # 80% of the median income for a household of 0
-    ami_base_0_80_percent = 60540
+    ami_base_0_80_percent = 66600
     # for calculations when the initial AMI is between 70% and 80%
     ami_base_between_70_and_80 = ami_base_80_percent * 1.25
     # initialize to false

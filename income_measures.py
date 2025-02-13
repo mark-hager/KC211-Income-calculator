@@ -13,8 +13,10 @@ import math
 import json
 # used to get the absolute path of the income guidelines. needed by pythonanywhere
 import os
-fpl_path = os.path.abspath('./data/median_income/FPL/poverty_guidelines_2024.json')
-smi_path = os.path.abspath('./data/median_income/SMI/wa_smi_chart_2024.json')
+
+# ensure paths are correct for the latest income guidelines
+fpl_path = os.path.abspath('./data/median_income/FPL/poverty_guidelines_2025.json')
+smi_path = os.path.abspath('./data/median_income/SMI/wa_smi_chart_2025.json')
 ami_path = os.path.abspath('./data/median_income/AMI/seattle_bellevue_hud_ami_2024.json')
 
 # dictionary containing income guidelines publication year, used by tooltip
@@ -80,47 +82,37 @@ def calculate_fpl(client):
 
 def calculate_smi(client):
     """
-    Calculates the State Median Income based on DSHS 2024 guidelines
+    Calculates the State Median Income (SMI) percentage based on WA DSHS 2025 guidelines.
     https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart
     """
 
-    # SMI is calculated with separate base rates depending on household size
-    # for families of 5 or less, and families of 6 or more
+    # get the household size
+    household_size = client.household_size
 
-    # json data is based on monthly income so all initial variables here are multiplied by 12
+    # calculate the monthly median income for up to 6 members, pulled from the json data
+    smi_values = {
+        1: smi_data["1_person_family"],
+        2: smi_data["2_person_family"],
+        3: smi_data["3_person_family"],
+        4: smi_data["4_person_family"],
+        5: smi_data["5_person_family"],
+        6: smi_data["6_person_family"]
+    }
 
-    # defines the rate for households with 5 or fewer family members
+    # households larger than 6 use a fixed rate increase per additional member
+    additional_member_rate = smi_data["additional_member_income"]
 
-    # FOR 2024:  changing the calculations here slightly to account for fact that
-    # change/rate values between household size median incomes is +- $1.
-    smi_rate_household_5_or_less = round(((smi_data["6_person_family"] - smi_data["1_person_family"]) / 5)) * 12
+    # Calculate the annual SMI limit for the household
+    if household_size in smi_values:
+        smi_limit = smi_values[household_size] * 12
+    else:
+        smi_limit = (smi_values[6] + ((household_size - 6) * additional_member_rate)) * 12
 
-    # thereotical median income for a householdsize of 0, used as a base
-    smi_base_household_5_or_less = (smi_data["1_person_family"] * 12) - smi_rate_household_5_or_less
-    # equal to Number in Family - 6 in the JSON data multiplied by 12 to get annual median income
-    smi_base_household_6_or_more = smi_data["6_person_family"] * 12
-    # *TODO* average instead of hardcoding this change value like I did for smi_rate_household_5_or_less
-    smi_rate_household_6_or_more = 304.5 * 12
+    # compute SMI percentage
+    smi = (client.annual_income / smi_limit) * 100
 
-    # calculate the SMI depending on household size,
-    # rounded to 4 decimal places to match the excel calculator; can't
-    # find documentation on how other people calculate this
-    if client.household_size < 7:
-        smi = round(client.annual_income / ((client.household_size * smi_rate_household_5_or_less)
-                            + smi_base_household_5_or_less), 4) * 100
-
-    elif client.household_size > 6:
-        smi = round(client.annual_income /
-                    (smi_base_household_6_or_more +
-                            ((client.household_size - 6) *
-                             (smi_rate_household_6_or_more))), 4) * 100
-
-    # round the SMI up
-    smi = math.ceil(smi)
-    # convert from percentage back to decimal for program eligibility and formatting
-    smi = smi / 100
-
-    return smi  # return the calculated State Median Income to our client object
+    # round the SMI up and return as a decimal
+    return math.ceil(smi) / 100
 
 
 def calculate_ami(client):

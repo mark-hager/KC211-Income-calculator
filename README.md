@@ -7,7 +7,7 @@ comparing common measures of median income against the gross monthly or annual i
 
 These income measurements include the Federal Poverty Level ([FPL](https://www.healthcare.gov/glossary/federal-poverty-level-fpl/)), the State Median Income ([SMI](https://www.dshs.wa.gov/esa/eligibility-z-manual-ea-z/state-median-income-chart)), and the Area Median Income ([AMI](https://www.huduser.gov/Portal/datasets/il.html)).
 
-The State Median Income and Area Median Income limits used by this calculator reflect the current (as of December, 2023) values for King County, WA and can be found in income_measures.py.
+The State Median Income and Area Median Income limits used by this calculator reflect the current (as of February, 2025) values for King County, WA and can be found in data/median_income.
 
 State, local and federal assistance programs often require that applicants fall below a certain percentage of the median income. Federal programs use limits based on the federal poverty level. This includes expanded Medicaid, [where household income must be below 138% of the federal poverty level](https://www.healthcare.gov/medicaid-chip/medicaid-expansion-and-you/), and the Low Income Home Energy Assistance Program [(LIHEAP) which has a cap of 150% of the FPL](https://liheapch.acf.hhs.gov/tables/POP.htm).
 
